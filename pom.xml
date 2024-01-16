@@ -38,8 +38,6 @@
 
         <!-- 其他三方包版本 -->
         <lombok.version>1.18.8</lombok.version>
-        <hutool.version>5.8.18</hutool.version>
-        <slf4j.version>1.7.36</slf4j.version>
 
         <!--
         BOM 在 dependencyManagement 中指定依赖版本
