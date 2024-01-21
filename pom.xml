@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <!-- 项目坐标 -->
-    <groupId>com.pengjunlee.sapper</groupId>
-    <artifactId>gray-sapper</artifactId>
+    <groupId>com.pengjunlee.bingo</groupId>
+    <artifactId>gray-bingo</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>gray-bingo</name>
     <description>gray is a color!</description>
@@ -16,7 +16,7 @@
     <modules>
         <module>gray-bingo-starter</module>
         <module>gray-bingo-common</module>
-
+        <module>gray-bingo-cache</module>
     </modules>
 
     <!-- 版本控制 -->
@@ -85,10 +85,13 @@
             <!-- SpringBoot 版本限制 -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
+                <artifactId>spring-boot-starter-web</artifactId>
                 <version>${spring-boot.version}</version>
-                <type>pom</type>
-                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-autoconfigure</artifactId>
+                <version>${spring-boot.version}</version>
             </dependency>
 
             <!-- 项目内部版本限制 -->
@@ -97,7 +100,11 @@
                 <artifactId>gray-bingo-starter</artifactId>
                 <version>${bingo.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>com.pengjunlee.bingo</groupId>
+                <artifactId>gray-bingo-common</artifactId>
+                <version>${bingo.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
