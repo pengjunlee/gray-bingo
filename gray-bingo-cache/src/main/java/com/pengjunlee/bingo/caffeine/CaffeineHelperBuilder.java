@@ -1,11 +1,9 @@
-package com.pengjunlee.bingo;
+package com.pengjunlee.bingo.caffeine;
 
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.Expiry;
 import com.pengjunlee.bingo.config.BingoHelperBuilder;
 import com.pengjunlee.bingo.config.BingoMeta;
-import com.pengjunlee.bingo.config.CacheDataWrapper;
-import com.pengjunlee.bingo.config.CaffeineHelper;
 import com.pengjunlee.bingo.constants.BingoStringCst;
 import com.sun.org.slf4j.internal.Logger;
 import com.sun.org.slf4j.internal.LoggerFactory;

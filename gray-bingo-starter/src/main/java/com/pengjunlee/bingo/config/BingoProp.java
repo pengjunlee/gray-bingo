@@ -1,8 +1,7 @@
 package com.pengjunlee.bingo.config;
 
 import com.pengjunlee.bingo.utils.StringUtil;
-import com.sun.org.slf4j.internal.Logger;
-import com.sun.org.slf4j.internal.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.bind.Binder;
 import org.springframework.core.env.Environment;
 
@@ -13,8 +12,8 @@ import java.util.Map;
  * @版本 1.0
  * @日期 2024-01-21 16:52
  */
+@Slf4j
 public class BingoProp {
-    private static final Logger LOGGER = LoggerFactory.getLogger(BingoProp.class);
     private static Environment environment;
 
     // 参数绑定工具类，Springboot2.0推出
@@ -29,7 +28,7 @@ public class BingoProp {
         try {
             return (Map<String, String>) binder.bind(prefix, Map.class).get();
         } catch (Exception e) {
-            LOGGER.error("基于前缀获取配置文件Map失败-{}", prefix);
+            log.error("基于前缀获取配置文件Map失败-{}", prefix);
             throw e;
         }
     }

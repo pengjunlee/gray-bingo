@@ -1,0 +1,5 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.pengjunlee.bingo.config.BingoCacheProperties,\
+  com.pengjunlee.bingo.config.CaffeineCacheConfig,\
+  com.pengjunlee.bingo.config.RedisCacheConfig,\
+  com.pengjunlee.bingo.config.RedisConfiguration,\

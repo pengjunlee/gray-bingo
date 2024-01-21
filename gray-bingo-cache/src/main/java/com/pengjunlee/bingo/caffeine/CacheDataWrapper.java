@@ -1,4 +1,4 @@
-package com.pengjunlee.bingo.config;
+package com.pengjunlee.bingo.caffeine;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
