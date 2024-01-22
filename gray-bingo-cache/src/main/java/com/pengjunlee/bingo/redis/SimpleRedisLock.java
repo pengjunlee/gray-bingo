@@ -27,7 +27,7 @@ public class SimpleRedisLock {
     }
 
     public boolean tryLock(String key) {
-        if (StringUtil.isEmpty(key)) {
+        if (StringUtil.isBlank(key)) {
             return false;
         }
         Boolean result = redisTemplate.opsForValue()

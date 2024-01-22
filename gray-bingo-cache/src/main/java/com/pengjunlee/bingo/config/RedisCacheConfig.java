@@ -63,6 +63,7 @@ public class RedisCacheConfig {
         // 修改序列化方式
         jackson2JsonRedisSerializer.setObjectMapper(JsonUtil.typeObjectMapper());
 
+        RedisConstant.refresh(BingoMeta.META_APPLICATION_NAME);
         return RedisCacheConfiguration
                 .defaultCacheConfig()
                 .computePrefixWith(name -> RedisConstant.CACHE_PREFIX_WITH + name + RedisConstant.CACHE_SUFFIX_WITH)

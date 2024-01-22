@@ -16,19 +16,19 @@ public class BingoMeta {
     // 当前服务使用的SpringBoot版本
     public static String META_SPRINGBOOT_VER;
 
-    private static Map<String, String> helperConfigs;
+    private static Map<String, String> META_HELPER_CONFIGS;
 
-    public static Map<String, String> getHelperConfigs() {
-        return helperConfigs;
+    public static Map<String, String> getMetaHelperConfigs() {
+        return META_HELPER_CONFIGS;
     }
 
-    public static void setHelperConfigs(Map<String, String> helperConfigs) {
-        BingoMeta.helperConfigs = helperConfigs;
+    public static void setMetaHelperConfigs(Map<String, String> metaHelperConfigs) {
+        BingoMeta.META_HELPER_CONFIGS = metaHelperConfigs;
     }
 
     public static boolean helperEnabled(String helperPrefix) {
-        String helperConfig = helperConfigs.getOrDefault(helperPrefix, BingoStringCst.HELPER_CLOSE);
-        return BingoStringCst.HELPER_OPEN.equals(helperConfig);
+        String helperConfig = META_HELPER_CONFIGS.getOrDefault(helperPrefix, BingoStringCst.BINGO_HELPER_CLOSE);
+        return BingoStringCst.BINGO_HELPER_OPEN.equals(helperConfig);
     }
 
     public static String print() {
@@ -38,4 +38,12 @@ public class BingoMeta {
         obj.put("SpringBoot版本", META_SPRINGBOOT_VER);
         return obj.toString();
     }
+
+    public static void update(String applicationName,String profilesActive,String springBootVersion){
+        META_APPLICATION_NAME = applicationName;
+        META_PROFILES_ACTIVE = profilesActive;
+        META_SPRINGBOOT_VER = springBootVersion;
+
+    }
+
 }

@@ -1,8 +1,7 @@
 package com.pengjunlee.bingo.caffeine;
 
 import com.github.benmanes.caffeine.cache.Cache;
-import com.sun.org.slf4j.internal.Logger;
-import com.sun.org.slf4j.internal.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Map;
 import java.util.Objects;
@@ -12,20 +11,18 @@ import java.util.function.Function;
 
 public class CaffeineHelper {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CaffeineHelperBuilder.class);
-
     /**
-     * 默认caffeineCache
+     * 默认Cache
      */
-    private static Cache<String, CacheDataWrapper> defaultCache;
+    private static Cache<String, CacheDataWrapper> cache;
 
     /**
      * 初始化
      *
-     * @param commonCache
+     * @param defaultCache
      */
-    public void initCache(Cache<String, CacheDataWrapper> commonCache) {
-        this.defaultCache = commonCache;
+    public void initCache(Cache<String, CacheDataWrapper> defaultCache) {
+        CaffeineHelper.cache = defaultCache;
     }
 
     /**
@@ -34,7 +31,7 @@ public class CaffeineHelper {
      * @return
      */
     public static Set<String> getAllKeys() {
-        return defaultCache.asMap().keySet();
+        return cache.asMap().keySet();
     }
 
     /**
@@ -43,7 +40,7 @@ public class CaffeineHelper {
      * @return
      */
     public static Map<String, CacheDataWrapper> getAllCache() {
-        return defaultCache.asMap();
+        return cache.asMap();
     }
 
     /**
@@ -53,7 +50,7 @@ public class CaffeineHelper {
      * @return
      */
     public static Boolean exist(final String key) {
-        return defaultCache.asMap().containsKey(key);
+        return cache.asMap().containsKey(key);
     }
 
     /**
@@ -64,9 +61,8 @@ public class CaffeineHelper {
      */
     public static void set(final String key, final Object value) {
         try {
-            defaultCache.put(key, new CacheDataWrapper(value, 0l, null));
+            cache.put(key, new CacheDataWrapper(value, 0l, null));
         } catch (Exception e) {
-            LOGGER.error("Caffeine 缓存写入异常:{}", e);
             throw new RuntimeException("Caffeine 缓存写入异常:" + e.getMessage());
         }
     }
@@ -81,9 +77,8 @@ public class CaffeineHelper {
      */
     public static void set(final String key, final Object value, final long expire, TimeUnit timeUnit) {
         try {
-            defaultCache.put(key, new CacheDataWrapper(value, expire, timeUnit));
+            cache.put(key, new CacheDataWrapper(value, expire, timeUnit));
         } catch (Exception e) {
-            LOGGER.error("Caffeine 缓存写入异常:{}", e);
             throw new RuntimeException("Caffeine 缓存写入异常:" + e.getMessage());
         }
     }
@@ -96,13 +91,12 @@ public class CaffeineHelper {
      */
     public static Object get(String key) {
         try {
-            CacheDataWrapper cacheDataWrapper = defaultCache.getIfPresent(key);
+            CacheDataWrapper cacheDataWrapper = cache.getIfPresent(key);
             if (Objects.nonNull(cacheDataWrapper)) {
                 return cacheDataWrapper.getData();
             }
             return null;
         } catch (Exception e) {
-            LOGGER.error("Caffeine 缓存读取异常:{}", e);
             throw new RuntimeException("Caffeine 缓存读取异常:" + e.getMessage());
         }
     }
@@ -114,15 +108,14 @@ public class CaffeineHelper {
      */
     public static void delete(final String key) {
         try {
-            defaultCache.invalidate(key);
+            cache.invalidate(key);
         } catch (Exception e) {
-            LOGGER.error("Caffeine 缓存删除异常:{}", e);
             throw new RuntimeException("Caffeine 缓存删除异常:" + e.getMessage());
         }
     }
 
     public static Cache<String, CacheDataWrapper> load() {
-        return defaultCache;
+        return cache;
     }
 
     public static <T, R> R getWithCache(String prefix, T id, Long seconds, Function<T, R> function) {

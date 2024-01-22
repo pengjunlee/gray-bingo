@@ -1,17 +1,23 @@
 package com.pengjunlee.bingo.redis;
 
-import com.pengjunlee.bingo.config.BingoMeta;
+import com.pengjunlee.bingo.utils.StringUtil;
 
 /**
- * @author xzzz
- * @since 0.0.1
+ * @作者 二月君
+ * @版本 1.0
+ * @日期 2024-01-21 16:15
  */
 public final class RedisConstant {
 
     /**
      * cache 前后缀
      */
-    public static final String CACHE_PREFIX_WITH = BingoMeta.META_APPLICATION_NAME + ":";
+    public static String CACHE_PREFIX_WITH = "";
 
     public static final String CACHE_SUFFIX_WITH = ":";
+
+    public static void refresh(String applicationName){
+
+        CACHE_PREFIX_WITH = StringUtil.isBlank(applicationName)?"":applicationName + ":";
+    }
 }

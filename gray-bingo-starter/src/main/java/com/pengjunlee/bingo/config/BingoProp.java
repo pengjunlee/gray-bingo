@@ -35,17 +35,17 @@ public class BingoProp {
 
     public static Integer getInt(Map<String, String> map, String key) {
         String strValue = map.get(key);
-        return StringUtil.isEmpty(strValue) ? null : Integer.parseInt(strValue);
+        return StringUtil.isBlank(strValue) ? null : Integer.parseInt(strValue);
     }
 
     public static String getStr(Map<String, String> map, String key) {
         String strValue = map.get(key);
-        return StringUtil.isEmpty(strValue) ? null : strValue;
+        return StringUtil.isBlank(strValue) ? null : strValue;
     }
 
     public static Boolean getBool(Map<String, String> map, String key) {
         String strValue = map.get(key);
-        return StringUtil.isEmpty(strValue) ? null : Boolean.parseBoolean(strValue);
+        return StringUtil.isBlank(strValue) ? null : Boolean.parseBoolean(strValue);
     }
 
     public static <T> T getProperty(String propertyName, Class<T> clazz) {

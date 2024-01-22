@@ -13,7 +13,7 @@ import java.util.Map;
  * @版本 1.0
  * @日期 2024-01-21 15:58
  */
-public class BingoContextUtil implements ApplicationContextAware {
+public class BingoContextUtil {
 
     private static ApplicationContext applicationContext;
 
@@ -29,7 +29,6 @@ public class BingoContextUtil implements ApplicationContextAware {
         return applicationContext.getBeansOfType(baseType);
     }
 
-    @Override
     public void setApplicationContext(ApplicationContext ctx) throws BeansException {
         applicationContext = ctx;
     }

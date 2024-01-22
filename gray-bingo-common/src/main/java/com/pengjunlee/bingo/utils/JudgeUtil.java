@@ -3,7 +3,7 @@ package com.pengjunlee.bingo.utils;
 import java.util.Collection;
 import java.util.function.Consumer;
 
-public class ElseIfUtil {
+public class JudgeUtil {
 
     public static BranchHandler trueOrFalse(boolean b) {
         return (trueHandler, falseHandler) -> {

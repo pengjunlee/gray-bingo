@@ -5,18 +5,15 @@ import com.github.benmanes.caffeine.cache.Expiry;
 import com.pengjunlee.bingo.config.BingoHelperBuilder;
 import com.pengjunlee.bingo.config.BingoMeta;
 import com.pengjunlee.bingo.constants.BingoStringCst;
-import com.sun.org.slf4j.internal.Logger;
-import com.sun.org.slf4j.internal.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @作者 二月君
  * @版本 1.0
  * @日期 2024-01-21 16:15
  */
+@Slf4j
 public class CaffeineHelperBuilder extends BingoHelperBuilder {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(CaffeineHelperBuilder.class);
-
 
     /**
      * 通过添加如下配置开启组件
@@ -26,9 +23,9 @@ public class CaffeineHelperBuilder extends BingoHelperBuilder {
      */
     public void build() {
         if (BingoMeta.helperEnabled(BingoStringCst.HELPER_CAFFEINE)) {
-            this.registerCaffeineClient();
+            this.initCaffeineClient();
         } else {
-            LOGGER.warn("组件[ {} ]开关未打开，请检查配置项[ {} ]！", CaffeineHelperBuilder.class, BingoStringCst.HELPER_CAFFEINE);
+            log.warn("组件[ {} ]开关未打开，请检查配置项[ {} ]！", CaffeineHelperBuilder.class, BingoStringCst.HELPER_CAFFEINE);
         }
     }
 
@@ -37,10 +34,11 @@ public class CaffeineHelperBuilder extends BingoHelperBuilder {
 
     }
 
-    private void registerCaffeineClient() {
+    private void initCaffeineClient() {
         new CaffeineHelper().initCache(
                 Caffeine.newBuilder()
-                        .softValues() // 设置软引用，当GC回收兵堆空间不足时，会释放缓存
+                        // 设置软引用，当GC回收兵堆空间不足时，会释放缓存
+                        .softValues()
                         .initialCapacity(1000)
                         .maximumSize(100000)
                         .expireAfter(new Expiry<Object, CacheDataWrapper>() {

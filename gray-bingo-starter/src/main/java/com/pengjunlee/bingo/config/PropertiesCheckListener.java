@@ -17,13 +17,20 @@ public class PropertiesCheckListener implements ApplicationListener<ApplicationE
     @Override
     public void onApplicationEvent(ApplicationEnvironmentPreparedEvent event) {
         ConfigurableEnvironment env = event.getEnvironment();
+
+        // 执行配置校验逻辑
+        check(env);
+
+        // 绑定Environment对象到BingoProp
         BingoProp.bind(env);
-        Map<String, String> bingoHelperConfigs = BingoProp.getMap(BingoStringCst.BINGO_HELPER);
-        BingoMeta.setHelperConfigs(bingoHelperConfigs);
+
+        // 将其中bingo.helper配置绑定到BingoMeta
+        Map<String, String> bingoHelperConfigs = BingoProp.getMap(BingoStringCst.BINGO_HELPER_PREFIX);
+        BingoMeta.setMetaHelperConfigs(bingoHelperConfigs);
 
     }
 
-    public void check() {
+    private void check(ConfigurableEnvironment env) {
         return;
     }
 }

@@ -1,11 +1,11 @@
 package com.pengjunlee.bingo.utils;
 
 public class StringUtil {
-    public static boolean isEmpty(CharSequence cs) {
+    public static boolean isBlank(CharSequence cs) {
         return cs == null || cs.length() == 0;
     }
 
-    public static boolean isNotEmpty(CharSequence cs) {
-        return !isEmpty(cs);
+    public static boolean isNotBlank(CharSequence cs) {
+        return !isBlank(cs);
     }
 }

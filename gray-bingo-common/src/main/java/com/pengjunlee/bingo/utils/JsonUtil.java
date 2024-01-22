@@ -140,7 +140,7 @@ public class JsonUtil {
      * 字符串转对象
      */
     public static <T> T toObj(String str, Class<T> c) {
-        if (StringUtil.isEmpty(str)) {
+        if (StringUtil.isBlank(str)) {
             return null;
         }
         T t = null;
@@ -159,7 +159,7 @@ public class JsonUtil {
      * @param tr  指定类
      */
     public static <T> T toObj(String str, TypeReference<T> tr) {
-        if (StringUtil.isEmpty(str)) {
+        if (StringUtil.isBlank(str)) {
             return null;
         }
 

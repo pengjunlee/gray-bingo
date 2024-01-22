@@ -8,17 +8,17 @@ package com.pengjunlee.bingo.constants;
 public class BingoStringCst {
 
     public static final String BINGO_LOG_SEPARATOR =
-            "==========================================================================================================================";
+            "=============================================================================================";
 
     public static final String BINGO_PROP_SEPARATOR =
             ".";
 
-    public static final String HELPER_OPEN = "open";
+    public static final String BINGO_HELPER_OPEN = "open";
 
-    public static final String HELPER_CLOSE = "close";
+    public static final String BINGO_HELPER_CLOSE = "close";
 
-    public static final String BINGO_HELPER = "bingo.helper";
+    public static final String BINGO_HELPER_PREFIX = "bingo.helper";
 
-    public static final String HELPER_CAFFEINE = BINGO_HELPER + BINGO_PROP_SEPARATOR + "caffeine";
+    public static final String HELPER_CAFFEINE = BINGO_HELPER_PREFIX + BINGO_PROP_SEPARATOR + "caffeine";
 
 }

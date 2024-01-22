@@ -20,7 +20,7 @@ public class BingoStarter {
         bingoApplication.run(args);
     }
 
-    public static void main(String[] args) {
-        run(BingoStarter.class, args);
-    }
+//    public static void main(String[] args) {
+//        run(BingoStarter.class, args);
+//    }
 }

@@ -59,14 +59,6 @@ public class RedisConfiguration {
         return listenerContainer;
     }
 
-//    @Bean(name = "dynamicLogRepositoryRedis")
-//    public DynamicLogRepository dynamicLogRepositoryRedis(LoggingSystem loggingSystem,
-//                                                     StringRedisTemplate redisTemplate,
-//                                                     RedisMessageListenerContainer listenerContainer,
-//                                                     BaseProperties properties) {
-//        return new DynamicLogRepositoryRedis(loggingSystem, redisTemplate, listenerContainer, properties);
-//    }
-
     @Bean
     public SimpleRedisLock simpleLock(StringRedisTemplate stringRedisTemplate) {
         return new SimpleRedisLock(stringRedisTemplate);

@@ -8,9 +8,12 @@
     <groupId>com.pengjunlee.bingo</groupId>
     <artifactId>gray-bingo</artifactId>
     <version>1.0-SNAPSHOT</version>
+
+    <!-- 项目名称 -->
     <name>gray-bingo</name>
     <description>gray is a color!</description>
 
+    <!-- 打包方式 -->
     <packaging>pom</packaging>
 
     <modules>
@@ -19,7 +22,6 @@
         <module>gray-bingo-cache</module>
     </modules>
 
-    <!-- 版本控制 -->
     <properties>
         <!-- 编译设置 -->
         <java.version>1.8</java.version>
@@ -53,6 +55,7 @@
         </dependency>
     </dependencies>
 
+    <!-- 镜像仓库 -->
     <repositories>
         <repository>
             <id>aliyun</id>
@@ -91,6 +94,11 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-autoconfigure</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-configuration-processor</artifactId>
                 <version>${spring-boot.version}</version>
             </dependency>
             <dependency>
