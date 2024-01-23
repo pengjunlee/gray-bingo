@@ -20,6 +20,8 @@
         <module>gray-bingo-starter</module>
         <module>gray-bingo-common</module>
         <module>gray-bingo-cache</module>
+        <module>gray-bingo-mybatis</module>
+
     </modules>
 
     <properties>
@@ -89,6 +91,11 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-web</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-validation</artifactId>
                 <version>${spring-boot.version}</version>
             </dependency>
             <dependency>
