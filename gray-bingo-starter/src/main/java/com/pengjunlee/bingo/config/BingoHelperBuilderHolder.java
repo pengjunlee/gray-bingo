@@ -25,7 +25,7 @@ public class BingoHelperBuilderHolder implements ImportBeanDefinitionRegistrar {
         BUILDER_LIST.add("com.pengjunlee.bingo.caffeine.CaffeineHelperBuilder");
     }
 
-    public static void registryAllBuilder(AnnotationMetadata annotationMetadata,BeanDefinitionRegistry beanDefinitionRegistry)
+    public static void registryAllBuilders(AnnotationMetadata annotationMetadata, BeanDefinitionRegistry beanDefinitionRegistry)
     {
         log.info("GrayBuilderHolder 开始扫描组件...");
         log.info("***********************************************************");

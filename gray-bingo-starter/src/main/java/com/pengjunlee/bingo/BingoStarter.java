@@ -1,7 +1,8 @@
 package com.pengjunlee.bingo;
 
 import com.pengjunlee.bingo.config.BingoBanner;
-import org.springframework.boot.Banner;
+import com.pengjunlee.bingo.listener.BingoApplicationListener;
+import com.pengjunlee.bingo.listener.PropertiesCheckListener;
 import org.springframework.boot.SpringApplication;
 
 /**
@@ -17,6 +18,7 @@ public class BingoStarter {
         bingoApplication.setBanner(new BingoBanner());
         // 关闭Banner
         // bingoApplication.setBannerMode(Banner.Mode.OFF);
+        bingoApplication.addListeners(new PropertiesCheckListener(), new BingoApplicationListener());
         bingoApplication.run(args);
     }
 

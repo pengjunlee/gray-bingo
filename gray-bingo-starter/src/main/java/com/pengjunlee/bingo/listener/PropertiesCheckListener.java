@@ -1,9 +1,12 @@
-package com.pengjunlee.bingo.config;
+package com.pengjunlee.bingo.listener;
 
+import com.pengjunlee.bingo.config.BingoMeta;
+import com.pengjunlee.bingo.config.BingoProp;
 import com.pengjunlee.bingo.constants.BingoStringCst;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
 import org.springframework.context.ApplicationListener;
+import org.springframework.core.Ordered;
 import org.springframework.core.env.ConfigurableEnvironment;
 
 import java.util.Map;
@@ -12,7 +15,7 @@ import java.util.Map;
  * 启动检查配置文件内容, 用于检查配置项是否正确
  */
 @Slf4j
-public class PropertiesCheckListener implements ApplicationListener<ApplicationEnvironmentPreparedEvent> {
+public class PropertiesCheckListener implements ApplicationListener<ApplicationEnvironmentPreparedEvent> , Ordered {
 
     @Override
     public void onApplicationEvent(ApplicationEnvironmentPreparedEvent event) {
@@ -32,5 +35,10 @@ public class PropertiesCheckListener implements ApplicationListener<ApplicationE
 
     private void check(ConfigurableEnvironment env) {
         return;
+    }
+
+    @Override
+    public int getOrder() {
+        return 1;
     }
 }
