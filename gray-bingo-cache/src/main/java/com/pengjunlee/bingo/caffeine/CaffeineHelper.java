@@ -1,7 +1,6 @@
 package com.pengjunlee.bingo.caffeine;
 
 import com.github.benmanes.caffeine.cache.Cache;
-import lombok.extern.slf4j.Slf4j;
 
 import java.util.Map;
 import java.util.Objects;
@@ -9,6 +8,13 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
+/**
+ * Caffeine操作缓存辅助类
+ *
+ * @作者 二月君
+ * @版本 1.0
+ * @日期 2024-01-27 21:01
+ */
 public class CaffeineHelper {
 
     /**
@@ -118,6 +124,16 @@ public class CaffeineHelper {
         return cache;
     }
 
+    /**
+     *
+     * @param prefix
+     * @param id
+     * @param seconds
+     * @param function
+     * @return
+     * @param <T>
+     * @param <R>
+     */
     public static <T, R> R getWithCache(String prefix, T id, Long seconds, Function<T, R> function) {
         String key = prefix + id;
         Object object = get(key);

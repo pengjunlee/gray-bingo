@@ -5,6 +5,13 @@ import lombok.Data;
 
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Caffeine内存储对象结构
+ *
+ * @作者 二月君
+ * @版本 1.0
+ * @日期 2024-01-27 21:01
+ */
 @Data
 @AllArgsConstructor
 public class CacheDataWrapper {

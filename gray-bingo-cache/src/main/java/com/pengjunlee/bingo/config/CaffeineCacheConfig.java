@@ -3,6 +3,7 @@ package com.pengjunlee.bingo.config;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.RemovalCause;
+import com.pengjunlee.bingo.caffeine.CaffeineHelperBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
 import org.springframework.cache.CacheManager;
@@ -33,7 +34,7 @@ public class CaffeineCacheConfig {
      */
     @Bean("caffeineCacheManager")
     public CacheManager cacheManager(BingoCacheProperties properties) {
-        log.info("[   CACHE] 缓存注解使用 : Caffeine");
+        log.info("[               CACHE]  >>> 缓存注解使用: Caffeine");
         CaffeineCacheManager cacheManager = new CaffeineCacheManager();
 
         // 默认的过期策略

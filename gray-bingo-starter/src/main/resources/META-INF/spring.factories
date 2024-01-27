@@ -1,4 +1,2 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-
-
-
+org.springframework.context.ApplicationListener=\
+com.pengjunlee.bingo.listener.PropertiesCheckListener

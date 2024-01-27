@@ -42,7 +42,7 @@ public class RedisCacheConfig {
      */
     @Bean
     public RedisCacheManager cacheManager(RedisConnectionFactory redisConnectionFactory, BingoCacheProperties properties) {
-        log.info("[   CACHE] 缓存注解使用 : Redis");
+        log.info("[               CACHE]  >>> 缓存注解使用: Redis");
         return new RedisCacheManager(
                 RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory),
                 // 默认策略

@@ -5,9 +5,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.bind.Binder;
 import org.springframework.core.env.Environment;
 
+import java.util.Collections;
 import java.util.Map;
 
 /**
+ * Bingo项目的配置
+ *
  * @作者 二月君
  * @版本 1.0
  * @日期 2024-01-21 16:52
@@ -28,8 +31,7 @@ public class BingoProp {
         try {
             return (Map<String, String>) binder.bind(prefix, Map.class).get();
         } catch (Exception e) {
-            log.error("基于前缀获取配置文件Map失败-{}", prefix);
-            throw e;
+            return Collections.emptyMap();
         }
     }
 

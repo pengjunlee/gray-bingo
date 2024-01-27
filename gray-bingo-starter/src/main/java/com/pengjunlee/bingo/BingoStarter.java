@@ -2,14 +2,19 @@ package com.pengjunlee.bingo;
 
 import com.pengjunlee.bingo.config.BingoBanner;
 import com.pengjunlee.bingo.listener.BingoApplicationListener;
-import com.pengjunlee.bingo.listener.PropertiesCheckListener;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * @作者 二月君
  * @版本 1.0
  * @日期 2024-01-21 14:51
  */
+
+/**
+ * 添加 @SpringBootApplication 用于启动测试
+ */
+@SpringBootApplication(scanBasePackages = {"com.pengjunlee.bingo"})
 public class BingoStarter {
 
     public static void run(Class<?> clazz, String[] args) {
@@ -18,11 +23,16 @@ public class BingoStarter {
         bingoApplication.setBanner(new BingoBanner());
         // 关闭Banner
         // bingoApplication.setBannerMode(Banner.Mode.OFF);
-        bingoApplication.addListeners(new PropertiesCheckListener(), new BingoApplicationListener());
+        bingoApplication.addListeners(new BingoApplicationListener());
         bingoApplication.run(args);
     }
 
-//    public static void main(String[] args) {
-//        run(BingoStarter.class, args);
-//    }
+    /**
+     * 启动测试入口
+     *
+     * @param args
+     */
+    public static void main(String[] args) {
+        run(BingoStarter.class, args);
+    }
 }

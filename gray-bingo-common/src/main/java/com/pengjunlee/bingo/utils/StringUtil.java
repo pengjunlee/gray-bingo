@@ -30,6 +30,52 @@ public class StringUtil {
             return joiner.toString();
         }
     }
+
+    /**
+     * 字符串左侧填充
+     * @param str
+     * @param filledChar
+     * @param len
+     * @return
+     */
+    public static String leftFill(String str, char filledChar, int len) {
+        return fill(str, filledChar, len, true);
+    }
+
+    /**
+     * 字符串右侧填充
+     * @param str
+     * @param filledChar
+     * @param len
+     * @return
+     */
+    public static String rightFill(String str, char filledChar, int len) {
+        return fill(str, filledChar, len, false);
+    }
+
+    public static String fill(String str, char filledChar, int len, boolean isPre) {
+        int strLen = str.length();
+        if (strLen > len) {
+            return str;
+        } else {
+            String filledStr = repeat(filledChar, len - strLen);
+            return isPre ? filledStr.concat(str) : str.concat(filledStr);
+        }
+    }
+
+    public static String repeat(char c, int count) {
+        if (count <= 0) {
+            return "";
+        } else {
+            char[] result = new char[count];
+
+            for(int i = 0; i < count; ++i) {
+                result[i] = c;
+            }
+            return new String(result);
+        }
+    }
+
     private static String toStringOrEmpty(Object obj) {
         return Objects.toString(obj, "");
     }

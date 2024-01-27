@@ -21,7 +21,10 @@
             <groupId>com.pengjunlee.bingo</groupId>
             <artifactId>gray-bingo-common</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>com.pengjunlee.bingo</groupId>
+            <artifactId>gray-bingo-cache</artifactId>
+        </dependency>
         <!-- ============================== Springboot依赖 ============================== -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

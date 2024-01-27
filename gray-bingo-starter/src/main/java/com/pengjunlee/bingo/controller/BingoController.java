@@ -11,6 +11,6 @@ public class BingoController {
 
     @GetMapping("/meta")
     public String meta(){
-        return BingoMeta.print();
+        return null;
     }
 }

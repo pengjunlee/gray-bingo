@@ -24,8 +24,9 @@ public class CaffeineHelperBuilder extends BingoHelperBuilder {
     public void build() {
         if (BingoMeta.helperEnabled(BingoStringCst.HELPER_CAFFEINE)) {
             this.initCaffeineClient();
+            log.info("[      HELPER_BUILDER] --- 注册组件 [ {} ] 成功！", CaffeineHelperBuilder.class);
         } else {
-            log.warn("组件[ {} ]开关未打开，请检查配置项[ {} ]！", CaffeineHelperBuilder.class, BingoStringCst.HELPER_CAFFEINE);
+            log.info("[      HELPER_BUILDER] --- 注册组件 [ {} ] 失败，原因组件未启用，请检查配置项: [ {} ] ！", CaffeineHelperBuilder.class, BingoStringCst.HELPER_CAFFEINE);
         }
     }
 

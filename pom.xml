@@ -39,7 +39,6 @@
         https://spring.io/projects/spring-boot#support
         -->
         <spring-boot.version>2.7.11</spring-boot.version>
-
         <!-- 其他三方包版本 -->
         <lombok.version>1.18.8</lombok.version>
 
@@ -118,6 +117,11 @@
                 <artifactId>spring-boot-starter-json</artifactId>
                 <version>${spring-boot.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-cache</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
             <!-- 项目内部版本限制 -->
             <dependency>
                 <groupId>com.pengjunlee.bingo</groupId>
@@ -127,6 +131,11 @@
             <dependency>
                 <groupId>com.pengjunlee.bingo</groupId>
                 <artifactId>gray-bingo-common</artifactId>
+                <version>${bingo.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.pengjunlee.bingo</groupId>
+                <artifactId>gray-bingo-cache</artifactId>
                 <version>${bingo.version}</version>
             </dependency>
         </dependencies>
