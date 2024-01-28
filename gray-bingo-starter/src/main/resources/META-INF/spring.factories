@@ -1,2 +1,2 @@
 org.springframework.context.ApplicationListener=\
-com.pengjunlee.bingo.listener.PropertiesCheckListener
+com.bingo.starter.listener.PropertiesCheckListener
