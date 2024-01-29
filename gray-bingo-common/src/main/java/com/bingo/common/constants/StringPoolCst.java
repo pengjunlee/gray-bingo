@@ -1,5 +1,12 @@
 package com.bingo.common.constants;
 
+/**
+ * 字符串常量池
+ *
+ * @作者 二月君
+ * @版本 1.0
+ * @日期 2024-01-21 16:36
+ */
 public interface StringPoolCst {
     char C_SPACE = ' ';
     char C_TAB = '\t';

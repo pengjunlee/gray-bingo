@@ -1,4 +1,4 @@
-package com.bingo.common.Enums;
+package com.bingo.common.Enums.base;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

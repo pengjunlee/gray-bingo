@@ -3,7 +3,7 @@ package com.bingo.common.utils;
 import java.util.Collection;
 import java.util.function.Consumer;
 
-public class JudgeUtil {
+public class IfUtil {
 
     public static BranchHandler trueOrFalse(boolean b) {
         return (trueHandler, falseHandler) -> {

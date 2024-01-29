@@ -1,5 +1,7 @@
 package com.bingo.common.Enums;
 
+import com.bingo.common.Enums.base.BaseIntEnum;
+import com.bingo.common.Enums.base.EnumOption;
 import lombok.AllArgsConstructor;
 
 import java.util.List;

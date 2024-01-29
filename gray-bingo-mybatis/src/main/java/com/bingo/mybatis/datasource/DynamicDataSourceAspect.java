@@ -1,6 +1,6 @@
 package com.bingo.mybatis.datasource;
 
-import com.bingo.common.constants.BingoStringCst;
+import com.bingo.common.constants.BingoHelperCst;
 import com.bingo.common.utils.StringUtil;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
@@ -16,7 +16,7 @@ import java.lang.reflect.Method;
 @Aspect
 @Component
 @Order(-1)
-@ConditionalOnProperty(name = BingoStringCst.HELPER_CONF_DYNAMIC, havingValue = BingoStringCst.BINGO_HELPER_OPEN, matchIfMissing = false)
+@ConditionalOnProperty(name = BingoHelperCst.HELPER_CONF_DYNAMIC, havingValue = BingoHelperCst.BINGO_HELPER_OPEN, matchIfMissing = false)
 public class DynamicDataSourceAspect {
 
     /**

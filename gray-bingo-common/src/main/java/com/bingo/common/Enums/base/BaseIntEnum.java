@@ -1,4 +1,4 @@
-package com.bingo.common.Enums;
+package com.bingo.common.Enums.base;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -25,6 +25,11 @@ public interface BaseIntEnum {
         return Arrays.stream(enumConstants).filter(e -> value.equals(e.getValue())).findAny().orElse(null);
     }
 
+    /**
+     * 将枚举类转换成Map
+     * @param enumClass
+     * @return
+     */
     static Map<Integer, String> toMap(Class<? extends BaseIntEnum> enumClass) {
         BaseIntEnum[] enumConstants = enumClass.getEnumConstants();
         if (Objects.isNull(enumConstants) || enumConstants.length == 0) {
@@ -33,6 +38,11 @@ public interface BaseIntEnum {
         return Arrays.stream(enumConstants).collect(Collectors.toMap(BaseIntEnum::getValue, BaseIntEnum::getName, (v1, v2) -> v1));
     }
 
+    /**
+     * 将枚举类转换成List
+     * @param enumClass
+     * @return
+     */
     static List<EnumOption<Integer>> toList(Class<? extends BaseIntEnum> enumClass) {
         BaseIntEnum[] enumConstants = enumClass.getEnumConstants();
         if (Objects.isNull(enumConstants) || enumConstants.length == 0) {

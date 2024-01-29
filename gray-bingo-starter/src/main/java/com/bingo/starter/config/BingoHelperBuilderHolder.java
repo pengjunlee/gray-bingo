@@ -1,5 +1,6 @@
 package com.bingo.starter.config;
 
+import com.bingo.common.Enums.BingoHelperEnum;
 import com.bingo.common.config.BingoHelperBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
@@ -7,7 +8,9 @@ import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.type.AnnotationMetadata;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Helper建造者的持有者对象
@@ -26,8 +29,8 @@ public class BingoHelperBuilderHolder implements ImportBeanDefinitionRegistrar {
     private static BeanDefinitionRegistry beanDefinitionRegistry;
 
     static {
-        BUILDER_LIST.add("com.bingo.cache.caffeine.CaffeineHelperBuilder");
-        BUILDER_LIST.add("com.bingo.mybatis.datasource.DynamicDataSourceHelperBuilder");
+        List<String> builderClazzList = Arrays.stream(BingoHelperEnum.values()).map(BingoHelperEnum::getBuilderClazz).collect(Collectors.toList());
+        BUILDER_LIST.addAll(builderClazzList);
     }
 
     public static void registryAllBuilders(AnnotationMetadata annotationMetadata, BeanDefinitionRegistry beanDefinitionRegistry) {

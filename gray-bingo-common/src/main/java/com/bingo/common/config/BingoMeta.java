@@ -1,12 +1,13 @@
 package com.bingo.common.config;
 
+import com.bingo.common.Enums.BingoHelperEnum;
 import com.bingo.common.Enums.EnabledEnum;
 import com.bingo.common.constants.BingoHelperCst;
-import com.bingo.common.constants.BingoStringCst;
 import com.bingo.common.constants.StringPoolCst;
 import com.bingo.common.utils.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Arrays;
 import java.util.Map;
 
 @Slf4j
@@ -32,8 +33,8 @@ public class BingoMeta {
     }
 
     public static boolean helperEnabled(String helperPrefix) {
-        String helperConfig = META_HELPER_CONFIGS.getOrDefault(helperPrefix, BingoStringCst.BINGO_HELPER_CLOSE);
-        return BingoStringCst.BINGO_HELPER_OPEN.equals(helperConfig);
+        String helperConfig = META_HELPER_CONFIGS.getOrDefault(helperPrefix, BingoHelperCst.BINGO_HELPER_CLOSE);
+        return BingoHelperCst.BINGO_HELPER_OPEN.equals(helperConfig);
     }
 
     public static void print() {
@@ -44,10 +45,10 @@ public class BingoMeta {
         log.info("[APPLICATION_LISTENER] ┌────────────────┬─────────────────────┬────────┐");
         log.info("[APPLICATION_LISTENER] | ConfigCode     | HelperName          | Status |");
         log.info("[APPLICATION_LISTENER] ├────────────────┼─────────────────────┼────────┤");
-        BingoHelperCst.helperMap.entrySet().forEach(item -> {
-            String helperConfig = META_HELPER_CONFIGS.getOrDefault(item.getKey(), BingoStringCst.BINGO_HELPER_CLOSE);
-            String status = BingoStringCst.BINGO_HELPER_OPEN.equals(helperConfig) ? EnabledEnum.ENABLED.getName() : EnabledEnum.DISABLED.getName();
-            log.info("[APPLICATION_LISTENER] | {}| {}|   {}|", StringUtil.rightFill(item.getKey(), StringPoolCst.C_SPACE, 15), StringUtil.rightFill(item.getValue(), StringPoolCst.C_SPACE, 20), StringUtil.rightFill(status, StringPoolCst.C_SPACE, 5));
+        Arrays.stream(BingoHelperEnum.values()).forEach(item -> {
+            String helperConfig = META_HELPER_CONFIGS.getOrDefault(item.getCode(), BingoHelperCst.BINGO_HELPER_CLOSE);
+            String status = BingoHelperCst.BINGO_HELPER_OPEN.equals(helperConfig) ? EnabledEnum.ENABLED.getName() : EnabledEnum.DISABLED.getName();
+            log.info("[APPLICATION_LISTENER] | {}| {}|   {}|", StringUtil.rightFill(item.getCode(), StringPoolCst.C_SPACE, 15), StringUtil.rightFill(item.getName(), StringPoolCst.C_SPACE, 20), StringUtil.rightFill(status, StringPoolCst.C_SPACE, 5));
         });
         log.info("[APPLICATION_LISTENER] └────────────────┴─────────────────────┴────────┘");
     }

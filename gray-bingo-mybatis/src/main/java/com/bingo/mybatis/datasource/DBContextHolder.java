@@ -1,5 +1,7 @@
 package com.bingo.mybatis.datasource;
 
+import org.springframework.lang.Nullable;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,6 +20,8 @@ public class DBContextHolder {
     private static ThreadLocal<String> DB_NAME_FIXED = new ThreadLocal<>();
 
     private static Map<String, String> DB_MAPPING = new HashMap<>();
+
+    private static Map<String,Long> DB_SLOW_INTERVAL = new HashMap<>();
 
     /**
      * 通过索引映射数据库
@@ -89,6 +93,10 @@ public class DBContextHolder {
      */
     public static void addDbMapping(String key, String value) {
         DB_MAPPING.put(key, value);
+    }
+
+    public static long getSlowInterval(){
+        return DB_SLOW_INTERVAL.getOrDefault(getDBName(),3000L);
     }
 
 }

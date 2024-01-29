@@ -2,7 +2,7 @@ package com.bingo.starter.listener;
 
 import com.bingo.common.config.BingoMeta;
 import com.bingo.common.config.BingoProp;
-import com.bingo.common.constants.BingoStringCst;
+import com.bingo.common.constants.BingoHelperCst;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringBootVersion;
 import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
@@ -39,7 +39,7 @@ public class PropertiesCheckListener implements ApplicationListener<ApplicationE
         BingoMeta.update(applicationName, profilesActive, springbootVersion);
 
         // 将其中bingo.helper配置绑定到BingoMeta
-        Map<String, String> bingoHelperConfigs = BingoProp.getMap(BingoStringCst.BINGO_HELPER_PREFIX);
+        Map<String, String> bingoHelperConfigs = BingoProp.getMap(BingoHelperCst.BINGO_HELPER_PREFIX);
         BingoMeta.setMetaHelperConfigs(bingoHelperConfigs);
         BingoMeta.print();
         log.info("[APPLICATION_LISTENER] >>> 执行结束 [ {} ]", PropertiesCheckListener.class);
