@@ -1,2 +1,4 @@
 org.springframework.context.ApplicationListener=\
-com.bingo.starter.listener.PropertiesCheckListener
+com.bingo.starter.listener.PropertiesCheckListener\
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.bingo.starter.tracker.TrackerProperties

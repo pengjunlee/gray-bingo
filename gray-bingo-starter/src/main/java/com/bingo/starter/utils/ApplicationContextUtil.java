@@ -2,7 +2,6 @@ package com.bingo.starter.utils;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 
 import java.util.Map;
 
@@ -13,7 +12,7 @@ import java.util.Map;
  * @版本 1.0
  * @日期 2024-01-21 15:58
  */
-public class BingoContextUtil {
+public class ApplicationContextUtil {
 
     private static ApplicationContext applicationContext;
 

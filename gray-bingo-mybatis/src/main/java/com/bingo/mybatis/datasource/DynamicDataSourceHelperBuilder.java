@@ -4,7 +4,7 @@ import com.bingo.common.config.BingoHelperBuilder;
 import com.bingo.common.config.BingoMeta;
 import com.bingo.common.config.BingoProp;
 import com.bingo.common.constants.BingoHelperCst;
-import com.bingo.common.exceptions.BIZException;
+import com.bingo.common.exceptions.BINException;
 import com.bingo.common.utils.RSAUtil;
 import com.bingo.common.utils.StringUtil;
 import com.zaxxer.hikari.HikariConfig;
@@ -159,7 +159,7 @@ public class DynamicDataSourceHelperBuilder extends BingoHelperBuilder {
             }
             return password;
         } catch (Exception e) {
-            throw new BIZException(e.getMessage());
+            throw new BINException(e.getMessage());
         }
     }
 

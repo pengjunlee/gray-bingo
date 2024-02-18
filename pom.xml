@@ -41,7 +41,7 @@
         <spring-boot.version>2.7.11</spring-boot.version>
         <!-- 其他三方包版本 -->
         <lombok.version>1.18.8</lombok.version>
-
+        <mybatis.version>3.5.10</mybatis.version>
         <!--
         BOM 在 dependencyManagement 中指定依赖版本
         -->
