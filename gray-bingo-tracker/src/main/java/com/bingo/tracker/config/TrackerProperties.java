@@ -33,6 +33,8 @@ public class TrackerProperties {
      */
     private Repository repository;
 
+    private Items items;
+
     @PostConstruct
     public void init() {
         if (collector != null) {
@@ -135,5 +137,14 @@ public class TrackerProperties {
     }
 
 
+    @Data
+    public static class Items
+    {
+        /**
+         * trackerStartAspect 切面
+         */
+        private String aspect;
+
+    }
 
 }

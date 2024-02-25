@@ -1,5 +1,6 @@
 package com.bingo.tracker.config;
 import com.bingo.tracker.adapter.aspect.TrackerStartAspect;
+import com.bingo.tracker.adapter.spring.TrackerFilter;
 import com.bingo.tracker.collector.TrackerCollector;
 import com.bingo.tracker.collector.TrackerLocalCacheCollector;
 import com.bingo.tracker.repository.LocalDiskFileRepository;
@@ -22,15 +23,22 @@ import org.springframework.context.annotation.Configuration;
 public class TrackerConfiguration {
 
     @Bean
+    @ConditionalOnProperty(value = "bingo.tracker.items.aspect", havingValue = "true")
     public TrackerStartAspect trackerStartAspect() {
         return new TrackerStartAspect();
+    }
+
+    @Bean
+    @ConditionalOnProperty(value = "bingo.tracker.items.spring", havingValue = "true")
+    public TrackerFilter trackerFilter() {
+        return new TrackerFilter();
     }
 
     /**
      * havingValue 为一个不存在的值, 永不开启trace收集
      */
     @Bean(name = "trackerRepository")
-    @ConditionalOnProperty(value = "project.tracker.repository.type", havingValue = "disk")
+    @ConditionalOnProperty(value = "bingo.tracker.repository.type", havingValue = "disk")
     public TrackerRepository trackerRepository(TrackerProperties trackerProperties) {
         return new LocalDiskFileRepository(trackerProperties);
     }
@@ -43,7 +51,7 @@ public class TrackerConfiguration {
      */
     @Bean
     @ConditionalOnBean(name = "trackerRepository")
-    @ConditionalOnProperty(value = "project.tracker.collector.enabled", havingValue = "true")
+    @ConditionalOnProperty(value = "bingo.tracker.collector.enabled", havingValue = "true")
     public TrackerCollector traceCollector(TrackerProperties trackerProperties) {
         return new TrackerLocalCacheCollector(trackerProperties);
     }

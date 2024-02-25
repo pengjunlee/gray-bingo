@@ -3,8 +3,13 @@ package com.bingo.common.utils;
 import java.util.Collection;
 import java.util.function.Consumer;
 
-public class IfUtil {
+public class LogicUtil {
 
+    /**
+     * 根据入参真假，分别进行不同的操作
+     * @param b
+     * @return
+     */
     public static BranchHandler trueOrFalse(boolean b) {
         return (trueHandler, falseHandler) -> {
             if (b) {

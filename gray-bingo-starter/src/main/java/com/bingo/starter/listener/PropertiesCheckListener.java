@@ -39,7 +39,7 @@ public class PropertiesCheckListener implements ApplicationListener<ApplicationE
         BingoMeta.update(applicationName, profilesActive, springbootVersion);
 
         // 将其中bingo.helper配置绑定到BingoMeta
-        Map<String, String> bingoHelperConfigs = BingoProp.getMap(BingoHelperCst.BINGO_HELPER_PREFIX);
+        Map<String, String> bingoHelperConfigs = BingoProp.getMap(BingoHelperCst.BINGO_HELPER_CONF_NAME);
         BingoMeta.setMetaHelperConfigs(bingoHelperConfigs);
         BingoMeta.print();
         log.info("[APPLICATION_LISTENER] >>> 执行结束 [ {} ]", PropertiesCheckListener.class);

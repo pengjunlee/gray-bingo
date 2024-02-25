@@ -79,8 +79,8 @@ public class RedisCacheConfig {
      */
     private Map<String, RedisCacheConfiguration> initCacheConfigurations(BingoCacheProperties properties) {
         Map<String, RedisCacheConfiguration> configMap = new HashMap<>(1);
-        for (BingoCacheProperties.CacheNamesConfig cacheNamesConfig : properties.getNamesConfig()) {
-            configMap.put(cacheNamesConfig.getName(), this.getDefaultCacheConfiguration(cacheNamesConfig.getSeconds()));
+        for (BingoCacheProperties.CacheName cacheName : properties.getCacheNames()) {
+            configMap.put(cacheName.getName(), this.getDefaultCacheConfiguration(cacheName.getSeconds()));
         }
         // ========== 自定义设置缓存时间 ===========
         return configMap;

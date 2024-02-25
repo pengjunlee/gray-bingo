@@ -4,7 +4,7 @@ import com.bingo.common.config.BingoHelperBuilder;
 import com.bingo.common.config.BingoMeta;
 import com.bingo.common.config.BingoProp;
 import com.bingo.common.constants.BingoHelperCst;
-import com.bingo.common.exceptions.BINException;
+import com.bingo.common.exceptions.BingoException;
 import com.bingo.common.utils.RSAUtil;
 import com.bingo.common.utils.StringUtil;
 import com.zaxxer.hikari.HikariConfig;
@@ -38,7 +38,7 @@ public class DynamicDataSourceHelperBuilder extends BingoHelperBuilder {
      */
     @Override
     public void build(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
-        if (BingoMeta.helperEnabled(BingoHelperCst.HELPER_NAME_DYNAMIC)) {
+        if (BingoMeta.helperEnabled(BingoHelperCst.BINGO_HELPER_CONFIG_DYNAMIC_DB)) {
             Map<String, String> dbMap = BingoProp.getMap("bingo.db");
             if (ObjectUtils.isEmpty(dbMap)) {
                 log.warn("[      HELPER_BUILDER]  -- 注册组件 [ {} ] 失败，原因自定义数据源为空，请检查配置项: [ {} ] ！", helperName(), "bingo.db");
@@ -56,7 +56,7 @@ public class DynamicDataSourceHelperBuilder extends BingoHelperBuilder {
             });
             log.info("[      HELPER_BUILDER]  -- 注册组件 [ {} ] 成功！", helperName());
         } else {
-            log.warn("[      HELPER_BUILDER]  -- 注册组件 [ {} ] 失败，原因组件未启用，请检查配置项: [ {} ] ！", helperName(), BingoHelperCst.HELPER_CONF_DYNAMIC_DB);
+            log.warn("[      HELPER_BUILDER]  -- 注册组件 [ {} ] 失败，原因组件未启用，请检查配置项: [ {} ] ！", helperName(), BingoHelperCst.BINGO_HELPER_CONFIG_DYNAMIC_DB);
         }
     }
 
@@ -159,7 +159,7 @@ public class DynamicDataSourceHelperBuilder extends BingoHelperBuilder {
             }
             return password;
         } catch (Exception e) {
-            throw new BINException(e.getMessage());
+            throw new BingoException(e.getMessage());
         }
     }
 
@@ -191,6 +191,6 @@ public class DynamicDataSourceHelperBuilder extends BingoHelperBuilder {
 
     @Override
     public String helperName() {
-        return BingoHelperCst.HELPER_NAME_DYNAMIC;
+        return BingoHelperCst.BINGO_HELPER_DYNAMIC_DB;
     }
 }

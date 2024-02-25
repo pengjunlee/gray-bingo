@@ -22,10 +22,10 @@ public class BingoCacheProperties {
     /**
      * 缓存的 key 配置
      */
-    private List<CacheNamesConfig> namesConfig = new ArrayList<>();
+    private List<CacheName> cacheNames = new ArrayList<>();
 
     @Data
-    public static class CacheNamesConfig {
+    public static class CacheName {
         /**
          * 缓存的 key
          */

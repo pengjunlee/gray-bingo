@@ -36,7 +36,7 @@ public class CaffeineHelperBuilder extends BingoHelperBuilder {
 
     @Override
     public String helperName() {
-        return BingoHelperCst.BINGO_HELPER_CODE_CAFFEINE;
+        return BingoHelperCst.BINGO_HELPER_CAFFEINE;
     }
 
     private void initCaffeineClient() {

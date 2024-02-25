@@ -1,6 +1,6 @@
 package com.bingo.tracker.common;
 
-import com.bingo.common.exceptions.BINException;
+import com.bingo.common.exceptions.BingoException;
 import com.bingo.common.utils.JsonUtil;
 import com.bingo.common.utils.StringUtil;
 import com.bingo.common.utils.TimeUtil;
@@ -87,7 +87,7 @@ public final class SpanNode implements Serializable {
      */
     public static SpanNode rootSpan(String spanName, String spanType) {
         if (StringUtil.isBlank(spanName)) {
-            throw new BINException("spanName 不能为空");
+            throw new BingoException("spanName 不能为空");
         }
         SpanNode span = new SpanNode();
         span.setSpanParentId("ROOT_SPAN");
@@ -110,13 +110,13 @@ public final class SpanNode implements Serializable {
      */
     public static SpanNode forkSpan(String spanName, String spanType, final String traceId, final String spanParentId) {
         if (StringUtil.isBlank(spanName)) {
-            throw new BINException("spanName 不能为空");
+            throw new BingoException("spanName 不能为空");
         }
         if (StringUtil.isBlank(traceId)) {
-            throw new BINException("TraceId 不能为空");
+            throw new BingoException("TraceId 不能为空");
         }
         if (StringUtil.isBlank(spanParentId)) {
-            throw new BINException("spanParentId 不能为空");
+            throw new BingoException("spanParentId 不能为空");
         }
         SpanNode span = new SpanNode();
         span.setTraceId(traceId);

@@ -45,15 +45,15 @@ public class CaffeineCacheConfig {
                 // 缓存的最大条数
                 .maximumSize(10000));
 
-        for (BingoCacheProperties.CacheNamesConfig cacheNamesConfig : properties.getNamesConfig()) {
+        for (BingoCacheProperties.CacheName cacheName : properties.getCacheNames()) {
             Cache<Object, Object> cache = Caffeine.newBuilder()
-                    .maximumSize(cacheNamesConfig.getMaximumSize())
-                    .expireAfterAccess(cacheNamesConfig.getSeconds(), TimeUnit.SECONDS)
+                    .maximumSize(cacheName.getMaximumSize())
+                    .expireAfterAccess(cacheName.getSeconds(), TimeUnit.SECONDS)
                     .removalListener((Object key, Object value, RemovalCause cause) ->
                             log.info("缓存被删除: {}:{}", key, value))
                     .build();
 
-            cacheManager.registerCustomCache(cacheNamesConfig.getName(), cache);
+            cacheManager.registerCustomCache(cacheName.getName(), cache);
         }
         return cacheManager;
     }
