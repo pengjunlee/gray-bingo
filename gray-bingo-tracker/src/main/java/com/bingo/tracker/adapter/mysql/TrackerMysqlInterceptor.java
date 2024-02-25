@@ -1,9 +1,11 @@
-package com.bingo.mybatis.config;
+package com.bingo.tracker.adapter.mysql;
 
-import com.bingo.common.constants.BingoHelperCst;
+
 import com.bingo.common.utils.StringUtil;
-import com.bingo.mybatis.datasource.DBContextHolder;
-import lombok.extern.slf4j.Slf4j;
+import com.bingo.tracker.common.SpanContext;
+import com.bingo.tracker.common.Tracker;
+import com.bingo.tracker.common.TrackerConstants;
+import com.bingo.tracker.common.TrackerUtil;
 import org.apache.ibatis.cache.CacheKey;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.BoundSql;
@@ -16,7 +18,6 @@ import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.type.TypeHandlerRegistry;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
@@ -25,40 +26,50 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * 慢 sql 拦截
+ * 链路追踪 mysql 拦截
  *
  * @author xzzz
  */
-@Slf4j
 @Component
 @Intercepts({
-        @Signature(type = Executor.class, method = "update", args = {MappedStatement.class, Object.class}),
-        @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}),
-        @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class, BoundSql.class}),
+@Signature(type = Executor.class, method = "update", args = {MappedStatement.class, Object.class}),
+@Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}),
+@Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class, BoundSql.class}),
 })
-@ConditionalOnProperty(name = BingoHelperCst.BINGO_HELPER_CONFIG_DYNAMIC_DB, havingValue = BingoHelperCst.BINGO_HELPER_OPEN, matchIfMissing = false)
-public class SlowSQLInterceptor implements Interceptor {
+public class TrackerMysqlInterceptor implements Interceptor {
 
-    private static final ThreadLocal<SimpleDateFormat> DATETIME_FORMATTER = ThreadLocal
-            .withInitial(() -> new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
+    private static final ThreadLocal<SimpleDateFormat> DATETIME_FORMATTER = ThreadLocal.withInitial(() -> new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
-        long start = System.currentTimeMillis();
+
+        String sql = null;
         try {
+            MappedStatement mappedStatement = (MappedStatement) invocation.getArgs()[0];
+            if (TrackerUtil.checkIgnoreSql(mappedStatement.getId())) {
+                return invocation.proceed();
+            }
+            Object parameter = null;
+            if (invocation.getArgs().length > 1) {
+                parameter = invocation.getArgs()[1];
+            }
+            BoundSql boundSql = mappedStatement.getBoundSql(parameter);
+            Configuration configuration = mappedStatement.getConfiguration();
+
+            sql = this.getSql(configuration, boundSql);
+        } catch (Exception ignored) {
+        }
+
+        SpanContext spanContext = null;
+        try {
+            spanContext = Tracker.start(TrackerConstants.SPAN_TYPE_MYSQL, TrackerConstants.SPAN_TYPE_MYSQL);
+            if (StringUtil.isNotBlank(sql)) {
+                Tracker.record("SQL", sql);
+            }
             return invocation.proceed();
         } finally {
-            long ms = System.currentTimeMillis() - start;
-            if (ms >= DBContextHolder.getSlowInterval()) {
-                MappedStatement mappedStatement = (MappedStatement) invocation.getArgs()[0];
-                Object parameter = null;
-                if (invocation.getArgs().length > 1) {
-                    parameter = invocation.getArgs()[1];
-                }
-                BoundSql boundSql = mappedStatement.getBoundSql(parameter);
-                Configuration configuration = mappedStatement.getConfiguration();
-                String sql = this.getSql(configuration, boundSql);
-                log.error("SLOW_SQL >> [{}ms] {}", StringUtil.leftFill(String.valueOf(ms), ' ', 4), sql);
+            if (spanContext != null) {
+                Tracker.end();
             }
         }
     }
@@ -133,12 +144,7 @@ public class SlowSQLInterceptor implements Interceptor {
         }
 
         for (String value : parameters) {
-            if (value.length() > 500) {
-                sql = sql.replaceFirst("\\?", "!!该参数超长,已忽略!!");
-            } else {
-                sql = sql.replaceFirst("\\?", value);
-            }
-
+            sql = sql.replaceFirst("\\?", value);
         }
         return sql;
     }
@@ -148,6 +154,7 @@ public class SlowSQLInterceptor implements Interceptor {
         sql = sql.replace(" = ", "=");
         return sql;
     }
+
 
 
     @Override

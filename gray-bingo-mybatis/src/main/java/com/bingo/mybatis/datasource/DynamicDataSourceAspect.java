@@ -16,7 +16,7 @@ import java.lang.reflect.Method;
 @Aspect
 @Component
 @Order(-1)
-@ConditionalOnProperty(name = BingoHelperCst.HELPER_CONF_DYNAMIC, havingValue = BingoHelperCst.BINGO_HELPER_OPEN, matchIfMissing = false)
+@ConditionalOnProperty(name = BingoHelperCst.BINGO_HELPER_CONFIG_DYNAMIC_DB, havingValue = BingoHelperCst.BINGO_HELPER_OPEN, matchIfMissing = false)
 public class DynamicDataSourceAspect {
 
     /**

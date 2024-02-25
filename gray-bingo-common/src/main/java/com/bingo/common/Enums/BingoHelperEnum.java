@@ -1,5 +1,6 @@
 package com.bingo.common.Enums;
 
+import com.bingo.common.constants.BingoHelperCst;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -7,14 +8,14 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum BingoHelperEnum {
 
-    caffeine("caffeine", "Caffeine Cache","com.bingo.cache.caffeine.CaffeineHelperBuilder"),
-    dynamic_db("dynamic_db", "Dynamic DataSource","com.bingo.mybatis.datasource.DynamicDataSourceHelperBuilder"),
+    CAFFEINE(BingoHelperCst.BINGO_HELPER_CODE_CAFFEINE, "Caffeine Cache", "com.bingo.cache.caffeine.CaffeineHelperBuilder"),
+    DYNAMIC_DB(BingoHelperCst.BINGO_HELPER_CODE_DYNAMIC_DB, "Dynamic DataSource", "com.bingo.mybatis.datasource.DynamicDataSourceHelperBuilder"),
     ;
 
-    private String code;
+    private final String code;
 
-    private String name;
+    private final String name;
 
-    private String builderClazz;
+    private final String builderClazz;
 
 }

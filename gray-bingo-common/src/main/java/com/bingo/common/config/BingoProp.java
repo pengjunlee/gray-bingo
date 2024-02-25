@@ -40,7 +40,7 @@ public class BingoProp {
         return StringUtil.isBlank(strValue) ? null : Integer.parseInt(strValue);
     }
 
-    public static String getStr(Map<String, String> map, String key) {
+    public static String getString(Map<String, String> map, String key) {
         String strValue = map.get(key);
         return StringUtil.isBlank(strValue) ? null : strValue;
     }

@@ -21,7 +21,7 @@
         <module>gray-bingo-common</module>
         <module>gray-bingo-cache</module>
         <module>gray-bingo-mybatis</module>
-
+        <module>gray-bingo-tracker</module>
     </modules>
 
     <properties>

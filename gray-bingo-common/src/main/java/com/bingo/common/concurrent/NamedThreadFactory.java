@@ -20,7 +20,7 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * InternalThreadFactory.
+ * NamedThreadFactory.
  */
 public class NamedThreadFactory implements ThreadFactory {
 

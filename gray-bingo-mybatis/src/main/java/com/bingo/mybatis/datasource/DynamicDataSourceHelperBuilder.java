@@ -56,7 +56,7 @@ public class DynamicDataSourceHelperBuilder extends BingoHelperBuilder {
             });
             log.info("[      HELPER_BUILDER]  -- 注册组件 [ {} ] 成功！", helperName());
         } else {
-            log.warn("[      HELPER_BUILDER]  -- 注册组件 [ {} ] 失败，原因组件未启用，请检查配置项: [ {} ] ！", helperName(), BingoHelperCst.HELPER_CONF_DYNAMIC);
+            log.warn("[      HELPER_BUILDER]  -- 注册组件 [ {} ] 失败，原因组件未启用，请检查配置项: [ {} ] ！", helperName(), BingoHelperCst.HELPER_CONF_DYNAMIC_DB);
         }
     }
 

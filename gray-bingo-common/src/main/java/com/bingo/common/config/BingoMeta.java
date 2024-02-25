@@ -20,7 +20,7 @@ public class BingoMeta {
     public static String META_PROFILES_ACTIVE;
 
     // 当前服务使用的SpringBoot版本
-    public static String META_SPRINGBOOT_VER;
+    public static String META_SPRING_BOOT_VER;
 
     private static Map<String, String> META_HELPER_CONFIGS;
 
@@ -40,7 +40,7 @@ public class BingoMeta {
     public static void print() {
         log.info("[APPLICATION_LISTENER] >>> 应用名称: {}", META_APPLICATION_NAME);
         log.info("[APPLICATION_LISTENER] >>> 环境标识: {}", META_PROFILES_ACTIVE);
-        log.info("[APPLICATION_LISTENER] >>> Springboot版本: {}", META_SPRINGBOOT_VER);
+        log.info("[APPLICATION_LISTENER] >>> Springboot版本: {}", META_SPRING_BOOT_VER);
         log.info("[APPLICATION_LISTENER] >>> Helper组件启用状态检查，若需启用或禁用Helper，请参照[ bingo.helper.xxx=open/close ]进行配置 :");
         log.info("[APPLICATION_LISTENER] ┌────────────────┬─────────────────────┬────────┐");
         log.info("[APPLICATION_LISTENER] | ConfigCode     | HelperName          | Status |");
@@ -56,7 +56,7 @@ public class BingoMeta {
     public static void update(String applicationName, String profilesActive, String springBootVersion) {
         META_APPLICATION_NAME = applicationName;
         META_PROFILES_ACTIVE = profilesActive;
-        META_SPRINGBOOT_VER = springBootVersion;
+        META_SPRING_BOOT_VER = springBootVersion;
     }
 
 }
