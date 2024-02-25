@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import({TrackerConfiguration.class})
+@Import({TrackerProperties.class,TrackerConfiguration.class})
 @ConditionalOnProperty(value = BingoHelperCst.BINGO_HELPER_CONFIG_TRACKER, havingValue = "open")
 public class BingoTrackerImport {
 }

@@ -26,7 +26,7 @@ public class CaffeineHelperBuilder extends BingoHelperBuilder {
      * caffeine: 'open'
      */
     public void build(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
-        if (BingoMeta.helperEnabled(BingoHelperCst.BINGO_HELPER_CONFIG_CAFFEINE)) {
+        if (BingoMeta.helperEnabled(BingoHelperCst.BINGO_HELPER_CAFFEINE)) {
             this.initCaffeineClient();
             log.info("[      HELPER_BUILDER]  -- 注册组件 [ {} ] 成功！", helperName());
         } else {

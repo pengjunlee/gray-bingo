@@ -18,7 +18,6 @@ import java.util.List;
  */
 @Data
 @Slf4j
-@Configuration
 @ConfigurationProperties(prefix = "bingo.tracker")
 public class TrackerProperties {
 

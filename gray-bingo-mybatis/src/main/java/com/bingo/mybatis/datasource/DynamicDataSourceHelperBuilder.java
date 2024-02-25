@@ -38,7 +38,7 @@ public class DynamicDataSourceHelperBuilder extends BingoHelperBuilder {
      */
     @Override
     public void build(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
-        if (BingoMeta.helperEnabled(BingoHelperCst.BINGO_HELPER_CONFIG_DYNAMIC_DB)) {
+        if (BingoMeta.helperEnabled(BingoHelperCst.BINGO_HELPER_DYNAMIC_DB)) {
             Map<String, String> dbMap = BingoProp.getMap("bingo.db");
             if (ObjectUtils.isEmpty(dbMap)) {
                 log.warn("[      HELPER_BUILDER]  -- 注册组件 [ {} ] 失败，原因自定义数据源为空，请检查配置项: [ {} ] ！", helperName(), "bingo.db");
