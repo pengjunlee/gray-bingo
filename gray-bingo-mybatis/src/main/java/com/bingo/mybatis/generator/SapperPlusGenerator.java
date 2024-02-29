@@ -19,7 +19,7 @@ import java.util.Scanner;
  */
 public class SapperPlusGenerator {
 
-    private static String AUTHOR = "二月君";
+    private static String AUTHOR = "二月菌";
 
     private static String ROOT_FOLDER = null;
 

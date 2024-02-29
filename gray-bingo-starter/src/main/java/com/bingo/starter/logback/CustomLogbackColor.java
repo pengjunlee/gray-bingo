@@ -8,7 +8,7 @@ import ch.qos.logback.core.pattern.color.ForegroundCompositeConverterBase;
 /**
  * 日志级别颜色
  *
- * @作者 二月君
+ * @作者 二月菌
  * @版本 1.0
  * @日期 2024-01-21 14:17
  */

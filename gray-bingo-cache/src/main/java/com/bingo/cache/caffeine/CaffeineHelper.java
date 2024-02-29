@@ -11,7 +11,7 @@ import java.util.function.Function;
 /**
  * Caffeine操作缓存辅助类
  *
- * @作者 二月君
+ * @作者 二月菌
  * @版本 1.0
  * @日期 2024-01-27 21:01
  */

@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * 链路追踪配置
  *
- * @作者 二月君
+ * @作者 二月菌
  * @版本 1.0
  * @日期 2024-01-21 14:17
  */
@@ -23,13 +23,13 @@ import org.springframework.context.annotation.Configuration;
 public class TrackerConfiguration {
 
     @Bean
-    @ConditionalOnProperty(value = "bingo.tracker.items.aspect", havingValue = "true")
+    @ConditionalOnProperty(value = "bingo.tracker.enables.aspect", havingValue = "true")
     public TrackerStartAspect trackerStartAspect() {
         return new TrackerStartAspect();
     }
 
     @Bean
-    @ConditionalOnProperty(value = "bingo.tracker.items.spring", havingValue = "true")
+    @ConditionalOnProperty(value = "bingo.tracker.enables.spring", havingValue = "true")
     public TrackerFilter trackerFilter() {
         return new TrackerFilter();
     }

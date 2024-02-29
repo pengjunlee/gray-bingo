@@ -7,7 +7,7 @@ import java.lang.annotation.*;
  * <p>指定dbIndex的时候，通过dbIndex映射到实际的数据库</p >
  * <p>dbIndex未配置的时候，使用paramIndex，根据paramIndex配置的顺序获取指定位置的参数来指定默认数据源</p >
  *
- * @作者 二月君
+ * @作者 二月菌
  * @版本 1.0
  * @日期 2024-01-21 16:15
  */

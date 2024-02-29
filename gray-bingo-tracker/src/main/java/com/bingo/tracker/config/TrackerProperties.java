@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * 链路追踪配置
  *
- * @作者 二月君
+ * @作者 二月菌
  * @版本 1.0
  * @日期 2024-01-21 14:17
  */
@@ -32,14 +32,15 @@ public class TrackerProperties {
      */
     private Repository repository;
 
-    private Items items;
+    private List<String> enables;
 
     @PostConstruct
     public void init() {
+        String collectorStatus = collector != null && collector.isEnabled() ? "启用":"关闭";
+        log.warn("[            TRACKERS]  -- 当前追踪项{},收集器状态[{}]，存储方式[{}]。", enables,collectorStatus,repository.getType());
         if (collector != null) {
             if (collector.getRate() / Double.valueOf(TrackerConstants.COLLECTOR_MAX_RATE) > 0.5) {
-                log.warn("[TRACKERS] 当前采样率[{}/{}], 生成环境建议调小该值",
-                        collector.getRate(), TrackerConstants.COLLECTOR_MAX_RATE);
+                log.warn("[            TRACKERS]  -- 当前采样率[{}/{}], 生成环境建议调小该值！", collector.getRate(), TrackerConstants.COLLECTOR_MAX_RATE);
             }
         }
     }
@@ -132,17 +133,6 @@ public class TrackerProperties {
          * 保留的文件总数
          */
         Integer totalFileCount = 30;
-
-    }
-
-
-    @Data
-    public static class Items
-    {
-        /**
-         * trackerStartAspect 切面
-         */
-        private String aspect;
 
     }
 

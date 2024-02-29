@@ -6,7 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 /**
- * @作者 二月君
+ * @作者 二月菌
  * @版本 1.0
  * @日期 2024-01-21 14:51
  */
