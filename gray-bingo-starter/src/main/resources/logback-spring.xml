@@ -6,9 +6,9 @@
 -->
 <configuration debug="false" scan="false">
     <!-- 自定义配置 -->
-    <define name="ip" class="com.bingo.starter.logback.LogIpConfig"/>
-    <define name="hostName" class="com.bingo.starter.logback.HostNameConfig"/>
-    <conversionRule conversionWord="bingo_color" converterClass="com.bingo.starter.logback.CustomLogbackColor"/>
+    <define name="ip" class="gray.bingo.starter.logback.LogIpConfig"/>
+    <define name="hostName" class="gray.bingo.starter.logback.HostNameConfig"/>
+    <conversionRule conversionWord="bingo_color" converterClass="gray.bingo.starter.logback.CustomLogbackColor"/>
     <!-- Spring 配置 -->
     <springProperty scop="context" name="spring.application.name" source="spring.application.name" defaultValue=""/>
     <!-- 配置 -->

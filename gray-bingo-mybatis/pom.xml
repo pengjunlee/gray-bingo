@@ -5,12 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.pengjunlee.bingo</groupId>
+        <groupId>gray.bingo</groupId>
         <artifactId>gray-bingo</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.pengjunlee.bingo</groupId>
+    <groupId>gray.bingo</groupId>
     <artifactId>gray-bingo-mybatis</artifactId>
     <version>1.0-SNAPSHOT</version>
 
@@ -79,7 +79,7 @@
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.pengjunlee.bingo</groupId>
+            <groupId>gray.bingo</groupId>
             <artifactId>gray-bingo-common</artifactId>
             <scope>compile</scope>
         </dependency>
