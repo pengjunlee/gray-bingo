@@ -71,7 +71,7 @@ public class TrackerLocalCacheCollector implements TrackerCollector {
     private TrackerRepository trackerRepository;
 
     public TrackerLocalCacheCollector(TrackerProperties properties) {
-        log.info("[      BINGO_TRACKERS] >>>  开启 Span 收集器, 采样率[{}/1000], 本地缓存数[{}]",
+        log.info("[      BINGO_TRACKERS] >>> 开启 Span 收集器, 采样率[{}/1000], 本地缓存数[{}]",
                 properties.getCollector().getRate(), properties.getCollector().getMaxCache());
         this.properties = properties;
         this.localSpanCache = new ArrayList<>(properties.getCollector().getMaxCache());

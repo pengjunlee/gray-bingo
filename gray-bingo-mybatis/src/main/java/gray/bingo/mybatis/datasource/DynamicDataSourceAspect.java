@@ -22,7 +22,7 @@ public class DynamicDataSourceAspect {
     /**
      * 数据源切点
      */
-    @Pointcut("@annotation(com.bingo.mybatis.datasource.BingoDatasource) || @within(com.bingo.mybatis.datasource.BingoDatasource)")
+    @Pointcut("@annotation(gray.bingo.mybatis.datasource.BingoDatasource) || @within(gray.bingo.mybatis.datasource.BingoDatasource)")
     public void dynamicDatasource() {
     }
 

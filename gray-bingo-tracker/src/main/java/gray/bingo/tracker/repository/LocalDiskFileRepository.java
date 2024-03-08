@@ -30,7 +30,7 @@ public class LocalDiskFileRepository implements TrackerRepository, EnvironmentAw
     private Environment env;
 
     public LocalDiskFileRepository(TrackerProperties properties) {
-        log.info("[      BINGO_TRACKERS] >>>  开启追踪信息本地磁盘持久化");
+        log.info("[      BINGO_TRACKERS] >>> 开启追踪信息本地磁盘持久化");
         if (properties.getRepository().getDisk() == null) {
             diskProperties = new TrackerProperties.Disk();
         } else {
