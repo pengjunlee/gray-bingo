@@ -1,5 +1,7 @@
 package gray.bingo.common.utils;
 
+import gray.bingo.common.exceptions.BingoException;
+
 import java.util.Collection;
 import java.util.function.Consumer;
 
@@ -60,7 +62,7 @@ public class LogicUtil {
      */
     public static ThrowExceptionHanlder mustTrue(boolean b) {
         return (errorMsg) -> {
-            if (!b) throw new RuntimeException(errorMsg);
+            if (!b) throw new BingoException(errorMsg);
         };
     }
 
