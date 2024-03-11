@@ -44,17 +44,26 @@ public class BingoGeneratorConfig {
 
         /**
          * 设置数据库
-         * @param dbUrl 数据库Url
+         *
+         * @param dbUrl    数据库Url
          * @param userName 用户名
          * @param password 密码
          * @return SingleModuleBuilder
          */
-        public SingleModuleBuilder dataSource(String dbUrl,String userName,String password){
-            DataSourceConfig.Builder builder = new DataSourceConfig.Builder(dbUrl, userName, password);
-            this.generatorConfig.DATABASE = builder;
+        public SingleModuleBuilder dataSource(String dbUrl, String userName, String password) {
+            this.generatorConfig.DATABASE = new DataSourceConfig.Builder(dbUrl, userName, password);
             return this;
         }
 
+        /**
+         * 覆盖已存在文件
+         *
+         * @return SingleModuleBuilder
+         */
+        public SingleModuleBuilder fileOverride() {
+            this.generatorConfig.FILE_OVERRIDE = true;
+            return this;
+        }
 
 
         /**
@@ -68,6 +77,7 @@ public class BingoGeneratorConfig {
 
         /**
          * 启用swagger注解
+         *
          * @return SingleModuleBuilder
          */
         public SingleModuleBuilder enableSwagger() {
@@ -95,15 +105,20 @@ public class BingoGeneratorConfig {
 
         /**
          * 生成Service代码
+         *
+         * @param serviceClassSuffix service类前缀
          * @return SingleModuleBuilder
          */
-        public SingleModuleBuilder enableService() {
+        public SingleModuleBuilder enableService(String serviceClassSuffix) {
             this.generatorConfig.ENABLE_SERVICE = true;
+            if (StringUtil.isNotBlank(serviceClassSuffix))
+                this.generatorConfig.SERVICE_CLASS_SUFFIX = serviceClassSuffix;
             return this;
         }
 
         /**
          * 生成Controller代码
+         *
          * @return SingleModuleBuilder
          */
         public SingleModuleBuilder enableController() {
@@ -113,6 +128,7 @@ public class BingoGeneratorConfig {
 
         /**
          * 构造代码生成配置
+         *
          * @return BingoGeneratorConfig
          */
         public BingoGeneratorConfig build() {
@@ -145,14 +161,26 @@ public class BingoGeneratorConfig {
 
         /**
          * 设置数据库
-         * @param dbUrl 数据库Url
+         *
+         * @param dbUrl    数据库Url
          * @param userName 用户名
          * @param password 密码
          * @return MultiModuleBuilder
          */
-        public MultiModuleBuilder dataSource(String dbUrl,String userName,String password){
+        public MultiModuleBuilder dataSource(String dbUrl, String userName, String password) {
             DataSourceConfig.Builder builder = new DataSourceConfig.Builder(dbUrl, userName, password);
             this.generatorConfig.DATABASE = builder;
+            return this;
+        }
+
+
+        /**
+         * 覆盖已存在文件
+         *
+         * @return MultiModuleBuilder
+         */
+        public MultiModuleBuilder fileOverride() {
+            this.generatorConfig.FILE_OVERRIDE = true;
             return this;
         }
 
@@ -169,6 +197,7 @@ public class BingoGeneratorConfig {
 
         /**
          * 启用Swagger注解，默认不启用
+         *
          * @return MultiModuleBuilder
          */
         public MultiModuleBuilder enableSwagger() {
@@ -203,7 +232,7 @@ public class BingoGeneratorConfig {
         /**
          * 设置生成的entity代码所属的模块名和包名
          *
-         * @param moduleName 模块名
+         * @param moduleName  模块名
          * @param packageName 包名
          * @return MultiModuleBuilder
          */
@@ -216,7 +245,7 @@ public class BingoGeneratorConfig {
         /**
          * 设置生成的mapper代码所属的模块名和包名
          *
-         * @param moduleName 模块名
+         * @param moduleName  模块名
          * @param packageName 包名
          * @return MultiModuleBuilder
          */
@@ -229,18 +258,20 @@ public class BingoGeneratorConfig {
         /**
          * 设置生成的service和serviceImpl代码所属的模块名和包名
          *
-         * @param serviceModuleName service代码所属模块名
-         * @param servicePackageName service代码包名
-         * @param serviceImplModuleName serviceImpl代码所属模块名
+         * @param serviceModuleName      service代码所属模块名
+         * @param servicePackageName     service代码包名
+         * @param serviceImplModuleName  serviceImpl代码所属模块名
          * @param serviceImplPackageName serviceImpl代码包名
          * @return MultiModuleBuilder
          */
-        public MultiModuleBuilder service(String serviceModuleName, String servicePackageName, String serviceImplModuleName, String serviceImplPackageName) {
+        public MultiModuleBuilder service(String serviceModuleName, String servicePackageName, String serviceImplModuleName, String serviceImplPackageName, String serviceClassSuffix) {
             this.generatorConfig.SERVICE_MODULE_NAME = serviceModuleName;
             this.generatorConfig.SERVICE_PACKAGE_NAME = servicePackageName;
             this.generatorConfig.SERVICE_IMPL_MODULE_NAME = serviceImplModuleName;
             this.generatorConfig.SERVICE_IMPL_PACKAGE_NAME = serviceImplPackageName;
             this.generatorConfig.ENABLE_SERVICE = true;
+            if (StringUtil.isNotBlank(serviceClassSuffix))
+                this.generatorConfig.SERVICE_CLASS_SUFFIX = serviceClassSuffix;
             return this;
         }
 
@@ -248,7 +279,7 @@ public class BingoGeneratorConfig {
         /**
          * 设置生成的controller代码所属的模块名和包名
          *
-         * @param moduleName 模块名
+         * @param moduleName  模块名
          * @param packageName 包名
          * @return MultiModuleBuilder
          */
@@ -261,6 +292,7 @@ public class BingoGeneratorConfig {
 
         /**
          * 构造代码生成配置
+         *
          * @return BingoGeneratorConfig
          */
         public BingoGeneratorConfig build() {
@@ -320,6 +352,8 @@ public class BingoGeneratorConfig {
      */
     private boolean ENABLE_CONTROLLER = false;
 
+    private boolean FILE_OVERRIDE = false;
+
     /**
      * 作者
      */
@@ -361,6 +395,11 @@ public class BingoGeneratorConfig {
     private String MAPPER_PACKAGE_NAME;
 
     /**
+     * service类后缀名
+     */
+    private String SERVICE_CLASS_SUFFIX = "Service";
+
+    /**
      * service类所属模块
      */
     private String SERVICE_MODULE_NAME;
@@ -396,10 +435,14 @@ public class BingoGeneratorConfig {
     }
 
 
-    public DataSourceConfig.Builder database(){
+    public DataSourceConfig.Builder database() {
         return DATABASE;
     }
 
+
+    public boolean fileOverride() {
+        return FILE_OVERRIDE;
+    }
 
     public String author() {
         return AUTHOR;
@@ -430,7 +473,7 @@ public class BingoGeneratorConfig {
     }
 
     public String entityPackageName() {
-        return StringUtil.isNotBlank(ENTITY_PACKAGE_NAME)?ENTITY_PACKAGE_NAME:DEFAULT_PACKAGE_NAME;
+        return StringUtil.isNotBlank(ENTITY_PACKAGE_NAME) ? ENTITY_PACKAGE_NAME : DEFAULT_PACKAGE_NAME;
     }
 
     public String mapperModuleName() {
@@ -438,7 +481,12 @@ public class BingoGeneratorConfig {
     }
 
     public String mapperPackageName() {
-        return StringUtil.isNotBlank(MAPPER_PACKAGE_NAME)?MAPPER_PACKAGE_NAME:DEFAULT_PACKAGE_NAME;
+        return StringUtil.isNotBlank(MAPPER_PACKAGE_NAME) ? MAPPER_PACKAGE_NAME : DEFAULT_PACKAGE_NAME;
+    }
+
+
+    public String serviceClassSuffix() {
+        return SERVICE_CLASS_SUFFIX;
     }
 
     public String serviceModuleName() {
@@ -446,7 +494,7 @@ public class BingoGeneratorConfig {
     }
 
     public String servicePackageName() {
-        return StringUtil.isNotBlank(SERVICE_PACKAGE_NAME)?SERVICE_PACKAGE_NAME:DEFAULT_PACKAGE_NAME;
+        return StringUtil.isNotBlank(SERVICE_PACKAGE_NAME) ? SERVICE_PACKAGE_NAME : DEFAULT_PACKAGE_NAME;
     }
 
     public String serviceImplModuleName() {
@@ -454,7 +502,7 @@ public class BingoGeneratorConfig {
     }
 
     public String serviceImplPackageName() {
-        return StringUtil.isNotBlank(SERVICE_IMPL_PACKAGE_NAME)?SERVICE_IMPL_PACKAGE_NAME:DEFAULT_PACKAGE_NAME;
+        return StringUtil.isNotBlank(SERVICE_IMPL_PACKAGE_NAME) ? SERVICE_IMPL_PACKAGE_NAME : DEFAULT_PACKAGE_NAME;
     }
 
     public String controllerModuleName() {
@@ -462,7 +510,7 @@ public class BingoGeneratorConfig {
     }
 
     public String controllerPackageName() {
-        return StringUtil.isNotBlank(CONTROLLER_PACKAGE_NAME)?CONTROLLER_PACKAGE_NAME:DEFAULT_PACKAGE_NAME;
+        return StringUtil.isNotBlank(CONTROLLER_PACKAGE_NAME) ? CONTROLLER_PACKAGE_NAME : DEFAULT_PACKAGE_NAME;
     }
 
     /**
@@ -489,6 +537,14 @@ public class BingoGeneratorConfig {
         String modulePath = StringUtil.isNotBlank(MAPPER_MODULE_NAME) ? FILE_SEPARATOR + MAPPER_MODULE_NAME : StringUtil.isNotBlank(DEFAULT_MODULE_NAME) ? FILE_SEPARATOR + DEFAULT_MODULE_NAME : "";
         String packagePath = StringUtil.isNotBlank(MAPPER_PACKAGE_NAME) ? MAPPER_PACKAGE_NAME.replaceAll("\\.", FILE_SEPARATOR) : DEFAULT_PACKAGE_NAME.replaceAll("\\.", FILE_SEPARATOR) + FILE_SEPARATOR + "dao";
         return PARENT_DIR + modulePath + SRC_MAIN_JAVA + packagePath;
+    }
+
+    public String serviceFileFormatter() {
+        return "%s" + this.SERVICE_CLASS_SUFFIX;
+    }
+
+    public String serviceImplFileFormatter() {
+        return "%s" + this.SERVICE_CLASS_SUFFIX + "Impl";
     }
 
     /**

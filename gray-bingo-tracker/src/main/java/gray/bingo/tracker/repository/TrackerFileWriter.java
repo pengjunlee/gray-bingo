@@ -391,8 +391,8 @@ public class TrackerFileWriter {
         String idxFile = formIndexFileName(fileName);
         curMetricIndexFile = new File(idxFile);
         outIndex = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(idxFile, append)));
-        log.info("[      BINGO_TRACKERS] >>>  New metric file created: " + fileName);
-        log.info("[      BINGO_TRACKERS] >>>  New metric index file created: " + idxFile);
+        log.info("[      BINGO_TRACKERS] >>> New metric file created: " + fileName);
+        log.info("[      BINGO_TRACKERS] >>> New metric index file created: " + idxFile);
     }
 
     private boolean validSize() throws Exception {

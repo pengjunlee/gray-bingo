@@ -1,6 +1,6 @@
 package gray.bingo.mybatis.datasource;
 
-import org.springframework.lang.Nullable;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,6 +13,7 @@ import java.util.Map;
  * @版本 1.0
  * @日期 2024-01-21 16:15
  */
+@Slf4j
 public class DBContextHolder {
 
     private static ThreadLocal<String> DB_NAME = new ThreadLocal<>();
@@ -21,7 +22,9 @@ public class DBContextHolder {
 
     private static Map<String, String> DB_MAPPING = new HashMap<>();
 
-    private static Map<String,Long> DB_SLOW_INTERVAL = new HashMap<>();
+    private static Map<String, Long> DB_SLOW_INTERVAL = new HashMap<>();
+
+    private static long DEFAULT_SLOW_INTERVAL = 3000L;
 
     /**
      * 通过索引映射数据库
@@ -95,8 +98,19 @@ public class DBContextHolder {
         DB_MAPPING.put(key, value);
     }
 
-    public static long getSlowInterval(){
-        return DB_SLOW_INTERVAL.getOrDefault(getDBName(),3000L);
+    public static void addDBSlowInterval(String dbName, String interval) {
+        long slowInterval = DEFAULT_SLOW_INTERVAL;
+        try {
+            slowInterval = Long.parseLong(interval);
+        } catch (Exception e) {
+            log.warn("[      HELPER_BUILDER]  -- 慢SQL耗时配置异常: [ dbName = {}, value = {} ] , 使用默认配置！", dbName, interval);
+        }
+        DB_SLOW_INTERVAL.put(dbName, slowInterval);
+    }
+
+    public static boolean slowSql(long time) {
+        if (!DB_SLOW_INTERVAL.containsKey(getDBName())) return false;
+        return time > DB_SLOW_INTERVAL.getOrDefault(getDBName(), DEFAULT_SLOW_INTERVAL);
     }
 
 }

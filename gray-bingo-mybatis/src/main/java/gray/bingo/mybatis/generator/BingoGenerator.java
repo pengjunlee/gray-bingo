@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
-import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.mybatisplus.generator.config.OutputFile;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
@@ -38,43 +37,11 @@ import java.util.Map;
 @Slf4j
 public class BingoGenerator {
 
-
-    /**
-     * mybatis 生成代码
-     *
-     * @param is 配置文件流
-     */
-    public static void generate(InputStream is) {
-        try {
-            List<String> warnings = new ArrayList<String>();
-            boolean overwrite = true;
-            /*ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-            InputStream is = classloader.getResourceAsStream("leech.xml");*/
-            ConfigurationParser cp = new ConfigurationParser(warnings);
-            Configuration config = cp.parseConfiguration(is);
-            DefaultShellCallback callback = new DefaultShellCallback(overwrite);
-            MyBatisGenerator myBatisGenerator = new MyBatisGenerator(config, callback, warnings);
-            myBatisGenerator.generate(null);
-            System.out.println("end");
-        } catch (SQLException e) {
-            log.error("SQLException:{}", e.getMessage());
-        } catch (IOException e) {
-            log.error("IOException:{}", e.getMessage());
-        } catch (InterruptedException e) {
-            log.error("InterruptedException:{}", e.getMessage());
-        } catch (InvalidConfigurationException e) {
-            log.error("InvalidConfigurationException:{}", e.getMessage());
-        } catch (XMLParserException e) {
-            log.error("XMLParserException:{}", e.getMessage());
-        }
-    }
-
-
     /**
      * Mybatis-Plus 生成代码，适用于 mybatis-plus 3.5.1 之后版本
      *
-     * @param tablesNames      要生成代码的表名
-     * @param generatorConfig  生成代码的配置
+     * @param tablesNames     要生成代码的表名
+     * @param generatorConfig 生成代码的配置
      */
     public static void generate(String[] tablesNames, BingoGeneratorConfig generatorConfig) {
 
@@ -115,32 +82,35 @@ public class BingoGenerator {
                                     .addInclude(tablesNames)
                                     // entity
                                     .entityBuilder()
-                                    //.enableFileOverride()
                                     .enableChainModel()
                                     .enableLombok()
                                     .enableRemoveIsPrefix()
-                                    .logicDeleteColumnName("is_delete")
+                                    .logicDeleteColumnName("deleted")
                                     .idType(IdType.ASSIGN_ID)
                                     .addTableFills(new Column("create_time", FieldFill.INSERT))
                                     .addTableFills(new Property("updateTime", FieldFill.INSERT_UPDATE))
                                     .enableTableFieldAnnotation()
                                     // mapper
                                     .mapperBuilder()
-                                    //.enableFileOverride()
                                     .enableBaseResultMap()
                                     .enableBaseColumnList()
                                     .superClass(BaseMapper.class)
                                     .formatMapperFileName("%sMapper")
-                                    .formatXmlFileName("%sMapper")
-                                    .enableMapperAnnotation();
-
+                                    .formatXmlFileName("%sMapper");
+                            if (generatorConfig.fileOverride()) {
+                                builder.entityBuilder().enableFileOverride()
+                                        .mapperBuilder().enableFileOverride();
+                            }
                             if (generatorConfig.enableService()) {
                                 // service
                                 builder.serviceBuilder()
                                         //.enableFileOverride()
                                         .superServiceClass(IService.class)
-                                        .formatServiceFileName("%sService")
-                                        .formatServiceImplFileName("%sServiceImp");
+                                        .formatServiceFileName(generatorConfig.serviceFileFormatter())
+                                        .formatServiceImplFileName(generatorConfig.serviceImplFileFormatter());
+                                if (generatorConfig.fileOverride()) {
+                                    builder.serviceBuilder().enableFileOverride();
+                                }
                             }
 
                             if (generatorConfig.enableController()) {
@@ -149,6 +119,9 @@ public class BingoGenerator {
                                         //.enableFileOverride()
                                         .enableRestStyle()
                                         .formatFileName("%sController");
+                                if (generatorConfig.fileOverride()) {
+                                    builder.controllerBuilder().enableFileOverride();
+                                }
                             }
                         }
                 )
@@ -175,5 +148,33 @@ public class BingoGenerator {
         }
 
         return pathInfo;
+    }
+
+    public static void main(String[] args) {
+        // 数据库url
+        final String DB_URL = "jdbc:mysql://192.168.2.2:3306/blossom?useUnicode=true&characterEncoding=UTF8&autoReconnect=true&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=Asia/Shanghai";
+        // 数据库用户名
+        final String USERNAME = "root";
+        // 数据库密码
+        final String PASSWORD = "123456";
+        // 需要生成代码的数据表
+        String[] tableNames = {"base_user"};
+        BingoGeneratorConfig generatorConfig = BingoGeneratorConfig.build4MultiModule()
+                .dataSource(DB_URL, USERNAME, PASSWORD)
+                .author("二月菌")
+                .entity("demo-common", "gray.demo.common.entity")
+                .mapper("demo-infrastructure", "gray.demo.infrastructure.mapper")
+                .service("demo-infrastructure", "gray.demo.infrastructure.repo", "demo-infrastructure", "gray.demo.infrastructure.repo.impl","Repo")
+                .controller("demo-adapter", "gray.demo.adapter.controller")
+                .build();
+
+//        BingoPlusConfig generatorConfig = BingoPlusConfig.build4SingleModule()
+//                .author("二月菌")
+//                .enableSwagger(false)
+//                .packageName("gray.demo.infrastructure")
+//                .enableService(true)
+//                .enableController(true)
+//                .build();
+        BingoGenerator.generate(tableNames, generatorConfig);
     }
 }

@@ -39,7 +39,7 @@ public class TrackerProperties {
         log.info("[      BINGO_TRACKERS] >>> 适配框架: [ {} ],收集器状态[ {} ],存储方式[ {} ].", enables, collectorStatus, repository.getType());
         if (collector != null) {
             if (collector.getRate() / Double.valueOf(TrackerConstants.COLLECTOR_MAX_RATE) > 0.5) {
-                log.warn("[      BINGO_TRACKERS] >>> 当前采样率: [ {}/{} ], 生成环境建议调小该值！", collector.getRate(), TrackerConstants.COLLECTOR_MAX_RATE);
+                log.warn("[      BINGO_TRACKERS]  -- 当前采样率: [ {}/{} ], 生成环境建议调小该值！", collector.getRate(), TrackerConstants.COLLECTOR_MAX_RATE);
             }
         }
     }

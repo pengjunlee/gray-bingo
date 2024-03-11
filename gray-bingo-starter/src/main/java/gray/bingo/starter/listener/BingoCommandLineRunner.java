@@ -15,8 +15,8 @@ import org.springframework.stereotype.Component;
 public class BingoCommandLineRunner implements CommandLineRunner, Ordered {
     @Override
     public void run(String... args) throws Exception {
-        log.info("[  COMMANDLINE_RUNNER] >>> 开始执行 [ {} ]", BingoApplicationRunner.class);
-        log.info("[  COMMANDLINE_RUNNER] >>> BeanDefinitionCount: [ {} ]", StringUtil.join(args, ","));
+        log.info("[  COMMANDLINE_RUNNER] >>> 开始执行 [ {} ]", BingoCommandLineRunner.class);
+        log.info("[  COMMANDLINE_RUNNER]  -- args: [ {} ]", StringUtil.join(args, ","));
     }
 
     @Override

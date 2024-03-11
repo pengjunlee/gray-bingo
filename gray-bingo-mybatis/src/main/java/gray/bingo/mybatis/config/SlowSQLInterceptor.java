@@ -49,7 +49,7 @@ public class SlowSQLInterceptor implements Interceptor {
             return invocation.proceed();
         } finally {
             long ms = System.currentTimeMillis() - start;
-            if (ms >= DBContextHolder.getSlowInterval()) {
+            if (DBContextHolder.slowSql(ms)) {
                 MappedStatement mappedStatement = (MappedStatement) invocation.getArgs()[0];
                 Object parameter = null;
                 if (invocation.getArgs().length > 1) {
@@ -58,7 +58,7 @@ public class SlowSQLInterceptor implements Interceptor {
                 BoundSql boundSql = mappedStatement.getBoundSql(parameter);
                 Configuration configuration = mappedStatement.getConfiguration();
                 String sql = this.getSql(configuration, boundSql);
-                log.error("SLOW_SQL >> [{}ms] {}", StringUtil.leftFill(String.valueOf(ms), ' ', 4), sql);
+                log.warn("[            SLOW_SQL]  -- 耗时 [ {}ms ] {} ", StringUtil.leftFill(String.valueOf(ms), ' ', 5), sql);
             }
         }
     }

@@ -15,7 +15,7 @@ public class BingoApplicationRunner implements ApplicationRunner, Ordered {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         log.info("[  APPLICATION_RUNNER] >>> 开始执行 [ {} ]", BingoApplicationRunner.class);
-        log.info("[  APPLICATION_RUNNER] >>> BeanDefinitionCount: [ {} ]", args.getSourceArgs());
+        log.info("[  APPLICATION_RUNNER]  -- args: [ {} ]", (Object) args.getSourceArgs());
     }
 
     @Override

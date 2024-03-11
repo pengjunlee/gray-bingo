@@ -30,11 +30,11 @@ public class BingoHelperBuilderRegistrar implements ImportBeanDefinitionRegistra
     }
 
     public static void registryAllBuilders(AnnotationMetadata annotationMetadata, BeanDefinitionRegistry beanDefinitionRegistry) {
-        log.info("[      HELPER_BUILDER] >>> 开始注册： [ {} ]", BingoHelperBuilderRegistrar.class);
+        log.info("[      HELPER_BUILDER] >>> 开始注册 [ {} ]", BingoHelperBuilderRegistrar.class);
         BingoHelperBuilderRegistrar.annotationMetadata = annotationMetadata;
         BingoHelperBuilderRegistrar.beanDefinitionRegistry = beanDefinitionRegistry;
         Arrays.stream(BingoHelperEnum.values()).forEach(BingoHelperBuilderRegistrar::registry);
-        log.info("[      HELPER_BUILDER] >>> 注册完成： [ {} ]", BingoHelperBuilderRegistrar.class);
+        log.info("[      HELPER_BUILDER] >>> 注册完成 [ {} ]", BingoHelperBuilderRegistrar.class);
     }
 
     public static void registry(BingoHelperEnum helperEnum) {
