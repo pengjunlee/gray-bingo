@@ -1,6 +1,5 @@
 package gray.bingo.mybatis.config;
 
-import gray.bingo.common.constants.BingoHelperCst;
 import gray.bingo.common.utils.StringUtil;
 import gray.bingo.mybatis.datasource.DBContextHolder;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +15,7 @@ import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.type.TypeHandlerRegistry;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
@@ -36,7 +35,7 @@ import java.util.List;
         @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}),
         @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class, CacheKey.class, BoundSql.class}),
 })
-@ConditionalOnProperty(name = BingoHelperCst.BINGO_HELPER_CONFIG_DYNAMIC_DB, havingValue = BingoHelperCst.BINGO_HELPER_OPEN, matchIfMissing = false)
+@Conditional(DynamicDSCondition.class)
 public class SlowSQLInterceptor implements Interceptor {
 
     private static final ThreadLocal<SimpleDateFormat> DATETIME_FORMATTER = ThreadLocal

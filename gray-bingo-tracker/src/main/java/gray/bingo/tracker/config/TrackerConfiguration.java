@@ -1,5 +1,8 @@
 package gray.bingo.tracker.config;
 
+import gray.bingo.common.constants.BingoCst;
+import gray.bingo.common.constants.DefaultCst;
+import gray.bingo.common.constants.SpringCst;
 import gray.bingo.tracker.adapter.aspect.TrackerStartAspect;
 import gray.bingo.tracker.adapter.spring.TrackerFilter;
 import gray.bingo.tracker.collector.TrackerCollector;
@@ -7,7 +10,6 @@ import gray.bingo.tracker.collector.TrackerLocalCacheCollector;
 import gray.bingo.tracker.repository.LocalDiskFileRepository;
 import gray.bingo.tracker.repository.TrackerRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.type.TypeReference;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.*;
@@ -40,7 +42,7 @@ public class TrackerConfiguration {
      * havingValue 为一个不存在的值, 永不开启trace收集
      */
     @Bean(name = "trackerRepository")
-    @ConditionalOnProperty(value = "bingo.tracker.repository.type", havingValue = "disk")
+    @ConditionalOnProperty(value = BingoCst.CONF_TRACKER_REPOSITORY_TYPE, havingValue = BingoCst.VAL_TRACKER_REPOSITORY_TYPE_DISK)
     public TrackerRepository trackerRepository(TrackerProperties trackerProperties) {
         return new LocalDiskFileRepository(trackerProperties);
     }
@@ -53,7 +55,7 @@ public class TrackerConfiguration {
      */
     @Bean
     @ConditionalOnBean(name = "trackerRepository")
-    @ConditionalOnProperty(value = "bingo.tracker.collector.enabled", havingValue = "true")
+    @ConditionalOnProperty(value = BingoCst.CONF_TRACKER_COLLECTOR_ENABLED, havingValue = DefaultCst.TRUE)
     public TrackerCollector traceCollector(TrackerProperties trackerProperties) {
         return new TrackerLocalCacheCollector(trackerProperties);
     }
@@ -62,14 +64,14 @@ public class TrackerConfiguration {
     private static class SpringCondition implements Condition {
         @Override
         public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
-            return context.getEnvironment().getProperty("bingo.tracker.enables").contains("spring");
+            return context.getEnvironment().getProperty(BingoCst.CONF_TRACKER_ENABLES).contains(SpringCst.SPRING);
         }
     }
 
     private static class AspectCondition implements Condition {
         @Override
         public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
-            return context.getEnvironment().getProperty("bingo.tracker.enables").contains("annotation");
+            return context.getEnvironment().getProperty(BingoCst.CONF_TRACKER_ENABLES).contains(SpringCst.ANNOTATION);
         }
     }
 

@@ -2,15 +2,15 @@ package gray.bingo.starter.listener;
 
 import gray.bingo.common.config.BingoMeta;
 import gray.bingo.common.config.BingoProp;
-import gray.bingo.common.constants.BingoHelperCst;
+import gray.bingo.common.constants.BingoCst;
+import gray.bingo.common.constants.DefaultCst;
+import gray.bingo.common.constants.SpringCst;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringBootVersion;
 import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.core.Ordered;
 import org.springframework.core.env.ConfigurableEnvironment;
-
-import java.util.Map;
 
 
 /**
@@ -21,11 +21,11 @@ import java.util.Map;
  * @日期 2024-01-21 14:51
  */
 @Slf4j
-public class PropertiesCheckListener implements ApplicationListener<ApplicationEnvironmentPreparedEvent>, Ordered {
+public class BingoPropertiesListener implements ApplicationListener<ApplicationEnvironmentPreparedEvent>, Ordered {
 
     @Override
     public void onApplicationEvent(ApplicationEnvironmentPreparedEvent event) {
-        log.info("[APPLICATION_LISTENER] >>> 开始执行 [ {} ]", PropertiesCheckListener.class);
+        log.info("[APPLICATION_LISTENER] >>> 开始执行 [ {} ]", BingoPropertiesListener.class);
         ConfigurableEnvironment env = event.getEnvironment();
 
         // 执行配置校验逻辑
@@ -33,16 +33,17 @@ public class PropertiesCheckListener implements ApplicationListener<ApplicationE
 
         // 绑定Environment对象到BingoProp
         BingoProp.bind(env);
-        String applicationName = BingoProp.getProperty("spring.application.name", String.class, "服务名称未配置");
-        String profilesActive = BingoProp.getProperty("spring.profiles.active", String.class, "default");
-        String springbootVersion = SpringBootVersion.getVersion();
-        BingoMeta.update(applicationName, profilesActive, springbootVersion);
+
+        String applicationName = BingoProp.getProperty(SpringCst.SPRING_APPLICATION_NAME, String.class, DefaultCst.UNKNOWN);
+        String profilesActive = BingoProp.getProperty(SpringCst.SPRING_PROFILES_ACTIVE, String.class, DefaultCst.DEFAULT);
+        String springBootVersion = SpringBootVersion.getVersion();
+        BingoMeta.update(applicationName, profilesActive, springBootVersion);
 
         // 将其中bingo.helper配置绑定到BingoMeta
-        Map<String, String> bingoHelperConfigs = BingoProp.getMap(BingoHelperCst.BINGO_HELPER_CONF_NAME);
-        BingoMeta.setMetaHelperConfigs(bingoHelperConfigs);
+        String bingoHelperEnables = BingoProp.getProperty(BingoCst.CONF_HELPER_ENABLES,String.class);
+        BingoMeta.setMetaHelperConfigs(bingoHelperEnables);
         BingoMeta.print();
-        log.info("[APPLICATION_LISTENER] >>> 执行结束 [ {} ]", PropertiesCheckListener.class);
+        log.info("[APPLICATION_LISTENER] >>> 执行结束 [ {} ]", BingoPropertiesListener.class);
     }
 
     private void check(ConfigurableEnvironment env) {

@@ -2,9 +2,10 @@ package gray.bingo.cache.caffeine;
 
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.Expiry;
+import gray.bingo.common.Enums.BingoHelperEnum;
 import gray.bingo.common.config.BingoHelperBuilder;
 import gray.bingo.common.config.BingoMeta;
-import gray.bingo.common.constants.BingoHelperCst;
+import gray.bingo.common.constants.BingoCst;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.core.type.AnnotationMetadata;
@@ -26,17 +27,17 @@ public class CaffeineHelperBuilder extends BingoHelperBuilder {
      * caffeine: 'open'
      */
     public void build(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
-        if (BingoMeta.helperEnabled(BingoHelperCst.BINGO_HELPER_CAFFEINE)) {
+        if (BingoMeta.helperEnabled(BingoHelperEnum.CAFFEINE.getCode())) {
             this.initCaffeineClient();
             log.info("[      HELPER_BUILDER]  -- 注册组件 [ {} ] 成功！", helperName());
         } else {
-            log.info("[      HELPER_BUILDER]  -- 注册组件 [ {} ] 失败，原因组件未启用，请检查配置项: [ {} ] ！", helperName(), BingoHelperCst.BINGO_HELPER_CONFIG_CAFFEINE);
+            log.info("[      HELPER_BUILDER]  -- 注册组件 [ {} ] 失败，原因组件未启用，请检查配置项: [ {} ] ！", helperName(), BingoCst.CONF_HELPER_ENABLES);
         }
     }
 
     @Override
     public String helperName() {
-        return BingoHelperCst.BINGO_HELPER_CAFFEINE;
+        return BingoHelperEnum.CAFFEINE.getCode();
     }
 
     private void initCaffeineClient() {

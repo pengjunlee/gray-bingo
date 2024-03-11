@@ -5,7 +5,7 @@ import com.zaxxer.hikari.HikariDataSource;
 import gray.bingo.common.config.BingoHelperBuilder;
 import gray.bingo.common.config.BingoMeta;
 import gray.bingo.common.config.BingoProp;
-import gray.bingo.common.constants.BingoHelperCst;
+import gray.bingo.common.constants.BingoCst;
 import gray.bingo.common.exceptions.BingoException;
 import gray.bingo.common.utils.RSAUtil;
 import gray.bingo.common.utils.StringUtil;
@@ -39,7 +39,7 @@ public class DynamicDataSourceHelperBuilder extends BingoHelperBuilder {
      */
     @Override
     public void build(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
-        if (BingoMeta.helperEnabled(BingoHelperCst.BINGO_HELPER_DYNAMIC_DB)) {
+        if (BingoMeta.helperEnabled(BingoCst.BINGO_HELPER_DYNAMIC_DB)) {
             Map<String, String> dbMap = BingoProp.getMap("bingo.db");
             if (ObjectUtils.isEmpty(dbMap)) {
                 log.warn("[      HELPER_BUILDER]  -- 注册组件 [ {} ] 失败，原因自定义数据源为空，请检查配置项: [ {} ] ！", helperName(), "bingo.db");
@@ -59,7 +59,7 @@ public class DynamicDataSourceHelperBuilder extends BingoHelperBuilder {
             BingoProp.getMap("bingo.slow-sql").forEach(DBContextHolder::addDBSlowInterval);
             log.info("[      HELPER_BUILDER]  -- 注册组件 [ {} ] 成功！", helperName());
         } else {
-            log.warn("[      HELPER_BUILDER]  -- 注册组件 [ {} ] 失败，原因组件未启用，请检查配置项: [ {} ] ！", helperName(), BingoHelperCst.BINGO_HELPER_CONFIG_DYNAMIC_DB);
+            log.warn("[      HELPER_BUILDER]  -- 注册组件 [ {} ] 失败，原因组件未启用，请检查配置项: [ {} ] ！", helperName(), BingoCst.CONF_HELPER_ENABLES);
         }
     }
 
@@ -180,6 +180,6 @@ public class DynamicDataSourceHelperBuilder extends BingoHelperBuilder {
 
     @Override
     public String helperName() {
-        return BingoHelperCst.BINGO_HELPER_DYNAMIC_DB;
+        return BingoCst.BINGO_HELPER_DYNAMIC_DB;
     }
 }

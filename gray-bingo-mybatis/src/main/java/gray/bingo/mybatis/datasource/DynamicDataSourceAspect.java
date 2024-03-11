@@ -1,13 +1,13 @@
 package gray.bingo.mybatis.datasource;
 
-import gray.bingo.common.constants.BingoHelperCst;
 import gray.bingo.common.utils.StringUtil;
+import gray.bingo.mybatis.config.DynamicDSCondition;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +16,7 @@ import java.lang.reflect.Method;
 @Aspect
 @Component
 @Order(-1)
-@ConditionalOnProperty(value = BingoHelperCst.BINGO_HELPER_CONFIG_DYNAMIC_DB, havingValue = "open")
+@Conditional(DynamicDSCondition.class)
 public class DynamicDataSourceAspect {
 
     /**
