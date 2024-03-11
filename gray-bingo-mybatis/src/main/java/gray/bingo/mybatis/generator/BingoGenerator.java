@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Mybatis/Mybatis-Plus 实体生成工具类
+ * Mybatis/Mybatis-Plus 代码生成器
  *
  * @作者 二月菌
  * @版本 1.0
@@ -36,11 +36,11 @@ import java.util.Map;
  */
 
 @Slf4j
-public class BingoMybatisGenerator {
+public class BingoGenerator {
 
 
     /**
-     * mybatis 实体生成方法
+     * mybatis 生成代码
      *
      * @param is 配置文件流
      */
@@ -71,13 +71,13 @@ public class BingoMybatisGenerator {
 
 
     /**
-     * Mybatis-Plus 实体生成方法，适用于 mybatis-plus 3.5.1 之后版本
+     * Mybatis-Plus 生成代码，适用于 mybatis-plus 3.5.1 之后版本
      *
      * @param dataSourceConfig 数据源配置
      * @param tablesNames      要生成代码的表名
      * @param generatorConfig  生成代码的配置
      */
-    public static void generate(DataSourceConfig.Builder dataSourceConfig, String[] tablesNames, BingoPlusConfig generatorConfig) {
+    public static void generate(DataSourceConfig.Builder dataSourceConfig, String[] tablesNames, BingoGeneratorConfig generatorConfig) {
 
         FastAutoGenerator.create(dataSourceConfig)
                 // 全局配置
@@ -97,7 +97,8 @@ public class BingoMybatisGenerator {
                                     .parent("")
                                     .xml("mappers")
                                     .entity(generatorConfig.entityPackageName())
-                                    .mapper(generatorConfig.mapperPackageName()).pathInfo(getPathInfo(generatorConfig));
+                                    .mapper(generatorConfig.mapperPackageName())
+                                    .pathInfo(getPathInfo(generatorConfig));
                             if (generatorConfig.enableService()) {
                                 builder.service(generatorConfig.servicePackageName())
                                         .serviceImpl(generatorConfig.serviceImplPackageName());
@@ -123,6 +124,7 @@ public class BingoMybatisGenerator {
                                     .idType(IdType.ASSIGN_ID)
                                     .addTableFills(new Column("create_time", FieldFill.INSERT))
                                     .addTableFills(new Property("updateTime", FieldFill.INSERT_UPDATE))
+                                    .enableTableFieldAnnotation()
                                     // mapper
                                     .mapperBuilder()
                                     //.enableFileOverride()
@@ -158,12 +160,8 @@ public class BingoMybatisGenerator {
 
     /**
      * 获取路径信息map
-     *
-     * @return {@link Map <  OutputFile , String> }
-     * @author MK
-     * @date 2022/4/21 21:21
      */
-    private static Map<OutputFile, String> getPathInfo(BingoPlusConfig generatorConfig) {
+    private static Map<OutputFile, String> getPathInfo(BingoGeneratorConfig generatorConfig) {
         Map<OutputFile, String> pathInfo = new HashMap<>(5);
         pathInfo.put(OutputFile.entity, generatorConfig.entityPath());
         pathInfo.put(OutputFile.mapper, generatorConfig.mapperPath());
@@ -179,43 +177,4 @@ public class BingoMybatisGenerator {
 
         return pathInfo;
     }
-    /**
-     * 代码示例
-     */
-
-//    public static void main(String[] args) {
-//        /**
-//         * 数据库url
-//         */
-//        final String DB_URL = "jdbc:mysql://192.168.2.2:3306/blossom?useUnicode=true&characterEncoding=UTF8&autoReconnect=true&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=Asia/Shanghai";
-//        /**
-//         * 数据库用户名
-//         */
-//        final String USERNAME = "root";
-//        /**
-//         * 数据库密码
-//         */
-//        final String PASSWORD = "123456";
-//        DataSourceConfig.Builder builder = new DataSourceConfig.Builder(DB_URL, USERNAME, PASSWORD);
-//        String[] tableNames = {"base_user"};
-//        BingoPlusGeneratorConfig generatorConfig = BingoPlusGeneratorConfig.build4MultiModule()
-//                .author("二月菌")
-//                .enableSwagger(false)
-//                // .entity("demo-common", "gray.demo.common.entity")
-//                .entity("", "")
-//                .mapper("demo-infrastructure", "gray.demo.infrastructure.mapper")
-//                .service("demo-infrastructure", "gray.demo.infrastructure.service", "demo-infrastructure", "gray.demo.infrastructure.service.impl")
-//                // .controller("demo-adapter", "gray.demo.adapter.controller")
-//                .build();
-//
-//        BingoPlusGeneratorConfig generatorConfig = BingoPlusGeneratorConfig.build4SingleModule()
-//                .author("二月菌")
-//                .enableSwagger(false)
-//                .packageName("gray.demo.infrastructure")
-//                .enableService(true)
-//                .enableController(true)
-//                .build();
-//        BingoPlusGenerator.generate(builder, tableNames, generatorConfig);
-//
-//    }
 }
