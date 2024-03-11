@@ -1,7 +1,10 @@
 package gray.bingo.mybatis.generator;
 
+import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import gray.bingo.common.utils.LogicUtil;
 import gray.bingo.common.utils.StringUtil;
+
+import java.util.Objects;
 
 
 /**
@@ -38,6 +41,21 @@ public class BingoGeneratorConfig {
             super();
             this.generatorConfig = new BingoGeneratorConfig(false);
         }
+
+        /**
+         * 设置数据库
+         * @param dbUrl 数据库Url
+         * @param userName 用户名
+         * @param password 密码
+         * @return SingleModuleBuilder
+         */
+        public SingleModuleBuilder dataSource(String dbUrl,String userName,String password){
+            DataSourceConfig.Builder builder = new DataSourceConfig.Builder(dbUrl, userName, password);
+            this.generatorConfig.DATABASE = builder;
+            return this;
+        }
+
+
 
         /**
          * @param author 作者
@@ -106,6 +124,7 @@ public class BingoGeneratorConfig {
          * 构造配置前校验
          */
         private void beforeBuild() {
+            LogicUtil.mustTrue(Objects.nonNull(this.generatorConfig.DATABASE)).throwException("数据库未设置！");
             LogicUtil.mustTrue(StringUtil.isNotBlank(this.generatorConfig.defaultPackageName())).throwException("包名未设置！");
         }
 
@@ -122,6 +141,19 @@ public class BingoGeneratorConfig {
         public MultiModuleBuilder() {
             super();
             this.generatorConfig = new BingoGeneratorConfig(true);
+        }
+
+        /**
+         * 设置数据库
+         * @param dbUrl 数据库Url
+         * @param userName 用户名
+         * @param password 密码
+         * @return MultiModuleBuilder
+         */
+        public MultiModuleBuilder dataSource(String dbUrl,String userName,String password){
+            DataSourceConfig.Builder builder = new DataSourceConfig.Builder(dbUrl, userName, password);
+            this.generatorConfig.DATABASE = builder;
+            return this;
         }
 
         /**
@@ -240,6 +272,7 @@ public class BingoGeneratorConfig {
          * 构造配置前校验
          */
         public void beforeBuild() {
+            LogicUtil.mustTrue(Objects.nonNull(this.generatorConfig.DATABASE)).throwException("数据库未设置！");
             if (StringUtil.isNotBlank(this.generatorConfig.defaultPackageName())) return;
             LogicUtil.mustTrue(StringUtil.isNotBlank(this.generatorConfig.entityPackageName())).throwException("entity包名未设置！");
             LogicUtil.mustTrue(StringUtil.isNotBlank(this.generatorConfig.mapperPackageName())).throwException("mapper包名未设置！");
@@ -274,6 +307,8 @@ public class BingoGeneratorConfig {
      * 资源文件基本路径
      */
     private static final String SRC_MAIN_RESOURCES = "/src/main/resources/";
+
+    private DataSourceConfig.Builder DATABASE;
 
     /**
      * 是否生成Service代码
@@ -359,6 +394,12 @@ public class BingoGeneratorConfig {
     private BingoGeneratorConfig(boolean multiModule) {
         super();
     }
+
+
+    public DataSourceConfig.Builder database(){
+        return DATABASE;
+    }
+
 
     public String author() {
         return AUTHOR;

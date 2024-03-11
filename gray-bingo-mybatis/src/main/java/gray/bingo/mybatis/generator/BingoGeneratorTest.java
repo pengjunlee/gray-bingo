@@ -39,9 +39,10 @@ public class BingoGeneratorTest {
          * 数据库密码
          */
         final String PASSWORD = "123456";
-        DataSourceConfig.Builder builder = new DataSourceConfig.Builder(DB_URL, USERNAME, PASSWORD);
+
         String[] tableNames = {"base_user"};
         BingoGeneratorConfig generatorConfig = BingoGeneratorConfig.build4MultiModule()
+                .dataSource(DB_URL, USERNAME, PASSWORD)
                 .author("二月菌")
                 .enableSwagger()
                 // .entity("demo-common", "gray.demo.common.entity")
@@ -58,7 +59,7 @@ public class BingoGeneratorTest {
 //                .enableService(true)
 //                .enableController(true)
 //                .build();
-        BingoGenerator.generate(builder, tableNames, generatorConfig);
+        BingoGenerator.generate(tableNames, generatorConfig);
     }
 
     /**

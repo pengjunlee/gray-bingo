@@ -73,13 +73,12 @@ public class BingoGenerator {
     /**
      * Mybatis-Plus 生成代码，适用于 mybatis-plus 3.5.1 之后版本
      *
-     * @param dataSourceConfig 数据源配置
      * @param tablesNames      要生成代码的表名
      * @param generatorConfig  生成代码的配置
      */
-    public static void generate(DataSourceConfig.Builder dataSourceConfig, String[] tablesNames, BingoGeneratorConfig generatorConfig) {
+    public static void generate(String[] tablesNames, BingoGeneratorConfig generatorConfig) {
 
-        FastAutoGenerator.create(dataSourceConfig)
+        FastAutoGenerator.create(generatorConfig.database())
                 // 全局配置
                 .globalConfig(builder -> {
                             builder.author(generatorConfig.author())
