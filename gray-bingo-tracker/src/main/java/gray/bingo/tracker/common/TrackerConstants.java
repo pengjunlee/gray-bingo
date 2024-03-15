@@ -1,7 +1,7 @@
 package gray.bingo.tracker.common;
 
 import gray.bingo.tracker.adapter.aspect.TrackerStart;
-import gray.bingo.tracker.adapter.spring.TrackerTaskDecorator;
+import gray.bingo.tracker.adapter.async.TrackerTaskDecorator;
 
 import java.util.HashSet;
 import java.util.Set;

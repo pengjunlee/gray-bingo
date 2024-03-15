@@ -35,6 +35,11 @@ public final class SystemUtil {
     private static String ip;
     private static String hostName;
 
+    /**
+     * 计算机核数
+     */
+    private static int cpuCores = Runtime.getRuntime().availableProcessors();;
+
     static {
         try {
             // Init the host information.
@@ -78,6 +83,13 @@ public final class SystemUtil {
         return hostName;
     }
 
+    /**
+     * 获取计算机核数
+     * @return
+     */
+    public static int getCpuCores() {
+        return cpuCores;
+    }
 
     /**
      * Resolve and get current process ID.

@@ -1,22 +1,40 @@
 package gray.bingo.tracker.config;
 
+import cn.hutool.core.thread.ThreadFactoryBuilder;
+import feign.RequestInterceptor;
+import gray.bingo.common.config.condition.ContainPropertyCondition;
+import gray.bingo.common.config.condition.KeyValueAnnotation;
 import gray.bingo.common.constants.BingoCst;
 import gray.bingo.common.constants.DefaultCst;
 import gray.bingo.common.constants.SpringCst;
+import gray.bingo.common.utils.SpringUtil;
+import gray.bingo.common.utils.SystemUtil;
 import gray.bingo.tracker.adapter.aspect.TrackerStartAspect;
+import gray.bingo.tracker.adapter.async.TrackerTaskDecorator;
+import gray.bingo.tracker.adapter.feign.TrackerFeignInterceptor;
+import gray.bingo.tracker.adapter.mysql.TrackerMysqlInterceptor;
 import gray.bingo.tracker.adapter.spring.TrackerFilter;
 import gray.bingo.tracker.collector.TrackerCollector;
 import gray.bingo.tracker.collector.TrackerLocalCacheCollector;
+import gray.bingo.tracker.common.TrackerConstants;
 import gray.bingo.tracker.repository.LocalDiskFileRepository;
 import gray.bingo.tracker.repository.TrackerRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.context.annotation.*;
-import org.springframework.core.type.AnnotatedTypeMetadata;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Conditional;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+
+import java.util.concurrent.Executor;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
- * 链路追踪配置
+ * 链路追踪统一配置入口
  *
  * @作者 二月菌
  * @版本 1.0
@@ -27,15 +45,71 @@ import org.springframework.core.type.AnnotatedTypeMetadata;
 public class TrackerConfiguration {
 
     @Bean
-    @Conditional(AspectCondition.class)
+    @KeyValueAnnotation(key = BingoCst.CONF_TRACKER_ENABLES, value = SpringCst.ANNOTATION)
+    @Conditional(ContainPropertyCondition.class)
     public TrackerStartAspect trackerStartAspect() {
         return new TrackerStartAspect();
     }
 
     @Bean
-    @Conditional(SpringCondition.class)
+    @KeyValueAnnotation(key = BingoCst.CONF_TRACKER_ENABLES, value = SpringCst.SPRING)
+    @Conditional(ContainPropertyCondition.class)
     public TrackerFilter trackerFilter() {
         return new TrackerFilter();
+    }
+
+
+    @Bean("trackableExecutor")
+    @KeyValueAnnotation(key = BingoCst.CONF_TRACKER_ENABLES, value = SpringCst.ASYNC)
+    @Conditional(ContainPropertyCondition.class)
+    public Executor trackableExecutor(Environment env) {
+        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        // 核心线程数
+        executor.setCorePoolSize(SystemUtil.getCpuCores());
+        // 最大线程数
+        executor.setMaxPoolSize(SystemUtil.getCpuCores());
+        // 队列容量
+        executor.setQueueCapacity(2048);
+        // 当线程空闲时间达到keepAliveTime，该线程会退出，直到线程数量等于corePoolSize。
+        // executor.setKeepAliveSeconds(60);
+        // 线程名称前缀
+        executor.setThreadNamePrefix(env.getProperty(SpringUtil.APP_NAME) + "-trackable-task-");
+        // 用来设置线程池关闭的时候等待所有任务都完成再继续销毁其他的Bean
+        executor.setWaitForTasksToCompleteOnShutdown(true);
+        // 等待时间
+        executor.setAwaitTerminationSeconds(60);
+        // 增加 TaskDecorator 属性的配置
+        executor.setTaskDecorator(new TrackerTaskDecorator(
+                "SPRING_ASYNC_TASK", TrackerConstants.SPAN_TYPE_SPRING_ASYNC));
+        // CALLER_RUNS：不在新线程中执行任务，而是有调用者所在的线程来执行
+        executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
+
+        // 处理未捕获异常日志打印
+        final Thread.UncaughtExceptionHandler uncaughtExceptionHandler = (t, e) ->
+                log.error("[      BINGO_TRACKERS] >>> 异步线程执行失败。异常信息 => {} : ", e.getMessage(), e);
+
+        ThreadFactoryBuilder threadFactoryBuilder = new ThreadFactoryBuilder();
+        threadFactoryBuilder.setNamePrefix(env.getProperty(SpringUtil.APP_NAME) + "-trackable-task-");
+        threadFactoryBuilder.setUncaughtExceptionHandler(uncaughtExceptionHandler);
+        executor.setThreadFactory(threadFactoryBuilder.build());
+        executor.initialize();
+        return executor;
+    }
+
+    @Bean
+    @ConditionalOnClass(value = SqlSession.class)
+    @KeyValueAnnotation(key = BingoCst.CONF_TRACKER_ENABLES, value = SpringCst.MYSQL)
+    @Conditional(ContainPropertyCondition.class)
+    public TrackerMysqlInterceptor trackerMysqlInterceptor() {
+        return new TrackerMysqlInterceptor();
+    }
+
+    @Bean
+    @ConditionalOnClass(value = RequestInterceptor.class)
+    @KeyValueAnnotation(key = BingoCst.CONF_TRACKER_ENABLES, value = SpringCst.FEIGN)
+    @Conditional(ContainPropertyCondition.class)
+    public TrackerFeignInterceptor trackerFeignInterceptor() {
+        return new TrackerFeignInterceptor();
     }
 
     /**
@@ -58,21 +132,6 @@ public class TrackerConfiguration {
     @ConditionalOnProperty(value = BingoCst.CONF_TRACKER_COLLECTOR_ENABLED, havingValue = DefaultCst.TRUE)
     public TrackerCollector traceCollector(TrackerProperties trackerProperties) {
         return new TrackerLocalCacheCollector(trackerProperties);
-    }
-
-
-    private static class SpringCondition implements Condition {
-        @Override
-        public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
-            return context.getEnvironment().getProperty(BingoCst.CONF_TRACKER_ENABLES).contains(SpringCst.SPRING);
-        }
-    }
-
-    private static class AspectCondition implements Condition {
-        @Override
-        public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
-            return context.getEnvironment().getProperty(BingoCst.CONF_TRACKER_ENABLES).contains(SpringCst.ANNOTATION);
-        }
     }
 
 }

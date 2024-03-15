@@ -3,7 +3,6 @@ package gray.bingo.starter;
 import gray.bingo.starter.config.BingoBanner;
 import gray.bingo.starter.listener.BingoApplicationListener;
 import org.springframework.boot.SpringApplication;
-import org.springframework.context.annotation.ComponentScan;
 
 import java.util.Collections;
 
@@ -14,8 +13,6 @@ import java.util.Collections;
  * @版本 1.0
  * @日期 2024-01-21 14:51
  */
-
-@ComponentScan(basePackages = "com.bingo")
 public class BingoStarter {
 
     public static void run(Class<?> clazz, String[] args) {

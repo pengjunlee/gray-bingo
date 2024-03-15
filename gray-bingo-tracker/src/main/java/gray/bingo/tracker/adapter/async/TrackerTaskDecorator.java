@@ -1,4 +1,4 @@
-package gray.bingo.tracker.adapter.spring;
+package gray.bingo.tracker.adapter.async;
 
 import gray.bingo.common.utils.StringUtil;
 import gray.bingo.tracker.common.Tracker;

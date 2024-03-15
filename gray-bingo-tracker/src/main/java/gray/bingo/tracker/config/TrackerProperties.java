@@ -1,5 +1,6 @@
 package gray.bingo.tracker.config;
 
+import gray.bingo.common.constants.BingoCst;
 import gray.bingo.tracker.common.TrackerConstants;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -9,7 +10,7 @@ import javax.annotation.PostConstruct;
 import java.util.List;
 
 /**
- * 链路追踪配置
+ * 链路追踪配置项
  *
  * @作者 二月菌
  * @版本 1.0
@@ -17,7 +18,7 @@ import java.util.List;
  */
 @Data
 @Slf4j
-@ConfigurationProperties(prefix = "bingo.tracker")
+@ConfigurationProperties(prefix = BingoCst.CONF_TRACKER_PREFIX)
 public class TrackerProperties {
 
     /**

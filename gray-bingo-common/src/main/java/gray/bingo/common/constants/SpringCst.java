@@ -24,8 +24,10 @@ public class SpringCst {
     public static final String ANNOTATION = "annotation";
 
 
+    public static final String ASYNC = "async";
 
+    public static final String MYSQL = "mysql";
 
-
+    public static final String FEIGN = "feign";
 
 }

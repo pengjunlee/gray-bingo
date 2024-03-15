@@ -42,6 +42,7 @@
 
         <!-- 其他三方包版本 -->
         <lombok.version>1.18.8</lombok.version>
+        <hutool.version>5.8.26</hutool.version>
         <!--
         BOM 在 dependencyManagement 中指定依赖版本
         -->
@@ -54,6 +55,19 @@
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/cn.hutool/hutool-core -->
+<!--        <dependency>-->
+<!--            <groupId>cn.hutool</groupId>-->
+<!--            <artifactId>hutool-core</artifactId>-->
+<!--            <version>${hutool.version}</version>-->
+<!--        </dependency>-->
+        <!-- https://mvnrepository.com/artifact/cn.hutool/hutool-all -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>${hutool.version}</version>
+        </dependency>
+
     </dependencies>
 
     <!-- 镜像仓库 -->
