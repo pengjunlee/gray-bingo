@@ -7,7 +7,7 @@ import feign.RequestTemplate;
 public class TrackerFeignInterceptor implements RequestInterceptor {
  
     private final String headerName = "Authorization";
-    private final String headerValue = "Bearer aaaa";
+    private final String headerValue = "Bearer bbbb";
  
     @Override
     public void apply(RequestTemplate template) {
