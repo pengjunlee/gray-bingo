@@ -23,7 +23,7 @@ public class TrackerUtil {
     }
 
     public static boolean checkIgnoreApi(String spanName) {
-        for (String api : TrackerConstants.ignoreInnerApi) {
+        for (String api : TrackerCst.ignoreInnerApi) {
             if (spanName.contains(api)) {
                 return true;
             }
@@ -32,7 +32,7 @@ public class TrackerUtil {
     }
 
     public static boolean checkIgnoreSql(String spanName) {
-        for (String api : TrackerConstants.ignoreInnerSql) {
+        for (String api : TrackerCst.ignoreInnerSql) {
             if (spanName.contains(api)) {
                 return true;
             }

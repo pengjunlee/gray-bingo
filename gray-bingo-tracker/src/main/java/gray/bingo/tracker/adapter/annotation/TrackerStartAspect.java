@@ -1,4 +1,4 @@
-package gray.bingo.tracker.adapter.aspect;
+package gray.bingo.tracker.adapter.annotation;
 
 import gray.bingo.common.utils.StringUtil;
 import gray.bingo.tracker.common.SpanContext;

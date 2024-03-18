@@ -3,7 +3,7 @@ import gray.bingo.common.concurrent.NamedThreadFactory;
 import gray.bingo.common.utils.SpringUtil;
 import gray.bingo.tracker.common.SpanNode;
 import gray.bingo.tracker.common.Tracker;
-import gray.bingo.tracker.common.TrackerConstants;
+import gray.bingo.tracker.common.TrackerCst;
 import gray.bingo.tracker.config.TrackerProperties;
 import gray.bingo.tracker.repository.TrackerRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -101,7 +101,7 @@ public class TrackerLocalCacheCollector implements TrackerCollector {
      */
     @Override
     public void collect(SpanNode spanNode) {
-        if (Math.abs(spanNode.getTraceId().hashCode() % TrackerConstants.COLLECTOR_MAX_RATE) >= properties.getCollector().getRate()) {
+        if (Math.abs(spanNode.getTraceId().hashCode() % TrackerCst.COLLECTOR_MAX_RATE) >= properties.getCollector().getRate()) {
             return;
         }
 
@@ -182,7 +182,7 @@ public class TrackerLocalCacheCollector implements TrackerCollector {
                     return true;
                 }
                 // 忽略全部该名称的 root_span
-                else if (ignoreTracker.getRootSpan() & spanNode.getSpanParentId().equals(TrackerConstants.ROOT_SPAN)) {
+                else if (ignoreTracker.getRootSpan() & spanNode.getSpanParentId().equals(TrackerCst.ROOT_SPAN)) {
                     return true;
                 }
             }
@@ -190,7 +190,7 @@ public class TrackerLocalCacheCollector implements TrackerCollector {
             if (spanNode.getSpanType().equals(ignoreTracker.getSpanType())) {
                 if (!ignoreTracker.getRootSpan()) {
                     return true;
-                } else if (ignoreTracker.getRootSpan() & spanNode.getSpanParentId().equals(TrackerConstants.ROOT_SPAN)) {
+                } else if (ignoreTracker.getRootSpan() & spanNode.getSpanParentId().equals(TrackerCst.ROOT_SPAN)) {
                     return true;
                 }
             }

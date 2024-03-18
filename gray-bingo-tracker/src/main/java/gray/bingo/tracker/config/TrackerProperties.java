@@ -1,7 +1,7 @@
 package gray.bingo.tracker.config;
 
 import gray.bingo.common.constants.BingoCst;
-import gray.bingo.tracker.common.TrackerConstants;
+import gray.bingo.tracker.common.TrackerCst;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -39,8 +39,8 @@ public class TrackerProperties {
         String collectorStatus = collector != null && collector.isEnabled() ? "启用" : "关闭";
         log.info("[      BINGO_TRACKERS] >>> 适配框架: [ {} ],收集器状态[ {} ],存储方式[ {} ].", enables, collectorStatus, repository.getType());
         if (collector != null) {
-            if (collector.getRate() / Double.valueOf(TrackerConstants.COLLECTOR_MAX_RATE) > 0.5) {
-                log.warn("[      BINGO_TRACKERS]  -- 当前采样率: [ {}/{} ], 生成环境建议调小该值！", collector.getRate(), TrackerConstants.COLLECTOR_MAX_RATE);
+            if (collector.getRate() / Double.valueOf(TrackerCst.COLLECTOR_MAX_RATE) > 0.5) {
+                log.warn("[      BINGO_TRACKERS]  -- 当前采样率: [ {}/{} ], 生成环境建议调小该值！", collector.getRate(), TrackerCst.COLLECTOR_MAX_RATE);
             }
         }
     }
@@ -57,7 +57,7 @@ public class TrackerProperties {
          * 收集器本地缓存最大大小, 默认5000
          * <p>本地缓存超过该配置后, 将舍弃新的收集信息, 这是用于在远程服务无法连接时, 或本地磁盘无法写入时, 防止本地内存过大
          */
-        private Integer maxCache = TrackerConstants.DEFAULT_COLLECTOR_LOCAL_CACHE;
+        private Integer maxCache = TrackerCst.DEFAULT_COLLECTOR_LOCAL_CACHE;
 
         /**
          * 采样率, 0 - 1000 之间的整数, 为 1000 则全部收集, 为 0 则不收集. 默认采样率为1/1000
@@ -70,7 +70,7 @@ public class TrackerProperties {
          *  <li>出于性能考虑, 采样率过高时 tracker 选择丢弃 span 信息来保证系统稳定运行.</li>
          * </ol>
          */
-        private Integer rate = TrackerConstants.DEFAULT_COLLECTOR_RATE;
+        private Integer rate = TrackerCst.DEFAULT_COLLECTOR_RATE;
 
         /**
          * 忽略的追踪

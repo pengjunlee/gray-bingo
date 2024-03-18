@@ -1,7 +1,7 @@
-package gray.bingo.tracker.adapter.aspect;
+package gray.bingo.tracker.adapter.annotation;
 
 
-import gray.bingo.tracker.common.TrackerConstants;
+import gray.bingo.tracker.common.TrackerCst;
 
 import java.lang.annotation.*;
 
@@ -26,6 +26,6 @@ public @interface TrackerStart {
 
     String spanName() default "";
 
-    String spanType() default TrackerConstants.SPAN_TYPE_ANNOTATION;
+    String spanType() default TrackerCst.SPAN_TYPE_ANNOTATION;
 
 }

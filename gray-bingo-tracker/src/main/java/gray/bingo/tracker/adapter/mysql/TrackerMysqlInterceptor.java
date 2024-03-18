@@ -4,7 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import gray.bingo.common.utils.StringUtil;
 import gray.bingo.tracker.common.SpanContext;
 import gray.bingo.tracker.common.Tracker;
-import gray.bingo.tracker.common.TrackerConstants;
+import gray.bingo.tracker.common.TrackerCst;
 import gray.bingo.tracker.common.TrackerUtil;
 import org.apache.ibatis.cache.CacheKey;
 import org.apache.ibatis.executor.Executor;
@@ -18,7 +18,6 @@ import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.type.TypeHandlerRegistry;
-import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -61,7 +60,7 @@ public class TrackerMysqlInterceptor implements Interceptor {
 
         SpanContext spanContext = null;
         try {
-            spanContext = Tracker.start(TrackerConstants.SPAN_TYPE_MYSQL, TrackerConstants.SPAN_TYPE_MYSQL);
+            spanContext = Tracker.start(TrackerCst.SPAN_TYPE_MYSQL, TrackerCst.SPAN_TYPE_MYSQL);
             if (StrUtil.isNotBlank(sql)) {
                 Tracker.record("SQL", sql);
             }

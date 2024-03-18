@@ -18,7 +18,7 @@ public class TrackerMDCLog {
      */
     protected static void traceId(String traceId) {
         try {
-            MDC.put(TrackerConstants.MDC_TRACE_ID_KEY,traceId);
+            MDC.put(TrackerCst.MDC_TRACE_ID_KEY,traceId);
         } catch (IllegalArgumentException e) {
             log.error("[      BINGO_TRACKERS] >>>  设置日志MDC拓展错误:{}",e.getMessage());
             e.printStackTrace();
@@ -31,7 +31,7 @@ public class TrackerMDCLog {
      */
     protected static void spanId(String spanId) {
         try {
-            MDC.put(TrackerConstants.MDC_SPAN_ID_KEY,spanId);
+            MDC.put(TrackerCst.MDC_SPAN_ID_KEY,spanId);
         } catch (IllegalArgumentException e) {
             log.error("[      BINGO_TRACKERS] >>>  设置日志MDC拓展错误:{}",e.getMessage());
             e.printStackTrace();
@@ -43,8 +43,8 @@ public class TrackerMDCLog {
      */
     protected static void removeAll() {
         try {
-            MDC.remove(TrackerConstants.MDC_TRACE_ID_KEY);
-            MDC.remove(TrackerConstants.MDC_SPAN_ID_KEY);
+            MDC.remove(TrackerCst.MDC_TRACE_ID_KEY);
+            MDC.remove(TrackerCst.MDC_SPAN_ID_KEY);
         } catch (IllegalArgumentException e) {
             log.error("[      BINGO_TRACKERS] >>>  删除日志MDC拓展错误:{}",e.getMessage());
             e.printStackTrace();

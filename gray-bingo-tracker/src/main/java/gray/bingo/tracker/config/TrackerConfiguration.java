@@ -9,14 +9,14 @@ import gray.bingo.common.constants.DefaultCst;
 import gray.bingo.common.constants.SpringCst;
 import gray.bingo.common.utils.SpringUtil;
 import gray.bingo.common.utils.SystemUtil;
-import gray.bingo.tracker.adapter.aspect.TrackerStartAspect;
+import gray.bingo.tracker.adapter.annotation.TrackerStartAspect;
 import gray.bingo.tracker.adapter.async.TrackerTaskDecorator;
 import gray.bingo.tracker.adapter.feign.TrackerFeignInterceptor;
 import gray.bingo.tracker.adapter.mysql.TrackerMysqlInterceptor;
 import gray.bingo.tracker.adapter.spring.TrackerFilter;
 import gray.bingo.tracker.collector.TrackerCollector;
 import gray.bingo.tracker.collector.TrackerLocalCacheCollector;
-import gray.bingo.tracker.common.TrackerConstants;
+import gray.bingo.tracker.common.TrackerCst;
 import gray.bingo.tracker.repository.LocalDiskFileRepository;
 import gray.bingo.tracker.repository.TrackerRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -80,7 +80,7 @@ public class TrackerConfiguration {
         executor.setAwaitTerminationSeconds(60);
         // 增加 TaskDecorator 属性的配置
         executor.setTaskDecorator(new TrackerTaskDecorator(
-                "SPRING_ASYNC_TASK", TrackerConstants.SPAN_TYPE_SPRING_ASYNC));
+                "SPRING_ASYNC_TASK", TrackerCst.SPAN_TYPE_SPRING_ASYNC));
         // CALLER_RUNS：不在新线程中执行任务，而是有调用者所在的线程来执行
         executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
 

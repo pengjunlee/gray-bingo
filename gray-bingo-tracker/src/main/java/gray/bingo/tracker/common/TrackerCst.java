@@ -1,6 +1,6 @@
 package gray.bingo.tracker.common;
 
-import gray.bingo.tracker.adapter.aspect.TrackerStart;
+import gray.bingo.tracker.adapter.annotation.TrackerStart;
 import gray.bingo.tracker.adapter.async.TrackerTaskDecorator;
 
 import java.util.HashSet;
@@ -12,7 +12,7 @@ import java.util.Set;
  * @author xzzz
  * @since 1.2.0
  */
-public class TrackerConstants {
+public class TrackerCst {
 
     public static final String ROOT_SPAN = "ROOT_SPAN";
 

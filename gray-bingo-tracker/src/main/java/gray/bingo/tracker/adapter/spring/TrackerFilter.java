@@ -2,7 +2,7 @@ package gray.bingo.tracker.adapter.spring;
 
 import gray.bingo.common.utils.StringUtil;
 import gray.bingo.tracker.common.Tracker;
-import gray.bingo.tracker.common.TrackerConstants;
+import gray.bingo.tracker.common.TrackerCst;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
 import org.springframework.web.filter.GenericFilterBean;
@@ -30,7 +30,7 @@ public class TrackerFilter extends GenericFilterBean {
         try {
             try {
                 HttpServletRequest request = (HttpServletRequest) servletRequest;
-                String header = request.getHeader(TrackerConstants.HTTP_HEADERS);
+                String header = request.getHeader(TrackerCst.HTTP_HEADERS);
 
                 boolean isFork = false;
 
@@ -44,7 +44,7 @@ public class TrackerFilter extends GenericFilterBean {
                 if (isFork) {
                     Tracker.fork(request.getMethod() + ":" + request.getServletPath(), params[2], params[0], params[1]);
                 } else {
-                    Tracker.start(request.getMethod() + ":" + request.getServletPath(), TrackerConstants.SPAN_TYPE_HTTP_MVC);
+                    Tracker.start(request.getMethod() + ":" + request.getServletPath(), TrackerCst.SPAN_TYPE_HTTP_MVC);
                 }
 
             } catch (Exception ignored) {
