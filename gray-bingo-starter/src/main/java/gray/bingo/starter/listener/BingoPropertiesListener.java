@@ -16,7 +16,7 @@ import org.springframework.core.env.ConfigurableEnvironment;
 /**
  * 启动检查配置文件内容, 用于检查配置项是否正确
  *
- * @作者 二月菌
+ * @作者 二月の菌
  * @版本 1.0
  * @日期 2024-01-21 14:51
  */

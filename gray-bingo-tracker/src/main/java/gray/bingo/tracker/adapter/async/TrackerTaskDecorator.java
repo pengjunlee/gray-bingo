@@ -8,7 +8,7 @@ import org.springframework.core.task.TaskDecorator;
 /**
  * Spring task 线程池装饰器
  *
- * @作者 二月菌
+ * @作者 二月の菌
  * @版本 1.0
  * @日期 2024-01-21 14:17
  */

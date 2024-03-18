@@ -29,7 +29,7 @@ import java.util.Map;
 /**
  * Mybatis/Mybatis-Plus 代码生成器
  *
- * @作者 二月菌
+ * @作者 二月の菌
  * @版本 1.0
  * @日期 2024-01-21 16:15
  */
@@ -161,7 +161,7 @@ public class BingoGenerator {
         String[] tableNames = {"base_user"};
         BingoGeneratorConfig generatorConfig = BingoGeneratorConfig.build4MultiModule()
                 .dataSource(DB_URL, USERNAME, PASSWORD)
-                .author("二月菌")
+                .author("二月の菌")
                 .entity("demo-common", "gray.demo.common.entity")
                 .mapper("demo-infrastructure", "gray.demo.infrastructure.mapper")
                 .service("demo-infrastructure", "gray.demo.infrastructure.repo", "demo-infrastructure", "gray.demo.infrastructure.repo.impl","Repo")
@@ -169,7 +169,7 @@ public class BingoGenerator {
                 .build();
 
 //        BingoPlusConfig generatorConfig = BingoPlusConfig.build4SingleModule()
-//                .author("二月菌")
+//                .author("二月の菌")
 //                .enableSwagger(false)
 //                .packageName("gray.demo.infrastructure")
 //                .enableService(true)

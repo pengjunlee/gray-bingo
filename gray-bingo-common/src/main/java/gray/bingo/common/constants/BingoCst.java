@@ -1,7 +1,7 @@
 package gray.bingo.common.constants;
 
 /**
- * @作者 二月菌
+ * @作者 二月の菌
  * @版本 1.0
  * @日期 2024-01-21 16:36
  */

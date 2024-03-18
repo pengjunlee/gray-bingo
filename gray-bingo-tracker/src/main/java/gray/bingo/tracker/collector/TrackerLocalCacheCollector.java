@@ -20,7 +20,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * tracker 开启 trace 信息收集, 该方法只用来收集本应用的 trace 信息, 具体信息保存在何处, 由
  * {@link TrackerRepository} 的实现类来实现
  *
- * @作者 二月菌
+ * @作者 二月の菌
  * @版本 1.0
  * @日期 2024-01-21 14:17
  */
