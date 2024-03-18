@@ -46,10 +46,8 @@ public class ALiYunDNSUpdater {
         boolean useIPv6 = StrUtil.isNotBlank(ipv6) && ipv6.equals("open");
 
         String[] domainRecordsArr = records.split(",");
-        for (int i = 0; i < domainRecordsArr.length; i++) {
-            for (String record : domainRecordsArr) {
-                scheduler.scheduleWithFixedDelay(new ALiYunDNSTask(domain, record, useIPv6, accessKey, secretKey), 0, 1, TimeUnit.HOURS);
-            }
+        for (String record : domainRecordsArr) {
+            scheduler.scheduleWithFixedDelay(new ALiYunDNSTask(domain, record, useIPv6, accessKey, secretKey), 0, 1, TimeUnit.HOURS);
         }
     }
 

@@ -22,6 +22,8 @@ public class BingoCst {
     public static final String BINGO_HELPER_TRACKER = "tracker";
     public static final String BINGO_HELPER_ALI_DNS = "alidns";
 
+    public static final String BINGO_HELPER_QI_NIU = "qiniu";
+
     // =============================== Tracker 相关配置 ===============================
 
     public static final String CONF_TRACKER_PREFIX = "bingo.tracker";
@@ -33,5 +35,5 @@ public class BingoCst {
     /**
      * Feign调用
      */
-    public static final String SPAN_TYPE_FEIGN_INVOKE  = "FEIGN_INVOKE";
+    public static final String SPAN_TYPE_FEIGN_INVOKE = "FEIGN_INVOKE";
 }
