@@ -23,6 +23,7 @@
         <module>gray-bingo-mybatis</module>
         <module>gray-bingo-tracker</module>
         <module>gray-bingo-tools</module>
+        <module>gray-bingo-es</module>
     </modules>
 
     <properties>
