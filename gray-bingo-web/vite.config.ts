@@ -16,7 +16,9 @@ export default defineConfig({
       resolvers: [AntDesignVueResolver()],
     })
   ].filter(Boolean),
+  base: '/bingo/', // 这里设置你的资源前缀
   build: {
+    assetsDir: 'assets', // 指定生成静态文件目录
     outDir:'../gray-bingo-starter/src/main/resources/static'
   },
 });

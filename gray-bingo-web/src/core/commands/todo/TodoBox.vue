@@ -1,6 +1,6 @@
 <template>
   <div style="margin: 8px 0; max-width: 600px">
-    <a-card body-style="padding: 0 12px">
+    <a-card style="padding: 0 12px">
       <a-list item-layout="horizontal" :data-source="taskList">
         <template #renderItem="{ item, index }">
           <a-list-item>

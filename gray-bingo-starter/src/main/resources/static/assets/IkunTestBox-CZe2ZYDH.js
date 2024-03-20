@@ -1,0 +1,1 @@
+import{a7 as s,a as t,c as a,ac as c,ad as o,g as n}from"./index-bW01VDll.js";const _={},d=e=>(c("data-v-a846efb1"),e=e(),o(),e),r={class:"ikun-test-box",style:{margin:"8px 0"}},p=d(()=>n("iframe",{src:"https://www.ikuntest.com"},null,-1)),i=[p];function f(e,l){return t(),a("div",r,i)}const h=s(_,[["render",f],["__scopeId","data-v-a846efb1"]]);export{h as default};
