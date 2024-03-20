@@ -1,7 +1,10 @@
 package gray.bingo.starter.controller;
 
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -15,8 +18,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/bingo")
 public class BingoController {
 
-    @GetMapping("/meta")
-    public String meta() {
-        return null;
+    @GetMapping("/meta/test")
+    public String metaTest() {
+        return "{}";
+    }
+
+
+    @GetMapping("/json")
+    public Resource json(@RequestParam(name = "name", required = true) String name) {
+        return new ClassPathResource("static/json.html");
     }
 }
