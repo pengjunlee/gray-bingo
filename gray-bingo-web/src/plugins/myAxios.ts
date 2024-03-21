@@ -2,11 +2,7 @@ import axios from "axios";
 
 // 自定义 axios 实例
 const myAxios = axios.create({
-  baseURL:
-    // @ts-ignore
-    process.env.NODE_ENV === "production"
-      ? "https://yuindex-server-974538-1256524210.ap-shanghai.run.tcloudbase.com/api"
-      : "http://localhost:7345/api",
+  baseURL:"",
 });
 
 myAxios.defaults.withCredentials = true;

@@ -25,14 +25,8 @@ export const useUserStore = defineStore("user", {
     },
   },
   actions: {
-    async getAndSetLoginUser() {
-      const res: any = await getLoginUser();
-      if (res?.code === 0 && res.data) {
-        this.loginUser = res.data;
-      } else {
-        console.error("登录失败");
-        this.$reset();
-      }
+    getAndSetLoginUser() {
+        this.loginUser = LOCAL_USER;
     },
     setLoginUser(user: UserType) {
       this.loginUser = user;

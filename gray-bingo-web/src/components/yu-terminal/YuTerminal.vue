@@ -92,6 +92,7 @@ import {
   StyleValue,
   toRefs,
   watchEffect,
+  markRaw
 } from "vue";
 import CommandOutputType = YuTerminal.CommandOutputType;
 import OutputType = YuTerminal.OutputType;
@@ -107,6 +108,7 @@ import useHint from "./hint";
 import UserType = User.UserType;
 import { LOCAL_USER } from "../../core/commands/user/userConstant";
 import { defineStore } from "pinia";
+
 
 interface YuTerminalProps {
   height?: string | number;
@@ -405,12 +407,10 @@ onMounted(() => {
     });
   } else {
     terminal.writeTextOutput(
-      `Welcome to YuIndex, coolest browser index for geeks!` +
-        `<a href="//github.com/liyupi/yuindex" target='_blank'> GitHub Open Source</a>`
+      `Welcome to Bingo console.`
     );
     terminal.writeTextOutput(
-      `Author <a href="//docs.qq.com/doc/DUFFRVWladXVjeUxW" target="_blank">coder_yupi</a>` +
-        `: please input 'help' to enjoy`
+        `please input 'help' to get more information!`
     );
     terminal.writeTextOutput("<br/>");
   }
@@ -492,6 +492,7 @@ defineExpose({
 }
 
 .terminal-row {
+  text-align:left;
   color: white;
   font-size: 16px;
   font-family: courier-new, courier, monospace;

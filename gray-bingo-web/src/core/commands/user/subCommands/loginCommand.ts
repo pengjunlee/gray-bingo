@@ -1,6 +1,6 @@
 import { CommandType } from "../../../command";
-import { userLogin, userRegister } from "../userApi";
 import { useUserStore } from "../userStore";
+import UserType = User.UserType;
 
 /**
  * 用户登录命令
@@ -35,13 +35,15 @@ const loginCommand: CommandType = {
       terminal.writeTextErrorResult("请输入密码");
       return;
     }
-    const res: any = await userLogin(username, password);
     const { setLoginUser } = useUserStore();
-    if (res?.code === 0) {
-      setLoginUser(res.data);
+    if (username =='local' && password == '123456') {
+      const user:UserType = {
+        username :"local"
+      }
+      setLoginUser(user);
       terminal.writeTextSuccessResult("登录成功");
     } else {
-      terminal.writeTextErrorResult(res?.message ?? "登录失败");
+      terminal.writeTextErrorResult("登录失败");
     }
   },
 };
