@@ -106,7 +106,7 @@ import OutputStatusType = YuTerminal.OutputStatusType;
 import { useTerminalConfigStore } from "../../core/commands/terminal/config/terminalConfigStore";
 import useHint from "./hint";
 import UserType = User.UserType;
-import { LOCAL_USER } from "../../core/commands/user/userConstant";
+import { NOT_LOGIN } from "../../core/commands/user/userConstant";
 import { defineStore } from "pinia";
 
 
@@ -121,7 +121,7 @@ interface YuTerminalProps {
 const props = withDefaults(defineProps<YuTerminalProps>(), {
   height: "400px",
   fullScreen: false,
-  user: LOCAL_USER as any,
+  user: NOT_LOGIN as any,
 });
 
 const { user } = toRefs(props);
@@ -407,10 +407,7 @@ onMounted(() => {
     });
   } else {
     terminal.writeTextOutput(
-      `Welcome to Bingo console.`
-    );
-    terminal.writeTextOutput(
-        `please input 'help' to get more information!`
+      `Welcome to bingo console, input 'help' to get more information!`
     );
     terminal.writeTextOutput("<br/>");
   }

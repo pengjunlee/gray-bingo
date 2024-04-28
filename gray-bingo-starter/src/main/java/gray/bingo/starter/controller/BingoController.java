@@ -34,33 +34,5 @@ public class BingoController {
     }
 
 
-    @GetMapping("/console")
-    public Resource console() {
-        return new ClassPathResource("static/index.html");
-    }
 
-    private final Path assetPath = Paths.get("src/main/resources/static/assets");
-
-    @GetMapping("/assets/{fileName}")
-    public ResponseEntity<Resource> getAssets(@PathVariable(name = "fileName") String fileName) {
-        try {
-
-            Resource resource = new ClassPathResource("static/assets/" + fileName);
-            if (resource.exists() || resource.isReadable()) {
-                MediaType contentType = MediaType.APPLICATION_OCTET_STREAM;
-                if (fileName.endsWith(".css")){
-                    contentType = new MediaType("text","css");
-                }else if (fileName.endsWith(".js")){
-                    contentType = new MediaType("application","javascript");
-                }
-                return ResponseEntity.ok()
-                        .contentType(contentType)
-                        .body(resource);
-            } else {
-                return ResponseEntity.notFound().build();
-            }
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
-    }
 }

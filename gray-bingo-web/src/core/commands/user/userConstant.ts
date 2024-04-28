@@ -1,8 +1,8 @@
 import UserType = User.UserType;
 
 /**
- * 本地用户
+ * 未登录用户
  */
-export const LOCAL_USER: UserType = {
-  username: "noLogin",
+export const NOT_LOGIN: UserType = {
+  username: "notLogin"
 };

@@ -1,6 +1,5 @@
 import { defineStore } from "pinia";
-import { getLoginUser } from "./userApi";
-import { LOCAL_USER } from "./userConstant";
+import { NOT_LOGIN } from "./userConstant";
 import UserType = User.UserType;
 
 /**
@@ -9,7 +8,7 @@ import UserType = User.UserType;
 export const useUserStore = defineStore("user", {
   state: () => ({
     loginUser: {
-      ...LOCAL_USER,
+      ...NOT_LOGIN,
     },
   }),
   getters: {},
@@ -18,15 +17,15 @@ export const useUserStore = defineStore("user", {
     key: "user-store",
     storage: window.localStorage,
     beforeRestore: (context) => {
-      console.log("load userStore data start");
+      console.log("before user-store restore!");
     },
     afterRestore: (context) => {
-      console.log("load userStore data end");
+      console.log("after user-store restore!");
     },
   },
   actions: {
-    getAndSetLoginUser() {
-        this.loginUser = LOCAL_USER;
+    setDefaultUser() {
+      this.loginUser = NOT_LOGIN;
     },
     setLoginUser(user: UserType) {
       this.loginUser = user;

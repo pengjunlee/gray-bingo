@@ -9,7 +9,7 @@ export const userLogin = async (username: string, password: string) => {
   if (!username || !password) {
     return null;
   }
-  return await myAxios.post("/user/login", { username, password });
+  return await myAxios.post("/login", { username, password });
 };
 
 /**

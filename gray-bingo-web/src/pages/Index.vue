@@ -9,10 +9,10 @@
   
   <script setup lang="ts">
   import { doCommandExecute } from "../core/commandExecutor";
-  import { onMounted, ref ,shallowRef} from "vue";
+  import { onMounted, shallowRef} from "vue";
   import { useUserStore } from "../core/commands/user/userStore";
   import { storeToRefs } from "pinia";
-  import myAxios from "../plugins/myAxios";
+  import { NOT_LOGIN } from "../core/commands/user/userConstant";
 
   const terminalRef = shallowRef();
   
@@ -21,19 +21,22 @@
       return;
     }
     const terminal = terminalRef.value.terminal;
-    if(loginUser.value.username == 'noLogin' && !inputText.startsWith("login")){
+    if(needLogin(inputText) && loginUser.value.username == NOT_LOGIN.username){
       terminal.writeTextErrorResult("please login!");
     }else{
       await doCommandExecute(inputText, terminal);
     }
   };
+
+  const needLogin = (inputText:string):Boolean => {
+    return !inputText.startsWith("login") && !inputText.startsWith("help");
+  }
   
   const userStore = useUserStore();
   const { loginUser } = storeToRefs(userStore);
   
   onMounted(() => {
-    myAxios.defaults.baseURL = window.location.origin;
-    userStore.getAndSetLoginUser();
+    userStore.setDefaultUser();
   });
   </script>
   

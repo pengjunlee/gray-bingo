@@ -2,10 +2,12 @@ import axios from "axios";
 
 // 自定义 axios 实例
 const myAxios = axios.create({
-  baseURL:"",
+  baseURL:window.location.origin+'/bingo/console',
 });
 
 myAxios.defaults.withCredentials = true;
+
+
 
 // 添加请求拦截器
 myAxios.interceptors.request.use(

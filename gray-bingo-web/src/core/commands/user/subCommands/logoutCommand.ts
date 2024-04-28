@@ -1,7 +1,7 @@
 import { CommandType } from "../../../command";
 import { userLogin, userLogout, userRegister } from "../userApi";
 import { useUserStore } from "../userStore";
-import { LOCAL_USER } from "../userConstant";
+import { NOT_LOGIN } from "../userConstant";
 
 /**
  * 用户注销命令
@@ -15,7 +15,7 @@ const logoutCommand: CommandType = {
     const res: any = await userLogout();
     const { setLoginUser } = useUserStore();
     if (res?.code === 0) {
-      setLoginUser(LOCAL_USER);
+      setLoginUser(NOT_LOGIN);
       terminal.writeTextSuccessResult("已退出登录");
     } else {
       terminal.writeTextErrorResult(res?.message ?? "注销失败");
