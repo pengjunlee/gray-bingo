@@ -1,19 +1,17 @@
 package gray.bingo.common.exceptions;
 
 /**
- * BINGO异常
+ * BINGO框架系统异常
  */
 public class BingoException extends RuntimeException {
 
-    private String code;
 
     public BingoException(String msg) {
         super(msg);
-
     }
 
-    public BingoException(String code, String msg) {
-        super(msg);
-        this.code = code;
+    @Override
+    public String toString() {
+        return "BingoException{ message : " + this.getMessage() + "}";
     }
 }
