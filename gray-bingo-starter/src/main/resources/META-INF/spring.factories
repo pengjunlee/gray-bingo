@@ -1,0 +1,4 @@
+org.springframework.context.ApplicationListener=\
+gray.bingo.starter.listener.BingoPropertiesListener
+org.springframework.context.ApplicationContextInitializer=\
+gray.bingo.starter.listener.BingoApplicationContextInitializer

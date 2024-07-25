@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="gray-bingo-mybatis" />
+        <module name="gray-bingo-tracker" />
+        <module name="gray-bingo-starter" />
+        <module name="gray-bingo-cache" />
+        <module name="gray-bingo-es" />
+        <module name="gray-bingo-tools" />
+        <module name="gray-bingo-common" />
+      </profile>
+    </annotationProcessing>
+  </component>
+</project>

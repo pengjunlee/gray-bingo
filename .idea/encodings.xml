@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/gray-bingo-cache/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gray-bingo-cache/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gray-bingo-common/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gray-bingo-common/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gray-bingo-es/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gray-bingo-es/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gray-bingo-mybatis/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gray-bingo-mybatis/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gray-bingo-starter/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gray-bingo-starter/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gray-bingo-tools/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gray-bingo-tools/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gray-bingo-tracker/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gray-bingo-tracker/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
+  </component>
+</project>

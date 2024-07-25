@@ -1,0 +1,9 @@
+# cacheNames 缓存配置如下：
+  cache:
+    cacheNames:
+      - name: name1
+        seconds: 1000
+        maximumSize: 1000
+      - name: name2
+        seconds: 1000
+        maximumSize: 1000
