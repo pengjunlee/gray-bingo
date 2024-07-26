@@ -16,7 +16,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BIZPageRsp<T> implements Serializable {
+public class BingoPageRsp<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -27,17 +27,17 @@ public class BIZPageRsp<T> implements Serializable {
     private Long total;
 
 
-    public BIZPageRsp<T> pageNo(Long pageNo) {
+    public BingoPageRsp<T> pageNo(Long pageNo) {
         this.pageNo = pageNo;
         return this;
     }
 
-    public BIZPageRsp<T> total(Long count) {
+    public BingoPageRsp<T> total(Long count) {
         this.total = count;
         return this;
     }
 
-    public BIZPageRsp<T> result(List<T> result) {
+    public BingoPageRsp<T> result(List<T> result) {
         this.result = result;
         return this;
     }

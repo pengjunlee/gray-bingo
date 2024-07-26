@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * 分页查询请求基本参数
  */
-public class BIZPageQry implements Serializable {
+public class BingoPageQry implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Integer pageNo = 1;
