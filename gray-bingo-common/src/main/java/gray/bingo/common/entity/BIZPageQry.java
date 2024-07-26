@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * 分页查询请求基本参数
  */
-public class BIZPageReq implements Serializable {
+public class BIZPageQry implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Integer pageNo = 1;
