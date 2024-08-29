@@ -1,6 +1,6 @@
 package gray.bingo.es.starter;
 
-import gray.bingo.common.config.BingoHelperBuilder;
+import gray.bingo.common.config.BingoHelperFactory;
 import gray.bingo.common.config.BingoProp;
 import gray.bingo.common.exceptions.BingoException;
 import gray.bingo.common.utils.StringUtil;
@@ -30,7 +30,7 @@ import java.util.Map;
  * @author 高福兵(01409246)
  * @version 1.0
  */
-public class SapperESStarter extends BingoHelperBuilder {
+public class SapperESStarter extends BingoHelperFactory {
 
     private final Logger logger = LoggerFactory.getLogger(SapperESStarter.class);
 

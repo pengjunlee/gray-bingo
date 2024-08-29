@@ -1,11 +1,3 @@
-
-# caffeine 缓存配置如下：
-bingo:
-  helper:
-    caffeine: 'open|close'
-
-
-
 # cacheNames 缓存配置如下：
   cache:
     cacheNames:

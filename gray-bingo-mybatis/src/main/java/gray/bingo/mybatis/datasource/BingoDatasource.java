@@ -23,11 +23,6 @@ public @interface BingoDatasource {
     String dbName() default "";
 
     /**
-     * 通过数据库索引指定操作的默认数据库
-     */
-    String dbIndex() default "";
-
-    /**
      * 通过参数序号来指定操作的默认数据库
      */
     int paramIndex() default 1;

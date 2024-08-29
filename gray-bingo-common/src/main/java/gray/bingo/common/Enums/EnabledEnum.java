@@ -19,9 +19,9 @@ public enum EnabledEnum implements BaseIntEnum {
     DISABLED(0, "×"),
     ;
 
-    private Integer value;
+    private final Integer value;
 
-    private String name;
+    private final String name;
 
     @Override
     public Integer getValue() {

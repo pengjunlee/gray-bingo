@@ -9,10 +9,10 @@ public class BingoCst {
 
     // =============================== 启用配置 ===============================
 
-    // helper 启用
+    // helper 启用项
     public static final String CONF_HELPER_ENABLES = "bingo.helper.enables";
 
-    // tracker 启用
+    // tracker 启用项
     public static final String CONF_TRACKER_ENABLES = "bingo.tracker.enables";
 
 
@@ -31,11 +31,6 @@ public class BingoCst {
     public static final String CONF_TRACKER_COLLECTOR_ENABLED = "bingo.tracker.collector.enabled";
     public static final String CONF_TRACKER_REPOSITORY_TYPE = "bingo.tracker.repository.type";
     public static final String VAL_TRACKER_REPOSITORY_TYPE_DISK = "disk";
-
-    // =============================== Console 相关配置 ===============================
-
-    public static final String CONF_CONSOLE_USERNAME = "bingo.console.username";
-    public static final String CONF_CONSOLE_PASSWORD = "bingo.console.password";
 
     /**
      * Feign调用

@@ -8,6 +8,6 @@ import org.springframework.core.type.AnnotatedTypeMetadata;
 public class DynamicDSCondition implements Condition {
     @Override
     public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
-        return context.getEnvironment().getProperty(BingoCst.CONF_HELPER_ENABLES).contains(BingoCst.BINGO_HELPER_DYNAMIC_DB);
+        return context.getEnvironment().getProperty(BingoCst.CONF_HELPER_ENABLES,"").contains(BingoCst.BINGO_HELPER_DYNAMIC_DB);
     }
 }

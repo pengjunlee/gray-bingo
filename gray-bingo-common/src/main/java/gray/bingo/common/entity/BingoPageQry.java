@@ -1,10 +1,13 @@
 package gray.bingo.common.entity;
 
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
  * 分页查询请求基本参数
  */
+
 public class BingoPageQry implements Serializable {
     private static final long serialVersionUID = 1L;
 

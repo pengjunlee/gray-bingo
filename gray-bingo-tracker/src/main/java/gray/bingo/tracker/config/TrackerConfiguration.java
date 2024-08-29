@@ -2,8 +2,8 @@ package gray.bingo.tracker.config;
 
 import cn.hutool.core.thread.ThreadFactoryBuilder;
 import feign.RequestInterceptor;
-import gray.bingo.common.config.condition.ContainPropertyCondition;
-import gray.bingo.common.config.condition.KeyValueAnnotation;
+import gray.bingo.common.config.condition.ContainsPropertyCondition;
+import gray.bingo.common.anno.Property;
 import gray.bingo.common.constants.BingoCst;
 import gray.bingo.common.constants.DefaultCst;
 import gray.bingo.common.constants.SpringCst;
@@ -45,23 +45,23 @@ import java.util.concurrent.ThreadPoolExecutor;
 public class TrackerConfiguration {
 
     @Bean
-    @KeyValueAnnotation(key = BingoCst.CONF_TRACKER_ENABLES, value = SpringCst.ANNOTATION)
-    @Conditional(ContainPropertyCondition.class)
+    @Property(key = BingoCst.CONF_TRACKER_ENABLES, value = SpringCst.ANNOTATION)
+    @Conditional(ContainsPropertyCondition.class)
     public TrackerStartAspect trackerStartAspect() {
         return new TrackerStartAspect();
     }
 
     @Bean
-    @KeyValueAnnotation(key = BingoCst.CONF_TRACKER_ENABLES, value = SpringCst.SPRING)
-    @Conditional(ContainPropertyCondition.class)
+    @Property(key = BingoCst.CONF_TRACKER_ENABLES, value = SpringCst.SPRING)
+    @Conditional(ContainsPropertyCondition.class)
     public TrackerFilter trackerFilter() {
         return new TrackerFilter();
     }
 
 
     @Bean("trackableExecutor")
-    @KeyValueAnnotation(key = BingoCst.CONF_TRACKER_ENABLES, value = SpringCst.ASYNC)
-    @Conditional(ContainPropertyCondition.class)
+    @Property(key = BingoCst.CONF_TRACKER_ENABLES, value = SpringCst.ASYNC)
+    @Conditional(ContainsPropertyCondition.class)
     public Executor trackableExecutor(Environment env) {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         // 核心线程数
@@ -98,16 +98,16 @@ public class TrackerConfiguration {
 
     @Bean
     @ConditionalOnClass(value = SqlSession.class)
-    @KeyValueAnnotation(key = BingoCst.CONF_TRACKER_ENABLES, value = SpringCst.MYSQL)
-    @Conditional(ContainPropertyCondition.class)
+    @Property(key = BingoCst.CONF_TRACKER_ENABLES, value = SpringCst.MYSQL)
+    @Conditional(ContainsPropertyCondition.class)
     public TrackerMysqlInterceptor trackerMysqlInterceptor() {
         return new TrackerMysqlInterceptor();
     }
 
     @Bean
     @ConditionalOnClass(value = RequestInterceptor.class)
-    @KeyValueAnnotation(key = BingoCst.CONF_TRACKER_ENABLES, value = SpringCst.FEIGN)
-    @Conditional(ContainPropertyCondition.class)
+    @Property(key = BingoCst.CONF_TRACKER_ENABLES, value = SpringCst.FEIGN)
+    @Conditional(ContainsPropertyCondition.class)
     public TrackerFeignInterceptor trackerFeignInterceptor() {
         return new TrackerFeignInterceptor();
     }

@@ -50,21 +50,14 @@ public class DynamicDataSourceAspect {
             DBContextHolder.setDBName(dbName);
             return;
         }
-        /**
-         * 其次依据固定的索引获取数据源
-         */
-        String dbIndex = bingoDatasource.dbIndex();
-        if (StringUtil.isNotBlank(dbIndex)) {
-            DBContextHolder.setDBIndex(dbIndex);
-            return;
-        }
+
 
         /**
          * 最后通过入参动态索引对应的数据源
          */
         int paramIndex = bingoDatasource.paramIndex() - 1;
-        dbIndex = (String) joinPoint.getArgs()[paramIndex];
-        DBContextHolder.setDBIndex(dbIndex);
+        dbName = (String) joinPoint.getArgs()[paramIndex];
+        DBContextHolder.setDBName(dbName);
     }
 
 }

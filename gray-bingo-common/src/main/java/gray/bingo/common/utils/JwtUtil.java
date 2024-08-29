@@ -21,7 +21,7 @@ public class JwtUtil {
     private static final long EXPIRE_TIME = 10 * 60 * 1000;
 
     // 私钥
-    private static final String AUTH_SECRET = "MR.February";
+    private static final String AUTH_SECRET = "Graython.bingo";
 
     // 请求头
     public static final String AUTH_HEADER = "Authorization";

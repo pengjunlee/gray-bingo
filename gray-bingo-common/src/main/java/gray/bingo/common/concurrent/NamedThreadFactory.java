@@ -16,6 +16,8 @@
  */
 package gray.bingo.common.concurrent;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -50,7 +52,7 @@ public class NamedThreadFactory implements ThreadFactory {
     }
 
     @Override
-    public Thread newThread(Runnable runnable) {
+    public Thread newThread(@NotNull Runnable runnable) {
         String name = mPrefix + mThreadNum.getAndIncrement();
         Thread ret = new Thread(mGroup, runnable, name, 0);
         ret.setDaemon(mDaemon);

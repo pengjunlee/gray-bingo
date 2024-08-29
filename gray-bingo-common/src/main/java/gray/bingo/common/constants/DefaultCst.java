@@ -10,8 +10,6 @@ package gray.bingo.common.constants;
 public class DefaultCst {
     public static final String UNKNOWN = "unknown";
     public static final String DEFAULT = "default";
-
-
     public static final String TRUE = "true";
 
 }
