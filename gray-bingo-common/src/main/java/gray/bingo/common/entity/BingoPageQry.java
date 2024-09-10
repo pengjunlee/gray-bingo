@@ -1,7 +1,5 @@
 package gray.bingo.common.entity;
 
-import lombok.Data;
-
 import java.io.Serializable;
 
 /**
@@ -11,21 +9,15 @@ import java.io.Serializable;
 public class BingoPageQry implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private Integer pageNo = 1;
+    private Integer pageNo;
 
-    private Integer pageSize = 10;
+    private Integer pageSize;
 
     private Integer fromRowNum;
 
     public Integer getFromRowNum() {
-        if (pageNo == null) {
-            pageNo = 1;
-        }
-        if (pageSize == null) {
-            pageSize = 10;
-        }
         // pageNumber 默认1开始
-        return (pageNo - 1) * pageSize;
+        return (getPageNo() - 1) * getPageSize();
     }
 
     public Integer getPageNo() {
@@ -38,7 +30,7 @@ public class BingoPageQry implements Serializable {
     }
 
     public Integer getPageSize() {
-        return pageSize;
+        return null != pageSize && pageSize > 0 ? pageSize : 10;
     }
 
     public void setPageSize(Integer pageSize) {
