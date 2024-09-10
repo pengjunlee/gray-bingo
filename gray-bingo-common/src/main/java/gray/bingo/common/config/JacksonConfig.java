@@ -15,6 +15,7 @@ import java.math.BigInteger;
  */
 @Configuration
 public class JacksonConfig {
+
     /**
      * 修改全局的Jackson序列化配置
      */
