@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * JDK HttpURLConnection发送请求工具类
@@ -21,32 +23,51 @@ import java.net.URL;
 public class JdkHttpUtil {
 
     public static String doGet(String urlStr) throws Exception {
-        return sendHttpsRequest(urlStr,RequestMethod.GET.name(), null);
+        return sendRequest(urlStr, RequestMethod.GET.name(), null, null);
+    }
+
+    public static String doGet(String urlStr, Map<String, String> headers) throws Exception {
+        return sendRequest(urlStr, RequestMethod.GET.name(), null, headers);
     }
 
     public static <T> T doGet(String urlStr, Class<T> c) throws Exception {
-        String string = sendHttpsRequest(urlStr, RequestMethod.GET.name(), null);
-        return JsonUtil.toObj(string,c);
+        String string = sendRequest(urlStr, RequestMethod.GET.name(), null, null);
+        return JsonUtil.toObj(string, c);
     }
 
-    public static String doPost(String urlStr,String data) throws Exception {
-        return sendHttpsRequest(urlStr,RequestMethod.POST.name(), data);
+    public static <T> T doGet(String urlStr, Map<String, String> headers, Class<T> c) throws Exception {
+        String string = sendRequest(urlStr, RequestMethod.GET.name(), null, headers);
+        return JsonUtil.toObj(string, c);
     }
 
-    public static <T> T doPost(String urlStr,String data, Class<T> c) throws Exception {
-        String string = sendHttpsRequest(urlStr, RequestMethod.POST.name(), data);
-        return JsonUtil.toObj(string,c);
+    public static String doPost(String urlStr, String data) throws Exception {
+        return sendRequest(urlStr, RequestMethod.POST.name(), data, null);
     }
 
-    public static String sendHttpsRequest(String urlStr, String method, String data) throws Exception {
-        HttpURLConnection connection = getHttpURLConnection(urlStr, method, data);
+
+    public static String doPost(String urlStr, String data, Map<String, String> headers) throws Exception {
+        return sendRequest(urlStr, RequestMethod.POST.name(), data, headers);
+    }
+
+    public static <T> T doPost(String urlStr, String data, Class<T> c) throws Exception {
+        String string = sendRequest(urlStr, RequestMethod.POST.name(), data, null);
+        return JsonUtil.toObj(string, c);
+    }
+
+    public static <T> T doPost(String urlStr, String data, Map<String, String> headers, Class<T> c) throws Exception {
+        String string = sendRequest(urlStr, RequestMethod.POST.name(), data, headers);
+        return JsonUtil.toObj(string, c);
+    }
+
+    public static String sendRequest(String urlStr, String method, String data, Map<String, String> headers) throws Exception {
+        HttpURLConnection connection = getURLConnection(urlStr, method, data, headers);
 
         int responseCode = connection.getResponseCode();
         if (responseCode == HttpURLConnection.HTTP_OK) {
             BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String line;
             StringBuilder response = new StringBuilder();
-            while ((line = reader.readLine())!= null) {
+            while ((line = reader.readLine()) != null) {
                 response.append(line);
             }
             reader.close();
@@ -56,9 +77,8 @@ public class JdkHttpUtil {
         }
     }
 
-    private static HttpURLConnection getHttpURLConnection(String urlStr, String method, String data) throws IOException {
-        if (null == urlStr || urlStr.isEmpty())
-        {
+    private static HttpURLConnection getURLConnection(String urlStr, String method, String data, Map<String, String> headers) throws IOException {
+        if (null == urlStr || urlStr.isEmpty()) {
             throw new BingoException("Target Url is null!");
         }
         URL url = new URL(urlStr);
@@ -68,7 +88,12 @@ public class JdkHttpUtil {
         connection.setDoOutput(true);
         connection.setDoInput(true);
         connection.setUseCaches(false);
-        connection.setRequestProperty("Content-Type", "application/json");
+        if (Objects.isNull(headers) || headers.isEmpty()) {
+            connection.setRequestProperty("Content-Type", "application/json");
+        } else {
+            headers.forEach(connection::setRequestProperty);
+        }
+
 
         if (data != null) {
             DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream());
