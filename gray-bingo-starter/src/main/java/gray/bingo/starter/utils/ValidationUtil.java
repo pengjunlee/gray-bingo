@@ -7,6 +7,7 @@ import org.springframework.util.CollectionUtils;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.util.*;
 
 
@@ -198,5 +199,25 @@ public class ValidationUtil {
             result.addErrorMessage(errorMessage);
         }
         return result;
+    }
+
+    /**
+          * 获取对象中所有注解校验证异常信息
+          * @param object
+          * @return
+          */
+    public static String validated(Object object){
+        List<String> errorMessageList = new ArrayList<>();
+        // 1.获取注解校验工厂
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        // 2.获取注解校验对象
+        Validator validator = factory.getValidator();
+        // 3.对参数上的注解进行验证
+        Set<ConstraintViolation<Object>> violations = validator.validate(object);
+        // 4.获取校验结果
+        for (ConstraintViolation<Object> constraintViolation : violations) {
+            errorMessageList.add(constraintViolation.getMessage());
+        }
+        return errorMessageList.toString();
     }
 }
