@@ -15,6 +15,7 @@ import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.type.TypeHandlerRegistry;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.stereotype.Component;
 
@@ -38,6 +39,9 @@ import java.util.List;
 @Conditional(DynamicDSCondition.class)
 public class SlowSQLInterceptor implements Interceptor {
 
+    @Value("${bingo.print-sql:false}")
+    private boolean printSql;
+
     private static final ThreadLocal<SimpleDateFormat> DATETIME_FORMATTER = ThreadLocal
             .withInitial(() -> new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
 
@@ -48,7 +52,7 @@ public class SlowSQLInterceptor implements Interceptor {
             return invocation.proceed();
         } finally {
             long ms = System.currentTimeMillis() - start;
-            if (DBContextHolder.slowSql(ms)) {
+            if (DBContextHolder.slowSql(ms) || printSql) {
                 MappedStatement mappedStatement = (MappedStatement) invocation.getArgs()[0];
                 Object parameter = null;
                 if (invocation.getArgs().length > 1) {
@@ -57,7 +61,7 @@ public class SlowSQLInterceptor implements Interceptor {
                 BoundSql boundSql = mappedStatement.getBoundSql(parameter);
                 Configuration configuration = mappedStatement.getConfiguration();
                 String sql = this.getSql(configuration, boundSql);
-                log.warn("[            SLOW_SQL]  -- 耗时 [ {}ms ] {} ", StringUtil.leftFill(String.valueOf(ms), ' ', 5), sql);
+                log.warn("[           PRINT_SQL]  -- 耗时 [ {}ms ] {} ", StringUtil.leftFill(String.valueOf(ms), ' ', 5), sql);
             }
         }
     }
