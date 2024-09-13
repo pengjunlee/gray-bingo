@@ -27,7 +27,7 @@ import java.util.Enumeration;
 /**
  * Get host name and ip of the host.
  *
- * @author xzzz
+ * @author graython
  */
 @Slf4j
 public final class SystemUtil {

@@ -7,7 +7,6 @@ import gray.bingo.common.config.BingoMeta;
 import gray.bingo.common.config.BingoProp;
 import gray.bingo.common.constants.BingoCst;
 import gray.bingo.common.exceptions.BingoException;
-import gray.bingo.common.utils.RSAUtil;
 import gray.bingo.common.utils.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.MutablePropertyValues;
@@ -17,7 +16,6 @@ import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.util.ObjectUtils;
 
 import javax.sql.DataSource;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -139,8 +137,8 @@ public class DynamicDataSourceHelperFactory extends BingoHelperFactory {
         hikariConfig.setValidationTimeout(getLongValue(dbMap, "validationTimeout"));
 
         Integer slowInterval = getIntValue(dbMap, "slowInterval");
-        if (Objects.nonNull(slowInterval)){
-            DBContextHolder.addDBSlowInterval(dbName,slowInterval);
+        if (Objects.nonNull(slowInterval)) {
+            DBContextHolder.addDBSlowInterval(dbName, slowInterval);
         }
         return new HikariDataSource(hikariConfig);
     }
@@ -154,9 +152,6 @@ public class DynamicDataSourceHelperFactory extends BingoHelperFactory {
         try {
             String password = confMap.get("password");
             if (StringUtil.isBlank(password)) return password;
-            if (password.startsWith("enc:")) {
-                password = RSAUtil.decrypt(password.substring(4));
-            }
             return password;
         } catch (Exception e) {
             throw new BingoException(e.getMessage());

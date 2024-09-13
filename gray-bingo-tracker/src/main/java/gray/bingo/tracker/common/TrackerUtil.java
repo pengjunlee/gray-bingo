@@ -6,7 +6,7 @@ import gray.bingo.common.utils.StringUtil;
 /**
  * Trace 对 HTTP 请求处理的相关工具类
  *
- * @author xzzz
+ * @author graython
  */
 public class TrackerUtil {
 

@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * 链路追踪 mysql 拦截
  *
- * @author xzzz
+ * @author graython
  */
 @Intercepts({
 @Signature(type = Executor.class, method = "update", args = {MappedStatement.class, Object.class}),

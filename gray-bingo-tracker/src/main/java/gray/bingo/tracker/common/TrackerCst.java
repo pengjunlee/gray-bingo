@@ -9,7 +9,7 @@ import java.util.Set;
 /**
  * 静态参数
  *
- * @author xzzz
+ * @author graython
  * @since 1.2.0
  */
 public class TrackerCst {

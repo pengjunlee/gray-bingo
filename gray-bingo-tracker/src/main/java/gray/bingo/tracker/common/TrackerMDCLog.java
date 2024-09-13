@@ -6,7 +6,7 @@ import org.slf4j.MDC;
 /**
  * 日志MDC拓展
  *
- * @author xzzz
+ * @author graython
  * @since 1.2.0
  */
 @Slf4j
