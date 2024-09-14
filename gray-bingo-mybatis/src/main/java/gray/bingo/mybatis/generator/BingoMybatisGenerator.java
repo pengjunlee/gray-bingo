@@ -18,7 +18,7 @@ import java.util.Map;
 /**
  * Mybatis/Mybatis-Plus 代码生成器
  *
- * @作者 二月の菌
+ * @作者 graython
  * @版本 1.0
  * @日期 2024-01-21 16:15
  */
@@ -150,7 +150,7 @@ public class BingoMybatisGenerator {
         String[] tableNames = {"base_user"};
         BingoMybatisGeneratorConfig generatorConfig = BingoMybatisGeneratorConfig.build4MultiModule()
                 .dataSource(DB_URL, USERNAME, PASSWORD)
-                .author("二月の菌")
+                .author("graython")
                 .entity("demo-common", "gray.demo.common.entity")
                 .mapper("demo-infrastructure", "gray.demo.infrastructure.mapper")
                 .service("demo-infrastructure", "gray.demo.infrastructure.repo", "demo-infrastructure", "gray.demo.infrastructure.repo.impl","Repo")
@@ -158,7 +158,7 @@ public class BingoMybatisGenerator {
                 .build();
 
 //        BingoPlusConfig generatorConfig = BingoPlusConfig.build4SingleModule()
-//                .author("二月の菌")
+//                .author("graython")
 //                .enableSwagger(false)
 //                .packageName("gray.demo.infrastructure")
 //                .enableService(true)

@@ -6,7 +6,7 @@ import gray.bingo.common.utils.SystemUtil;
 /**
  * 使用在 logback-spring.xml 中, 作为日志收集时的机器名
  *
- * @作者 二月の菌
+ * @作者 graython
  * @版本 1.0
  * @日期 2024-01-21 14:17
  */

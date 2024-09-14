@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
  * <p>不考虑锁续期
  * <p>锁超时由 redis 自动释放
  *
- * @作者 二月の菌
+ * @作者 graython
  * @版本 1.0
  * @日期 2024-01-21 16:15
  */

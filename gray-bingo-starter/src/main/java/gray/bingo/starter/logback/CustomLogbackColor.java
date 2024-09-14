@@ -8,7 +8,7 @@ import ch.qos.logback.core.pattern.color.ForegroundCompositeConverterBase;
 /**
  * 日志级别颜色
  *
- * @作者 二月の菌
+ * @作者 graython
  * @版本 1.0
  * @日期 2024-01-21 14:17
  */
@@ -23,12 +23,11 @@ public class CustomLogbackColor extends ForegroundCompositeConverterBase<ILoggin
             case Level.WARN_INT:
                 return ANSIConstants.YELLOW_FG;
             case Level.INFO_INT:
-                return ANSIConstants.WHITE_FG;
+                return ANSIConstants.GREEN_FG;
             case Level.DEBUG_INT:
-                return ANSIConstants.GREEN_FG;
+                return ANSIConstants.CYAN_FG;
             case Level.TRACE_INT:
-                // TRACE等级为绿色
-                return ANSIConstants.GREEN_FG;
+                return ANSIConstants.WHITE_FG;
             default:
                 return ANSIConstants.DEFAULT_FG;
         }

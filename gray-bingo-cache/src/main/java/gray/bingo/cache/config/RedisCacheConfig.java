@@ -23,7 +23,7 @@ import java.util.Map;
 /**
  * Redis 缓存设置了key缓存名后加 "::"
  *
- * @作者 二月の菌
+ * @作者 graython
  * @版本 1.0
  * @日期 2024-01-21 16:15
  * @see org.springframework.data.redis.cache.CacheKeyPrefix#simple

@@ -16,7 +16,7 @@ import java.util.Map;
 /**
  * Spring 环境配置工具类
  *
- * @作者 二月の菌
+ * @作者 graython
  * @版本 1.0
  * @日期 2024-01-21 14:17
  */
