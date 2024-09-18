@@ -1,6 +1,6 @@
 package gray.bingo.common.exceptions;
 
-import gray.bingo.common.Enums.ExceptionCodeEnum;
+import gray.bingo.common.inface.ExceptionService;
 
 /**
  * BINGO框架系统异常
@@ -19,9 +19,9 @@ public class BingoException extends RuntimeException {
         return code;
     }
 
-    public BingoException(ExceptionCodeEnum exceptionCodeEnum) {
-        super(exceptionCodeEnum.getMessage());
-        this.code = exceptionCodeEnum.getCode();
+    public BingoException(ExceptionService exceptionService) {
+        super(exceptionService.getMessage());
+        this.code = exceptionService.getCode();
     }
 
     @Override

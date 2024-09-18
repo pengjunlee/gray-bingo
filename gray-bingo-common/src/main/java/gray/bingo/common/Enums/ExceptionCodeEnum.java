@@ -1,9 +1,11 @@
 package gray.bingo.common.Enums;
 
+import gray.bingo.common.inface.ExceptionService;
 import lombok.Getter;
 
 @Getter
-public enum ExceptionCodeEnum {
+public enum ExceptionCodeEnum implements ExceptionService
+{
     SUCCESS(20000, "成功"),
     BINGO_ERROR(20001, "框架层错误"),
     ;

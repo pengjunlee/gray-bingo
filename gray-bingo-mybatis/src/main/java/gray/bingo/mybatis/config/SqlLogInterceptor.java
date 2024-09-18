@@ -13,6 +13,8 @@ import org.apache.ibatis.session.RowBounds;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import java.text.DateFormat;
@@ -23,6 +25,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
+@Component
 @Intercepts({@Signature(
         type = Executor.class,
         method = "query",
@@ -37,6 +40,7 @@ import java.util.regex.Pattern;
         args = {MappedStatement.class, Object.class,}
 )})
 @ConditionalOnProperty(name = "bingo.log-sql", havingValue = "true", matchIfMissing = false)
+// @Profile("dev")
 public class SqlLogInterceptor implements Interceptor {
     private static final Logger log = LoggerFactory.getLogger(SqlLogInterceptor.class);
 
@@ -47,17 +51,15 @@ public class SqlLogInterceptor implements Interceptor {
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
-        if (log.isDebugEnabled()) {
-            String completeSql = "";
-            try {
-                log.debug("-------开始执行打印拦截器------");
-                completeSql = getCompleteSqlInfo(invocation);
-            } catch (RuntimeException e) {
-                log.error("获取sql信息出错,异常信息", e);
-            } finally {
-                log.debug("sql执行信息:[{}]", completeSql);
-                log.debug("-------退出打印拦截器------");
-            }
+        String completeSql = "";
+        try {
+            log.info("-------开始执行打印拦截器------");
+            completeSql = getCompleteSqlInfo(invocation);
+        } catch (RuntimeException e) {
+            log.error("获取sql信息出错,异常信息", e);
+        } finally {
+            log.info("sql执行信息:[{}]", completeSql);
+            log.info("-------退出打印拦截器------");
         }
         return invocation.proceed();
     }
