@@ -62,7 +62,7 @@ public class LogicUtil {
      */
     public static ThrowExceptionHanlder mustTrue(boolean b) {
         return (errorMsg) -> {
-            if (!b) throw new BingoException(errorMsg);
+            if (!b) throw new RuntimeException(errorMsg);
         };
     }
 

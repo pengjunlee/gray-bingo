@@ -1,7 +1,8 @@
 package gray.bingo.starter.config;
 
-import gray.bingo.common.Enums.BingoHelperEnum;
+
 import gray.bingo.common.config.BingoHelperFactory;
+import gray.bingo.common.Enums.BingoHelperEnum;
 import gray.bingo.common.utils.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;

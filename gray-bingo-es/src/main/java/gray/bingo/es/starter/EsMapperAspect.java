@@ -128,7 +128,7 @@ public class EsMapperAspect implements EnvironmentAware {
             return this.sendRequestEs(url.toString(), properties.getName(), properties.getPassword(), dsl, httpMethod, returnType).getBody();
         } catch (Exception e) {
             logger.warn("request es error :{}", e.getMessage());
-            throw new BingoException(e.getMessage());
+            throw new RuntimeException(e.getMessage());
         }
     }
 

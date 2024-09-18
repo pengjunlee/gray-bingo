@@ -87,7 +87,7 @@ public final class SpanNode implements Serializable {
      */
     public static SpanNode rootSpan(String spanName, String spanType) {
         if (StringUtil.isBlank(spanName)) {
-            throw new BingoException("spanName 不能为空");
+            throw new RuntimeException("spanName 不能为空");
         }
         SpanNode span = new SpanNode();
         span.setSpanParentId("ROOT_SPAN");
@@ -110,13 +110,13 @@ public final class SpanNode implements Serializable {
      */
     public static SpanNode forkSpan(String spanName, String spanType, final String traceId, final String spanParentId) {
         if (StringUtil.isBlank(spanName)) {
-            throw new BingoException("spanName 不能为空");
+            throw new RuntimeException("spanName 不能为空");
         }
         if (StringUtil.isBlank(traceId)) {
-            throw new BingoException("TraceId 不能为空");
+            throw new RuntimeException("TraceId 不能为空");
         }
         if (StringUtil.isBlank(spanParentId)) {
-            throw new BingoException("spanParentId 不能为空");
+            throw new RuntimeException("spanParentId 不能为空");
         }
         SpanNode span = new SpanNode();
         span.setTraceId(traceId);

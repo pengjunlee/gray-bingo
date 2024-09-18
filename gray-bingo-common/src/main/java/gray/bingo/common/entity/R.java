@@ -1,10 +1,7 @@
 package gray.bingo.common.entity;
 
-import gray.bingo.common.Enums.BingoCodeEnum;
-import gray.bingo.common.utils.StringUtil;
+import gray.bingo.common.Enums.ExceptionCodeEnum;
 import lombok.Data;
-
-import java.util.Objects;
 
 @Data
 public class R<T> {
@@ -22,12 +19,12 @@ public class R<T> {
 
     public static <T> R<T> ok(T data) {
         R<T> response = new R<>();
-        response.setCode(BingoCodeEnum.SUCCESS.getCode());
+        response.setCode(ExceptionCodeEnum.SUCCESS.getCode());
         response.setData(data);
         return response;
     }
 
-    public static <T> R<T> ok(int code ,T data) {
+    public static <T> R<T> ok(int code, T data) {
         R<T> response = new R<>();
         response.setCode(code);
         response.setData(data);
@@ -41,7 +38,7 @@ public class R<T> {
         return response;
     }
 
-    public boolean isSuccess(){
-        return BingoCodeEnum.SUCCESS.getCode().equals(this.code) && Objects.nonNull(this.data);
+    public boolean isSuccess() {
+        return ExceptionCodeEnum.SUCCESS.getCode().equals(this.code);
     }
 }

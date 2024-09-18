@@ -2,6 +2,7 @@ package gray.bingo.common.Enums;
 
 import gray.bingo.common.Enums.base.BaseIntEnum;
 import gray.bingo.common.Enums.base.EnumOption;
+import gray.bingo.common.utils.EnumUtil;
 import lombok.AllArgsConstructor;
 
 import java.util.List;
@@ -22,6 +23,10 @@ public enum EnabledEnum implements BaseIntEnum {
     private final Integer value;
 
     private final String name;
+
+    static {
+        EnumUtil.getIntMap().put(EnabledEnum.class.getSimpleName(), EnabledEnum.class);
+    }
 
     @Override
     public Integer getValue() {

@@ -73,13 +73,13 @@ public class JdkHttpUtil {
             reader.close();
             return response.toString();
         } else {
-            throw new BingoException("HTTP request failed with response code: " + responseCode);
+            throw new RuntimeException("HTTP request failed with response code: " + responseCode);
         }
     }
 
     private static HttpURLConnection getURLConnection(String urlStr, String method, String data, Map<String, String> headers) throws IOException {
         if (null == urlStr || urlStr.isEmpty()) {
-            throw new BingoException("Target Url is null!");
+            throw new RuntimeException("Target Url is null!");
         }
         URL url = new URL(urlStr);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();

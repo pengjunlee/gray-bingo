@@ -39,9 +39,6 @@ import java.util.List;
 @Conditional(DynamicDSCondition.class)
 public class SlowSQLInterceptor implements Interceptor {
 
-    @Value("${bingo.print-sql:false}")
-    private boolean printSql;
-
     private static final ThreadLocal<SimpleDateFormat> DATETIME_FORMATTER = ThreadLocal
             .withInitial(() -> new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
 
@@ -52,7 +49,7 @@ public class SlowSQLInterceptor implements Interceptor {
             return invocation.proceed();
         } finally {
             long ms = System.currentTimeMillis() - start;
-            if (DBContextHolder.slowSql(ms) || printSql) {
+            if (DBContextHolder.slowSql(ms)) {
                 MappedStatement mappedStatement = (MappedStatement) invocation.getArgs()[0];
                 Object parameter = null;
                 if (invocation.getArgs().length > 1) {

@@ -55,7 +55,7 @@ public class SapperESStarter extends BingoHelperFactory {
                     String openLog = esMap.getOrDefault("openLog", "false");
                     boolean printLog = Boolean.parseBoolean(openLog);
                     if (StringUtil.isBlank(clusterNodes)) {
-                        throw new BingoException("es  clusterNodes is null");
+                        throw new RuntimeException("es  clusterNodes is null");
                     }
                     EsProperties ESProperties = new EsProperties(name, password, Arrays.asList(clusterNodes.split(",")), rule, printLog);
                     EsPropertiesFactory.addProperties(dbName, ESProperties);

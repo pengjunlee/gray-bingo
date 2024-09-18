@@ -93,9 +93,9 @@ public class OkHttpUtil {
             sslContext.init(null, new TrustManager[]{getX509TrustManager()}, new SecureRandom());
             return sslContext.getSocketFactory();
         } catch (NoSuchAlgorithmException e) {
-            throw new BingoException("没有" + algorithm + "这样的算法");
+            throw new RuntimeException("没有" + algorithm + "这样的算法");
         } catch (KeyManagementException e) {
-            throw new BingoException("秘钥管理异常:" + e.getMessage());
+            throw new RuntimeException("秘钥管理异常:" + e.getMessage());
         }
     }
 
@@ -328,11 +328,11 @@ public class OkHttpUtil {
                 }
                 return body.string();
             } else {
-                throw new BingoException("请求[" + request.url() + "]失败, 结果: " + response);
+                throw new RuntimeException("请求[" + request.url() + "]失败, 结果: " + response);
             }
         } catch (IOException e) {
             e.printStackTrace();
-            throw new BingoException("请求[" + request.url() + "]异常");
+            throw new RuntimeException("请求[" + request.url() + "]异常");
         }
     }
 
@@ -351,11 +351,11 @@ public class OkHttpUtil {
                 }
                 return body.bytes();
             } else {
-                throw new BingoException("请求[" + request.url() + "]失败, 结果: " + response);
+                throw new RuntimeException("请求[" + request.url() + "]失败, 结果: " + response);
             }
         } catch (IOException e) {
             e.printStackTrace();
-            throw new BingoException("请求[" + request.url() + "]异常");
+            throw new RuntimeException("请求[" + request.url() + "]异常");
         }
     }
 

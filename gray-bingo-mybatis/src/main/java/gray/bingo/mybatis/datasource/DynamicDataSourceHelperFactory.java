@@ -154,7 +154,7 @@ public class DynamicDataSourceHelperFactory extends BingoHelperFactory {
             if (StringUtil.isBlank(password)) return password;
             return password;
         } catch (Exception e) {
-            throw new BingoException(e.getMessage());
+            throw new RuntimeException(e.getMessage());
         }
     }
 
