@@ -2,7 +2,7 @@ package gray.bingo.common.config;
 
 import gray.bingo.common.Enums.BingoHelperEnum;
 import gray.bingo.common.Enums.EnabledEnum;
-import gray.bingo.common.constants.StringPoolCst;
+import gray.bingo.common.constants.CharPoolCst;
 import gray.bingo.common.utils.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 
@@ -45,7 +45,7 @@ public class BingoMeta {
         log.info("[APPLICATION_LISTENER] ├────────────────┼─────────────────────┼────────┤");
         Arrays.stream(BingoHelperEnum.values()).forEach(item -> {
             String status = helperEnabled(item.getCode()) ? EnabledEnum.ENABLED.getName() : EnabledEnum.DISABLED.getName();
-            log.info("[APPLICATION_LISTENER] | {}| {}|   {}|", StringUtil.rightFill(item.getCode(), StringPoolCst.C_SPACE, 15), StringUtil.rightFill(item.getName(), StringPoolCst.C_SPACE, 20), StringUtil.rightFill(status, StringPoolCst.C_SPACE, 5));
+            log.info("[APPLICATION_LISTENER] | {}| {}|   {}|", StringUtil.rightFill(item.getCode(), CharPoolCst.C_SPACE, 15), StringUtil.rightFill(item.getName(), CharPoolCst.C_SPACE, 20), StringUtil.rightFill(status, CharPoolCst.C_SPACE, 5));
         });
         log.info("[APPLICATION_LISTENER] └────────────────┴─────────────────────┴────────┘");
     }

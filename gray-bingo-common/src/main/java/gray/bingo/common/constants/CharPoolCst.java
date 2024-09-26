@@ -7,7 +7,7 @@ package gray.bingo.common.constants;
  * @版本 1.0
  * @日期 2024-01-21 16:36
  */
-public interface StringPoolCst {
+public interface CharPoolCst {
     char C_SPACE = ' ';
     char C_TAB = '\t';
     char C_DOT = '.';

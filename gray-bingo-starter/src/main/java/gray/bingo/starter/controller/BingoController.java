@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Bingo项目通用Rest接口访问控制器
@@ -40,14 +41,27 @@ public class BingoController {
 
     /**
      * 获取枚举值列表
-     *
+     * /bingo/intEnum/list/EnabledEnum
      * @return
      */
-    @GetMapping("/intEnum/{name}")
+    @GetMapping("/intEnum/list/{name}")
     @Anonymous
-    public R<List<EnumOption<Integer>>> intEnum(@PathVariable(required = true, name = "name") String name) {
+    public R<List<EnumOption<Integer>>> listIntEnum(@PathVariable(required = true, name = "name") String name) {
         Class<? extends BaseIntEnum> aClass = EnumUtil.getIntMap().get(name);
         return R.ok(BaseIntEnum.toList(aClass));
     }
+
+    /**
+     * 获取枚举值列表
+     * /bingo/intEnum/map/EnabledEnum
+     * @return
+     */
+    @GetMapping("/intEnum/map/{name}")
+    @Anonymous
+    public R<Map<Integer, String>> mapIntEnum(@PathVariable(required = true, name = "name") String name) {
+        Class<? extends BaseIntEnum> aClass = EnumUtil.getIntMap().get(name);
+        return R.ok(BaseIntEnum.toMap(aClass));
+    }
+
 
 }
