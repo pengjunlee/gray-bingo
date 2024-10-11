@@ -1,21 +1,19 @@
 package gray.bingo.common.utils;
 
+import gray.bingo.common.Enums.ExceptionCodeEnum;
+import gray.bingo.common.exceptions.BingoException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.nio.channels.Channels;
 import java.nio.channels.FileChannel;
 import java.nio.channels.WritableByteChannel;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
+import java.security.MessageDigest;
 
 @Slf4j
 public class FileUtil {
@@ -27,6 +25,7 @@ public class FileUtil {
      * @return 文件扩展名
      */
     public static String getFileExtension(String fileName) {
+        if (StringUtil.isBlank(fileName)) return "";
         int dotIndex = fileName.lastIndexOf('.');
         if (dotIndex > 0 && dotIndex < fileName.length() - 1) {
             return fileName.substring(dotIndex + 1);
@@ -34,6 +33,24 @@ public class FileUtil {
         return ""; // 没有扩展名
     }
 
+    /**
+     * 删除文件
+     *
+     * @param path
+     * @return
+     */
+    public static void deleteFile(Path path) throws BingoException {
+        try {
+            // 删除文件
+            Files.delete(path);
+        } catch (NoSuchFileException e) {
+            throw new BingoException(ExceptionCodeEnum.BINGO_ERROR.getCode(), "文件不存在: " + path);
+        } catch (DirectoryNotEmptyException e) {
+            throw new BingoException(ExceptionCodeEnum.BINGO_ERROR.getCode(), "目标目录不为空: " + path);
+        } catch (IOException e) {
+            throw new BingoException(ExceptionCodeEnum.BINGO_ERROR.getCode(), "删除文件时出错: " + path);
+        }
+    }
 
     /**
      * 保存文件到指定路径
@@ -76,12 +93,49 @@ public class FileUtil {
     }
 
     /**
+     * 计算文件的 MD5 值
+     *
+     * @param path 文件路径
+     * @return 文件的 MD5 值
+     */
+    public static String calculateMD5(Path path) {
+        try {
+            // 创建 MD5 摘要实例
+            MessageDigest md = MessageDigest.getInstance("MD5");
+
+            // 读取文件的输入流
+            try (InputStream fis = Files.newInputStream(path)) {
+                // 每次读取 50M 的数据块
+                byte[] buffer = new byte[1024 * 1024 * 50];
+                int bytesRead;
+
+                // 逐块读取文件并更新 MD5 摘要
+                while ((bytesRead = fis.read(buffer)) != -1) {
+                    md.update(buffer, 0, bytesRead);
+                }
+            }
+
+            // 获取计算后的 MD5 值
+            byte[] md5Bytes = md.digest();
+
+            // 转换成 16 进制字符串
+            StringBuilder sb = new StringBuilder();
+            for (byte b : md5Bytes) {
+                sb.append(String.format("%02x", b));
+            }
+            return sb.toString();
+        } catch (Exception e) {
+            throw new BingoException(ExceptionCodeEnum.BINGO_ERROR.getCode(), "计算文件的 MD5 值错误: " + ExceptionUtil.getMessage(e));
+        }
+    }
+
+    /**
      * 将本地图片文件通过响应体返回
      *
      * @param localImagePath
      * @param resp
      */
-    private void getImage(String localImagePath, HttpServletResponse resp) {
+    private void getImage(String localImagePath, HttpServletResponse resp) throws IOException {
         Path file = Paths.get(localImagePath);
         try (FileChannel fileChannel = FileChannel.open(file); ServletOutputStream os = resp.getOutputStream()) {
             long size = fileChannel.size();
@@ -103,7 +157,7 @@ public class FileUtil {
                 }
             }
         } catch (IOException e) {
-            log.error(e.getMessage());
+            throw new IOException("Error return response: ", e);
         }
     }
 
