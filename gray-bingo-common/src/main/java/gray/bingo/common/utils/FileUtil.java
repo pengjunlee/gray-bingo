@@ -7,8 +7,9 @@ import org.springframework.http.MediaType;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.channels.Channels;
 import java.nio.channels.FileChannel;
 import java.nio.channels.WritableByteChannel;
@@ -34,12 +35,45 @@ public class FileUtil {
     }
 
 
-    public String put(String filename, InputStream inputStream) {
-        File file = cn.hutool.core.io.FileUtil.newFile(filename);
-        cn.hutool.core.io.FileUtil.writeFromStream(inputStream, file);
-        return filename;
-    }
+    /**
+     * 保存文件到指定路径
+     *
+     * @param sourceFile      the file to be saved
+     * @param destinationPath the target directory or file path to save the file
+     * @throws IOException if an I/O error occurs
+     */
+    public static void saveFileToPath(File sourceFile, String destinationPath) throws IOException {
+        // Ensure the source file exists
+        if (!sourceFile.exists()) {
+            throw new IOException("Source file does not exist: " + sourceFile.getAbsolutePath());
+        }
 
+        // Create target file object
+        File destinationFile = new File(destinationPath);
+
+        // Create parent directories if they do not exist
+        File parentDir = destinationFile.getParentFile();
+        if (parentDir != null && !parentDir.exists()) {
+            parentDir.mkdirs();
+        }
+
+        // Use try-with-resources to ensure streams are closed properly
+        try (FileInputStream fis = new FileInputStream(sourceFile);
+             FileOutputStream fos = new FileOutputStream(destinationFile)) {
+
+            byte[] buffer = new byte[1024 * 1024 * 10];
+            int bytesRead;
+
+            // Write the file in chunks
+            while ((bytesRead = fis.read(buffer)) != -1) {
+                fos.write(buffer, 0, bytesRead);
+            }
+
+            log.info("File saved successfully at: " + destinationFile.getAbsolutePath());
+        } catch (IOException e) {
+            throw new IOException("Error saving file to destination path: " + destinationPath, e);
+        }
+    }
 
     /**
      * 将本地图片文件通过响应体返回
